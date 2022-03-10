@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+    x:Class="CorpPass.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#5a25f1</Color>
+            <Color x:Key="PrimaryDark">#8D6AEC</Color>
+            <Color x:Key="Secondary">#262626</Color>
+
+            <Color x:Key="LightBackground">#f4f4f4</Color>
+            <Color x:Key="DarkBackground">Black</Color>
+
+            <Color x:Key="LightForegroundMain">Black</Color>
+            <Color x:Key="LightForegroundSecondary">#b5b5b5</Color>
+
+            <Color x:Key="DarkForegroundMain">White</Color>
+            <Color x:Key="DarkForegroundSecondary">#b5b5b5</Color>
+
+            <Color x:Key="DarkPanelBackground">#303030</Color>
+            <Color x:Key="LightPanelBackground">White</Color>
+
+            <Color x:Key="ItemBackgroundOnDarkBackground">#3c3c3c</Color>
+            <Color x:Key="ItemBackgroundOnLightBackground">#f6f6f6</Color>
+
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#332196F3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

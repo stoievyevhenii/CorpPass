@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CorpPass.Views.MenuPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Menu"
+    BackgroundColor="{StaticResource Secondary}"
+    Shell.BackgroundColor="{StaticResource Secondary}"
+    Shell.ForegroundColor="White"
+    Shell.NavBarHasShadow="False"
+    Shell.NavBarIsVisible="True"
+    Shell.PresentationMode="ModalAnimated"
+    Shell.TitleColor="White"
+    Visual="Material">
+    <ContentPage.Content>
+
+        <StackLayout Padding="10">
+
+            <Frame BackgroundColor="{StaticResource Secondary}">
+                <BoxView
+                    BackgroundColor="Gray"
+                    CornerRadius="5"
+                    HeightRequest="5"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="150" />
+
+                <Frame.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Down" Swiped="GoBack" />
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <Label
+                Padding="10"
+                FontAttributes="Bold"
+                Text="Places"
+                TextColor="{StaticResource LightForegroundSecondary}" />
+            <FlexLayout
+                AlignItems="Start"
+                Direction="Row"
+                JustifyContent="Start"
+                Wrap="Wrap">
+                <StackLayout
+                    Margin="10,10,10,10"
+                    FlexLayout.AlignSelf="Start"
+                    FlexLayout.Basis="{OnIdiom Phone='33%',
+                                               Tablet='33%'}">
+                    <ImageButton
+                        Padding="25"
+                        BackgroundColor="White"
+                        CornerRadius="15"
+                        HeightRequest="100"
+                        Source="icon_folder.xml"
+                        WidthRequest="100">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="0.95" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </ImageButton>
+                    <Label
+                        HorizontalOptions="Center"
+                        Text="Folders"
+                        TextColor="White" />
+                </StackLayout>
+                <StackLayout
+                    Margin="10,10,10,10"
+                    FlexLayout.AlignSelf="Start"
+                    FlexLayout.Basis="{OnIdiom Phone='33%',
+                                               Tablet='33%'}">
+                    <ImageButton
+                        Padding="25"
+                        BackgroundColor="White"
+                        CornerRadius="15"
+                        HeightRequest="100"
+                        Source="icon_group.xml"
+                        WidthRequest="100">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="0.95" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </ImageButton>
+                    <Label
+                        HorizontalOptions="Center"
+                        Text="Groups"
+                        TextColor="White" />
+                </StackLayout>
+            </FlexLayout>
+
+            <Label
+                Padding="10"
+                FontAttributes="Bold"
+                Text="Settings"
+                TextColor="{StaticResource LightForegroundSecondary}" />
+            <StackLayout Padding="10">
+                <ScrollView>
+                    <StackLayout>
+                        <Frame BackgroundColor="White" CornerRadius="15">
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OpenDBSettings" />
+                            </Frame.GestureRecognizers>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Image
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Source="icon_dbconnection.xml" />
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="10,0"
+                                    FontSize="Body"
+                                    Text="DB Connection"
+                                    TextColor="{StaticResource LightForegroundMain}" />
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

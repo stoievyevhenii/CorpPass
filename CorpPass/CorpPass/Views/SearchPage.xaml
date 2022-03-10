@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CorpPass.Views.SearchPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:local="clr-namespace:CorpPass.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:CorpPass.Models"
+    Title="Search"
+    BackgroundColor="{StaticResource Secondary}"
+    Shell.BackgroundColor="{StaticResource Secondary}"
+    Shell.NavBarIsVisible="False"
+    Shell.PresentationMode="ModalAnimated"
+    Visual="Material"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Frame BackgroundColor="{StaticResource Secondary}">
+                <BoxView
+                    BackgroundColor="Gray"
+                    CornerRadius="5"
+                    HeightRequest="5"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="150" />
+
+                <Frame.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Down" Swiped="GoBack" />
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <Frame BackgroundColor="{StaticResource Secondary}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Entry
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        BackgroundColor="#3c3c3c"
+                        Placeholder="Search for a password"
+                        PlaceholderColor="Gray"
+                        TextColor="White" />
+                </Grid>
+            </Frame>
+
+            <RefreshView
+                x:DataType="local:ItemsViewModel"
+                Command="{Binding LoadItemsCommand}"
+                IsRefreshing="{Binding IsBusy, Mode=Default}"
+                RefreshColor="{StaticResource Primary}">
+                <CollectionView
+                    x:Name="ItemsListView"
+                    ItemsSource="{Binding Items}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="25,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Frame
+                                    Grid.Column="0"
+                                    Padding="10"
+                                    BackgroundColor="White"
+                                    CornerRadius="15"
+                                    HasShadow="False"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Fill"
+                                    WidthRequest="45">
+                                    <Label
+                                        FontSize="20"
+                                        HorizontalOptions="Center"
+                                        Text="AB"
+                                        TextColor="Black"
+                                        VerticalOptions="CenterAndExpand" />
+                                </Frame>
+
+                                <StackLayout
+                                    Grid.Column="1"
+                                    Padding="10"
+                                    x:DataType="model:Item">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemTextStyle}"
+                                        Text="{Binding Login}"
+                                        TextColor="{StaticResource DarkForegroundMain}" />
+                                    <Label
+                                        FontSize="13"
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        Text="{Binding Description}"
+                                        TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                    Dark={StaticResource DarkForegroundSecondary}}" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"
+                                            CommandParameter="{Binding .}"
+                                            NumberOfTapsRequired="1" />
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+
+                                <StackLayout
+                                    Grid.Column="2"
+                                    Padding="10"
+                                    x:DataType="model:Item"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Image
+                                        HorizontalOptions="Center"
+                                        Source="icon_copy.png"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="25" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=AdditionalTappedCommand}"
+                                            CommandParameter="{Binding .}"
+                                            NumberOfTapsRequired="1" />
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
