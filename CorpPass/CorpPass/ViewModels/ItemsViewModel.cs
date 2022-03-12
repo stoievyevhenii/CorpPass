@@ -1,19 +1,33 @@
 ﻿using CorpPass.Models;
 using CorpPass.Views;
 using System;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using MvvmHelpers;
 using Xamarin.Essentials;
+using System.Collections.Generic;
 
 namespace CorpPass.ViewModels
 {
+    public class ItemsGroup : List<Item>
+    {
+        public string Name { get; private set; }
+
+        public ItemsGroup(string name, List<Item> items) : base(items)
+        {
+            Name = name;
+        }
+    }
+
     public class ItemsViewModel : BaseViewModel
     {
         private Item _selectedItem;
+        public List<ItemsGroup> GroupedItems { get; private set; }
+        public List<Item> Items { get; set; }
 
-        public ObservableCollection<Item> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
@@ -23,7 +37,8 @@ namespace CorpPass.ViewModels
 
         public ItemsViewModel()
         {
-            Items = new ObservableCollection<Item>();
+            Items = new List<Item>();
+            GroupedItems = new List<ItemsGroup>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             ItemTapped = new Command<Item>(OnItemSelected);
             AdditionalTappedCommand = new Command<Item>(OnCopyToClipboard);
@@ -38,11 +53,19 @@ namespace CorpPass.ViewModels
 
             try
             {
-                Items.Clear();
                 var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
+                Items.Clear();
+                
+                foreach(var item in items)
                 {
                     Items.Add(item);
+                }
+                
+                GroupedItems.Clear();                
+                var grouped = items.GroupBy(i=>i.Group).ToList();
+                foreach (var item in grouped)
+                {
+                    GroupedItems.Add(new ItemsGroup(item.Key, item.ToList()));
                 }
             }
             catch (Exception ex)

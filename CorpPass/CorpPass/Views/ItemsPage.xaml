@@ -10,232 +10,282 @@
                                       Dark={StaticResource DarkBackground}}"
     Shell.NavBarIsVisible="False"
     Visual="Material">
-    <StackLayout>
-        <StackLayout Margin="25,25">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
 
-                <ImageButton
-                    Grid.Column="0"
-                    BackgroundColor="Transparent"
-                    Command="{Binding MenuPageRedirect}"
-                    HeightRequest="35"
-                    HorizontalOptions="Center"
-                    Source="icon_menu.xml"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="35">
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal">
-                                <VisualState.Setters>
-                                    <Setter Property="Scale" Value="1" />
-                                </VisualState.Setters>
-                            </VisualState>
-
-                            <VisualState x:Name="Pressed">
-                                <VisualState.Setters>
-                                    <Setter Property="Scale" Value="0.8" />
-                                </VisualState.Setters>
-                            </VisualState>
-
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
-                </ImageButton>
-
-                <Label
-                    Grid.Column="1"
-                    FontAttributes="Bold"
-                    HorizontalOptions="Center"
-                    Text="Passwords"
-                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                Dark={StaticResource DarkForegroundMain}}"
-                    VerticalOptions="CenterAndExpand" />
-
-                <ImageButton
-                    Grid.Column="2"
-                    BackgroundColor="Transparent"
-                    Command="{Binding AddItemCommand}"
-                    HorizontalOptions="Center"
-                    Source="icons_add.xml"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="35">
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal">
-                                <VisualState.Setters>
-                                    <Setter Property="Scale" Value="1" />
-                                </VisualState.Setters>
-                            </VisualState>
-
-                            <VisualState x:Name="Pressed">
-                                <VisualState.Setters>
-                                    <Setter Property="Scale" Value="0.8" />
-                                </VisualState.Setters>
-                            </VisualState>
-
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
-                </ImageButton>
-
-            </Grid>
-        </StackLayout>
-
-        <RefreshView
-            x:DataType="local:ItemsViewModel"
-            Command="{Binding LoadItemsCommand}"
-            IsRefreshing="{Binding IsBusy, Mode=Default}"
-            RefreshColor="{StaticResource Primary}">
-            <CollectionView
-                x:Name="ItemsListView"
-                ItemsSource="{Binding Items}"
-                SelectionMode="None">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="25,10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <Frame
-                                Grid.Column="0"
-                                Padding="10"
-                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                  Dark={StaticResource DarkPanelBackground}}"
-                                CornerRadius="15"
-                                HasShadow="False"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Fill"
-                                WidthRequest="45">
-                                <Label
-                                    FontSize="20"
-                                    HorizontalOptions="Center"
-                                    Text="A"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                Dark={StaticResource DarkForegroundMain}}"
-                                    VerticalOptions="CenterAndExpand" />
-                            </Frame>
-
-                            <StackLayout
-                                Grid.Column="1"
-                                Padding="10"
-                                x:DataType="model:Item">
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontSize="16"
-                                    LineBreakMode="NoWrap"
-                                    Style="{DynamicResource ListItemTextStyle}"
-                                    Text="{Binding Login}"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                Dark={StaticResource DarkForegroundMain}}" />
-                                <Label
-                                    FontSize="13"
-                                    LineBreakMode="NoWrap"
-                                    Style="{DynamicResource ListItemDetailTextStyle}"
-                                    Text="{Binding Description}"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                Dark={StaticResource DarkForegroundSecondary}}" />
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"
-                                        CommandParameter="{Binding .}"
-                                        NumberOfTapsRequired="1" />
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
-
-                            <StackLayout
-                                Grid.Column="2"
-                                Padding="10"
-                                x:DataType="model:Item"
-                                HorizontalOptions="Center"
-                                VerticalOptions="CenterAndExpand">
-                                <Image
-                                    HorizontalOptions="Center"
-                                    Source="icon_copy.png"
-                                    VerticalOptions="CenterAndExpand"
-                                    WidthRequest="25" />
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=AdditionalTappedCommand}"
-                                        CommandParameter="{Binding .}"
-                                        NumberOfTapsRequired="1" />
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
-
-        <StackLayout>
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
+                                              Dark={StaticResource DarkBackground}}">
+            <!--  Header  -->
             <Frame
-                Margin="0,0,0,-10"
+                Margin="0,-15,0,0"
+                Padding="15,40,15,200"
                 BackgroundColor="{StaticResource Secondary}"
+                CornerRadius="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <ImageButton
+                        Grid.Column="0"
+                        BackgroundColor="Transparent"
+                        Command="{Binding MenuPageRedirect}"
+                        HeightRequest="35"
+                        HorizontalOptions="Center"
+                        Source="icon_menu.xml"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="35">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="0.8" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </ImageButton>
+
+                    <Label
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Text="Passwords"
+                        TextColor="White"
+                        VerticalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoToFirstElement" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <ImageButton
+                        Grid.Column="2"
+                        BackgroundColor="Transparent"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=SearchPageRedirect}"
+                        HorizontalOptions="Center"
+                        Source="icon_search.xml"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="35">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="0.8" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </ImageButton>
+                </Grid>
+            </Frame>
+            <!--  Items list  -->
+            <Frame
+                Margin="10,-180,10,15"
+                Padding="0"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                  Dark={StaticResource DarkPanelBackground}}"
                 CornerRadius="15">
+                <RefreshView
+                    Command="{Binding LoadItemsCommand}"
+                    IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                    RefreshColor="{StaticResource Primary}">
+                    <CollectionView
+                        x:Name="ItemsListView"
+                        IsGrouped="True"
+                        ItemsSource="{Binding GroupedItems}"
+                        Scrolled="ItemsListView_Scrolled"
+                        SelectionMode="None">
 
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=SearchPageRedirect}" />
-                    <SwipeGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=SearchPageRedirect}" Direction="Up" />
-                </Frame.GestureRecognizers>
+                        <CollectionView.GroupHeaderTemplate>
+                            <DataTemplate>
+                                <Frame
+                                    Margin="0"
+                                    Padding="0"
+                                    BackgroundColor="Transparent"
+                                    CornerRadius="0"
+                                    HasShadow="False">
 
-                <StackLayout>
-                    <StackLayout
-                        Grid.Row="0"
-                        Grid.ColumnSpan="2"
-                        Margin="0,0,0,10"
-                        Padding="0,0,0,0"
-                        BackgroundColor="{StaticResource Secondary}">
-                        <BoxView
-                            BackgroundColor="Gray"
-                            CornerRadius="5"
-                            HeightRequest="5"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            WidthRequest="150" />
+                                    <Grid Padding="35,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
-                        <StackLayout.GestureRecognizers>
-                            <SwipeGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=SearchPageRedirect}" Direction="Down" />
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            FontSize="Large"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Name}"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                        Dark={StaticResource DarkForegroundSecondary}}" />
+                                        <BoxView
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Margin="35,0,0,0"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                              Dark={StaticResource DarkForegroundSecondary}}"
+                                            HeightRequest="1"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Center"
+                                            WidthRequest="150" />
+                                    </Grid>
 
-                    <Frame
-                        Margin="0,0,0,10"
-                        Padding="0"
-                        BackgroundColor="{StaticResource ItemBackgroundOnDarkBackground}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                                </Frame>
 
-                            <Image
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Margin="10,0,0,0"
-                                Source="icon_search.xml"
-                                WidthRequest="25" />
-                            <Frame
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                BackgroundColor="{StaticResource ItemBackgroundOnDarkBackground}"
-                                HasShadow="False">
-                                <Label
-                                    FontSize="15"
-                                    Text="Search items..."
-                                    TextColor="{StaticResource DarkForegroundSecondary}" />
-                            </Frame>
-                        </Grid>
-                    </Frame>
-                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.GroupHeaderTemplate>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground}, Dark={StaticResource DarkPanelBackground}}">
+                                    <SwipeView.LeftItems>
+                                        <SwipeItems>
+                                            <SwipeItemView
+                                                Padding="25"
+                                                BackgroundColor="{AppThemeBinding Light={StaticResource DangerBackground},
+                                                                                  Dark={StaticResource DangerDarkBackground}}"
+                                                CommandParameter="{Binding}">
+                                                <Image
+                                                    HeightRequest="20"
+                                                    Source="icon_delete.xml"
+                                                    WidthRequest="20" />
+                                            </SwipeItemView>
+                                            <SwipeItemView
+                                                Padding="25"
+                                                BackgroundColor="{AppThemeBinding Light={StaticResource NormalBackground},
+                                                                                  Dark={StaticResource NormalDarkBackground}}"
+                                                CommandParameter="{Binding}">
+                                                <Image
+                                                    HeightRequest="20"
+                                                    Source="icon_edit.xml"
+                                                    WidthRequest="20" />
+                                            </SwipeItemView>
+                                        </SwipeItems>
+                                    </SwipeView.LeftItems>
+                                    <Frame
+                                        Margin="0"
+                                        Padding="0"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                          Dark={StaticResource DarkPanelBackground}}"
+                                        CornerRadius="15"
+                                        HasShadow="False">
+                                        <Grid Padding="10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Frame
+                                                Grid.Column="0"
+                                                Padding="10"
+                                                BackgroundColor="{AppThemeBinding Light={StaticResource ItemBackgroundOnLightBackground},
+                                                                                  Dark={StaticResource ItemBackgroundOnDarkBackground}}"
+                                                CornerRadius="15"
+                                                HasShadow="True"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Fill"
+                                                WidthRequest="45">
+                                                <Label
+                                                    FontSize="20"
+                                                    HorizontalOptions="Center"
+                                                    Text="A"
+                                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                                Dark={StaticResource DarkForegroundMain}}"
+                                                    VerticalOptions="CenterAndExpand" />
+                                            </Frame>
+
+                                            <StackLayout
+                                                Grid.Column="1"
+                                                Padding="10"
+                                                x:DataType="model:Item">
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    FontSize="16"
+                                                    LineBreakMode="NoWrap"
+                                                    Style="{DynamicResource ListItemTextStyle}"
+                                                    Text="{Binding Name}"
+                                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                                Dark={StaticResource DarkForegroundMain}}" />
+                                                <Label
+                                                    FontSize="13"
+                                                    LineBreakMode="NoWrap"
+                                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                                    Text="{Binding Login}"
+                                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                                Dark={StaticResource DarkForegroundSecondary}}" />
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"
+                                                        CommandParameter="{Binding .}"
+                                                        NumberOfTapsRequired="1" />
+                                                </StackLayout.GestureRecognizers>
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Grid.Column="2"
+                                                Padding="10"
+                                                x:DataType="model:Item"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="CenterAndExpand">
+                                                <Image
+                                                    HorizontalOptions="Center"
+                                                    Source="icon_copy.png"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    WidthRequest="25" />
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=AdditionalTappedCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        NumberOfTapsRequired="1" />
+                                                </StackLayout.GestureRecognizers>
+                                            </StackLayout>
+                                        </Grid>
+                                    </Frame>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
             </Frame>
         </StackLayout>
-    </StackLayout>
+        <!--  Float button  -->
+        <Frame
+            x:Name="FloatAddButton"
+            Margin="25"
+            Padding="0"
+            AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            CornerRadius="100">
+            <ImageButton
+                Padding="15"
+                BackgroundColor="{StaticResource Primary}"
+                Command="{Binding AddItemCommand}"
+                CornerRadius="100"
+                Source="icon_add.xml" />
+        </Frame>
+    </AbsoluteLayout>
 </ContentPage>

@@ -10,14 +10,40 @@ namespace CorpPass.ViewModels
     public class ItemDetailViewModel : BaseViewModel
     {
         private string itemId;
-        private string text;
+        private string name;
+        private string login;
+        private string password;
+        private string group;
+        private string folder;
         private string description;
         public string Id { get; set; }
-
-        public string Text
+        public string Name
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => name;
+            set => SetProperty(ref name, value);
+        }
+        public string Login
+        {
+            get => login;
+            set => SetProperty(ref login, value);
+        }
+
+        public string Password
+        {
+            get => password;
+            set => SetProperty(ref password, value);
+        }
+
+        public string Group
+        {
+            get => group;
+            set => SetProperty(ref group, value);
+        }
+
+        public string Folder
+        {
+            get => folder;
+            set => SetProperty(ref folder, value);
         }
 
         public string Description
@@ -44,8 +70,13 @@ namespace CorpPass.ViewModels
             try
             {
                 var item = await DataStore.GetItemAsync(itemId);
+                
                 Id = item.Id;
-                Text = item.Login;
+                Name = item.Name;
+                Login = item.Login;
+                Password = item.Password;
+                Group = item.Group;
+                Folder = item.Folder;
                 Description = item.Description;
             }
             catch (Exception)

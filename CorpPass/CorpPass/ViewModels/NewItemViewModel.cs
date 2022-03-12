@@ -14,24 +14,21 @@ namespace CorpPass.ViewModels
         private List<string> groupList;
         private List<string> folderList;
 
-
         public NewItemViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
-            groupList = new List<string>
-            {
-                "Group 1",
-                "Group 2",
-                "Group 3"
-            };
 
-            folderList = new List<string>
+            groupList = new List<string>();
+            folderList = new List<string>();
+
+            string[] alphabet = new[] { "A", "B", "C", "D", "E", "F" };
+
+            for (var i = 0; i <= alphabet.Length; i++)
             {
-                "Folder 1",
-                "Folder 2",
-                "Folder 3"
-            };
+                groupList.Add($"{alphabet[i]}");
+                folderList.Add($"{alphabet[i]}");
+            }
 
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
@@ -76,7 +73,6 @@ namespace CorpPass.ViewModels
 
         private async void OnCancel()
         {
-            // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
         }
 

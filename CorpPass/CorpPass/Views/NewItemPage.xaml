@@ -12,6 +12,7 @@
     Visual="Material">
     <ContentPage.Content>
         <StackLayout>
+            <!--  Header  -->
             <StackLayout
                 x:Name="NewItemHeader"
                 Padding="25,25,25,200"
@@ -47,7 +48,8 @@
                     <Frame
                         Grid.Row="1"
                         Grid.Column="0"
-                        BackgroundColor="White">
+                        BackgroundColor="White"
+                        CornerRadius="15">
                         <Image
                             HeightRequest="25"
                             Source="icon_add_doc.xml"
@@ -68,12 +70,13 @@
 
                 </Grid>
             </StackLayout>
-
+            <!--  Main content  -->
             <Frame
                 Margin="15,-175,15,15"
                 Padding="25"
                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                   Dark={StaticResource DarkPanelBackground}}"
+                CornerRadius="15"
                 HasShadow="True">
                 <StackLayout>
                     <ScrollView>
@@ -154,9 +157,6 @@
                     </StackLayout>
                 </StackLayout>
             </Frame>
-
         </StackLayout>
-
     </ContentPage.Content>
-
 </ContentPage>

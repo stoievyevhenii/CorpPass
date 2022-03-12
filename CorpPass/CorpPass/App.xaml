@@ -25,6 +25,12 @@
             <Color x:Key="ItemBackgroundOnDarkBackground">#3c3c3c</Color>
             <Color x:Key="ItemBackgroundOnLightBackground">#f6f6f6</Color>
 
+            <Color x:Key="DangerBackground">#f7d5d4</Color>
+            <Color x:Key="NormalBackground">#cfecce</Color>
+
+            <Color x:Key="DangerDarkBackground">#2b0908</Color>
+            <Color x:Key="NormalDarkBackground">#032002</Color>
+
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="VisualStateManager.VisualStateGroups">
@@ -37,7 +43,7 @@
                             </VisualState>
                             <VisualState x:Name="Disabled">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="#332196F3" />
+                                    <Setter Property="BackgroundColor" Value="#8D6AEC" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>

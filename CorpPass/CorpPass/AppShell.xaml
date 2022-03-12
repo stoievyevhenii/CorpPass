@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
-       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:CorpPass.Views"
-       Title="CorpPass"
-       x:Class="CorpPass.AppShell"
-       FlyoutBehavior="Disabled">
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="CorpPass.AppShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:CorpPass.Views"
+    Title="CorpPass"
+    FlyoutBehavior="Disabled">
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
@@ -14,16 +15,16 @@
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="White" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Primary}"/>
-                <Setter Property="Shell.TabBarUnselectedColor" Value="#c6c6c6"/>
-                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Primary}"/>
+                <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#c6c6c6" />
+                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Primary}" />
             </Style>
-            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
-            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="TabBar" />
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="FlyoutItem" />
         </ResourceDictionary>
     </Shell.Resources>
 
     <ShellContent>
-        <local:ItemsPage/>
+        <local:ItemsPage />
     </ShellContent>
 </Shell>

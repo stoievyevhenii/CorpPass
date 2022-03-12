@@ -9,27 +9,27 @@ namespace CorpPass.Services
     public class MockDataStore : IDataStore<Item>
     {
         readonly List<Item> items;
-
         public MockDataStore()
         {
-            items = new List<Item>()
+            items = new List<Item>();
+            string[] alphabet = new[] { "A", "B", "C", "D", "E", "F" };
+
+
+            for (int i = 0; i < 50; i++)
             {
-                new Item { Id = Guid.NewGuid().ToString(), Login = "First item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "Second item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "Third item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "Fourth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "Fifth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "Sixth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "Seventh item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "Fifth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "Nineth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "10", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "11", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "12", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "13", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "14", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Login = "15", Description="This is an item description." }
-            };
+                var rnd = new Random();
+                var groupIndex = rnd.Next(alphabet.Length);
+
+                items.Add(new Item
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = $"Name - {i}",
+                    Login = $"Item - {i}",
+                    Description = $"Description for item - {i}",
+                    Group = $"{alphabet[groupIndex]}",
+                    Folder = $"Folder - {i}"
+                });
+            }
         }
 
         public async Task<bool> AddItemAsync(Item item)

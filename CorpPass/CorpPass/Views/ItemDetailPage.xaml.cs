@@ -11,5 +11,10 @@ namespace CorpPass.Views
             InitializeComponent();
             BindingContext = new ItemDetailViewModel();
         }
+
+        public async void GoBack(object sender, SwipedEventArgs e)
+        {
+            await Shell.Current.Navigation.PopModalAsync();
+        }
     }
 }
