@@ -7,7 +7,10 @@ namespace CorpPass.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
-        private string text;
+        private string login;
+        private string password;
+        private string group;
+        private string folder;
         private string description;
         private string name;
 
@@ -24,7 +27,7 @@ namespace CorpPass.ViewModels
 
             string[] alphabet = new[] { "A", "B", "C", "D", "E", "F" };
 
-            for (var i = 0; i <= alphabet.Length; i++)
+            for (var i = 0; i < alphabet.Length; i++)
             {
                 groupList.Add($"{alphabet[i]}");
                 folderList.Add($"{alphabet[i]}");
@@ -36,22 +39,36 @@ namespace CorpPass.ViewModels
 
         private bool ValidateSave()
         {
-            return !string.IsNullOrWhiteSpace(text)
-                && !string.IsNullOrWhiteSpace(description);
+            return !string.IsNullOrWhiteSpace(login)
+                && !string.IsNullOrWhiteSpace(password)
+                && !string.IsNullOrWhiteSpace(name);
         }
 
-        public string Text
+        public string Login
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => login;
+            set => SetProperty(ref login, value);
         }
-
+        public string Password
+        {
+            get => password;
+            set => SetProperty(ref password, value);
+        }
+        public string Group
+        {
+            get => group;
+            set => SetProperty(ref group, value);
+        }
+        public string Folder
+        {
+            get => folder;
+            set => SetProperty(ref folder, value);
+        }
         public string Description
         {
             get => description;
             set => SetProperty(ref description, value);
         }
-
         public string Name
         {
             get => name;
@@ -78,12 +95,18 @@ namespace CorpPass.ViewModels
 
         private async void OnSave()
         {
+            var selectedGroupIndex = int.Parse(Group);
+            var selectedFolderIndex = int.Parse(Folder);
+
             Item newItem = new Item()
             {
                 Id = Guid.NewGuid().ToString(),
-                Login = Text,
+                Login = Login,
+                Password = Password,
                 Description = Description,
-                Name = Name,
+                Name = folderList[selectedFolderIndex],
+                Group = groupList[selectedGroupIndex],
+                Folder = Folder
             };
 
             await DataStore.AddItemAsync(newItem);

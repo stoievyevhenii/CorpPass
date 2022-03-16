@@ -4,17 +4,18 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     ios:Page.UseSafeArea="true"
-    BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
-                                      Dark={StaticResource DarkBackground}}"
+    BackgroundColor="{StaticResource Secondary}"
     Shell.NavBarIsVisible="False"
+    Shell.PresentationMode="ModalAnimated"
     Visual="Material">
 
     <ContentPage.Content>
         <StackLayout>
             <StackLayout
                 x:Name="NewItemHeader"
-                Padding="25,25,25,200"
+                Padding="15"
                 BackgroundColor="{StaticResource Secondary}">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -47,9 +48,12 @@
                     <Frame
                         Grid.Row="1"
                         Grid.Column="0"
-                        BackgroundColor="White"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                          Dark={StaticResource DarkPanelBackground}}"
                         CornerRadius="15">
                         <Image
+                            xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                Dark=White}"
                             HeightRequest="25"
                             Source="icon_dbconnection.xml"
                             WidthRequest="25" />
@@ -71,50 +75,74 @@
             </StackLayout>
 
             <Frame
-                Margin="15,-175,15,15"
-                Padding="25"
-                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                  Dark={StaticResource DarkPanelBackground}}"
+                Margin="0,0,0,-5"
+                Padding="15"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
+                                                  Dark={StaticResource DarkBackground}}"
                 CornerRadius="15"
-                HasShadow="True">
+                HasShadow="True"
+                VerticalOptions="FillAndExpand">
                 <StackLayout>
                     <ScrollView>
                         <StackLayout Spacing="15">
-                            <Entry
-                                BackgroundColor="{AppThemeBinding Light={StaticResource ItemBackgroundOnLightBackground},
-                                                                  Dark={StaticResource ItemBackgroundOnDarkBackground}}"
-                                FontSize="Default"
-                                Placeholder="Server address"
-                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                   Dark={StaticResource DarkForegroundMain}}"
-                                Text="{Binding ServerAddress, Mode=TwoWay}"
-                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                            Dark={StaticResource DarkForegroundMain}}" />
-                            <Entry
-                                BackgroundColor="{AppThemeBinding Light={StaticResource ItemBackgroundOnLightBackground},
-                                                                  Dark={StaticResource ItemBackgroundOnDarkBackground}}"
-                                FontSize="Default"
-                                Placeholder="Login"
-                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                   Dark={StaticResource DarkForegroundMain}}"
-                                Text="{Binding UserName, Mode=TwoWay}"
-                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                            Dark={StaticResource DarkForegroundMain}}" />
-                            <Entry
-                                BackgroundColor="{AppThemeBinding Light={StaticResource ItemBackgroundOnLightBackground},
-                                                                  Dark={StaticResource ItemBackgroundOnDarkBackground}}"
-                                FontSize="Default"
-                                IsPassword="True"
-                                Placeholder="Password"
-                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                   Dark={StaticResource DarkForegroundMain}}"
-                                Text="{Binding Password, Mode=TwoWay}"
-                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                            Dark={StaticResource DarkForegroundMain}}" />
+                            <Frame
+                                Padding="5"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                CornerRadius="15"
+                                HasShadow="False">
+                                <Entry
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                      Dark={StaticResource DarkPanelBackground}}"
+                                    FontSize="Small"
+                                    Placeholder="Server address"
+                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                       Dark={StaticResource DarkForegroundSecondary}}"
+                                    Text="{Binding ServerAddress, Mode=TwoWay}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}" />
+                            </Frame>
+
+                            <Frame
+                                Padding="5"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                CornerRadius="15"
+                                HasShadow="False">
+                                <Entry
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                      Dark={StaticResource DarkPanelBackground}}"
+                                    FontSize="Small"
+                                    Placeholder="Login"
+                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                       Dark={StaticResource DarkForegroundSecondary}}"
+                                    Text="{Binding UserName, Mode=TwoWay}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}" />
+                            </Frame>
+
+                            <Frame
+                                Padding="5"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                CornerRadius="15"
+                                HasShadow="False">
+                                <Entry
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                      Dark={StaticResource DarkPanelBackground}}"
+                                    FontSize="Small"
+                                    IsPassword="True"
+                                    Placeholder="Password"
+                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                       Dark={StaticResource DarkForegroundSecondary}}"
+                                    Text="{Binding Password, Mode=TwoWay}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}" />
+                            </Frame>
                         </StackLayout>
                     </ScrollView>
 
-                    <StackLayout Orientation="Horizontal">
+                    <StackLayout Margin="0,15,0,0">
                         <Button
                             Padding="10"
                             Command="{Binding SaveCommand}"

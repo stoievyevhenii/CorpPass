@@ -14,10 +14,10 @@ namespace CorpPass.Services
             items = new List<Item>();
             string[] alphabet = new[] { "A", "B", "C", "D", "E", "F" };
 
+            var rnd = new Random();
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < rnd.Next(10,30); i++)
             {
-                var rnd = new Random();
                 var groupIndex = rnd.Next(alphabet.Length);
 
                 items.Add(new Item

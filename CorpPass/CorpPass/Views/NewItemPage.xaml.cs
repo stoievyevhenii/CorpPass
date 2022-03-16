@@ -18,5 +18,17 @@ namespace CorpPass.Views
         {
             await Shell.Current.Navigation.PopModalAsync();
         }
+
+        private void GroupPicker_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            var selectedGroup = GroupPicker.SelectedIndex;
+            SelectedGroup.Text = selectedGroup.ToString();
+        }
+
+        private void FolderPicker_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            var selectedFolder = FolderPicker.SelectedIndex;
+            SelectedFolder.Text = selectedFolder.ToString();
+        }
     }
 }

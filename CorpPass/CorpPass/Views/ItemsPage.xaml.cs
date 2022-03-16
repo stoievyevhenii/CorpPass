@@ -4,13 +4,15 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views.Options;
 
 namespace CorpPass.Views
 {
     public partial class ItemsPage : ContentPage
     {
         ItemsViewModel _viewModel;
-        Frame _imageButton;
+        ImageButton _imageButton;
 
         public ItemsPage()
         {
@@ -27,19 +29,59 @@ namespace CorpPass.Views
 
         private void GoToFirstElement(object sender, EventArgs e)
         {
-            ItemsListView.ScrollTo(0, animate: false);
+            ItemsListView.ScrollTo(0,0, animate: false);
+        }
+
+        private void EditPage(object sender, EventArgs args)
+        {
+
         }
 
         private void ItemsListView_Scrolled(object sender, ItemsViewScrolledEventArgs e)
         {
             if (e.VerticalDelta > 1)
             {
-                Task.WhenAll(_imageButton.TranslateTo(0, 100, easing: Easing.Linear));
+                Task.WhenAll(_imageButton.ScaleTo(0, 200));
             }
             else if (e.VerticalDelta < 0 && Math.Abs(e.VerticalDelta) > 10)
             {
-                Task.WhenAll(_imageButton.TranslateTo(0, 0, easing: Easing.Linear));
+                Task.WhenAll(_imageButton.ScaleTo(1, 200));
             }
+        }
+
+        private async void AddItemToFavorite(object sender, EventArgs e)
+        {
+            var options = new SnackBarOptions
+            {
+                MessageOptions = new MessageOptions
+                {
+                    Padding = 15,
+                    Message = "Items was added to favorite list",
+                }
+            };
+
+            await this.DisplaySnackBarAsync(options);
+        }
+
+        private async void DeleteItem(object sender, EventArgs e)
+        {
+            var actions = new SnackBarActionOptions
+            {
+                Action = () => DisplayAlert("Alert", "Clicked!", "OK"),
+                Text = "Delete"
+            };
+
+            var options = new SnackBarOptions
+            {
+                MessageOptions = new MessageOptions
+                {
+                    Padding = 15,
+                    Message = "Items was added to favorite list",
+                },
+                Actions = new[] { actions },
+            };
+
+            await this.DisplaySnackBarAsync(options);
         }
     }
 }

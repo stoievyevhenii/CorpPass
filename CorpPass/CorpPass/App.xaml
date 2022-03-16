@@ -6,30 +6,39 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="Primary">#5a25f1</Color>
-            <Color x:Key="PrimaryDark">#8D6AEC</Color>
+            <Color x:Key="Primary">#0272ca</Color>
+            <Color x:Key="PrimaryDark">#5ba0fd</Color>
             <Color x:Key="Secondary">#262626</Color>
 
-            <Color x:Key="LightBackground">#f4f4f4</Color>
+            <Color x:Key="LightBackground">#f2f2f2</Color>
             <Color x:Key="DarkBackground">Black</Color>
 
             <Color x:Key="LightForegroundMain">Black</Color>
             <Color x:Key="LightForegroundSecondary">#b5b5b5</Color>
 
             <Color x:Key="DarkForegroundMain">White</Color>
-            <Color x:Key="DarkForegroundSecondary">#b5b5b5</Color>
+            <Color x:Key="DarkForegroundSecondary">#969696</Color>
 
-            <Color x:Key="DarkPanelBackground">#303030</Color>
+            <Color x:Key="DarkPanelBackground">#171717</Color>
             <Color x:Key="LightPanelBackground">White</Color>
 
-            <Color x:Key="ItemBackgroundOnDarkBackground">#3c3c3c</Color>
+            <Color x:Key="ItemBackgroundOnDarkBackground">#2b2b2b</Color>
             <Color x:Key="ItemBackgroundOnLightBackground">#f6f6f6</Color>
+
+            <Color x:Key="LightTitle">#f6f6f6</Color>
+            <Color x:Key="DarkTitle">#999999</Color>
 
             <Color x:Key="DangerBackground">#f7d5d4</Color>
             <Color x:Key="NormalBackground">#cfecce</Color>
+            <Color x:Key="AdditionalBackground">#fff4ce</Color>
 
             <Color x:Key="DangerDarkBackground">#2b0908</Color>
             <Color x:Key="NormalDarkBackground">#032002</Color>
+            <Color x:Key="AdditionalDarkBackground">#40340e</Color>
+
+            <Color x:Key="DangerBackgroundIcon">#c73434</Color>
+            <Color x:Key="NormalBackgroundIcon">#1f9a19</Color>
+            <Color x:Key="AdditionalBackgroundIcon">#fcd23e</Color>
 
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White" />
@@ -43,7 +52,7 @@
                             </VisualState>
                             <VisualState x:Name="Disabled">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="#8D6AEC" />
+                                    <Setter Property="BackgroundColor" Value="{StaticResource PrimaryDark}" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>

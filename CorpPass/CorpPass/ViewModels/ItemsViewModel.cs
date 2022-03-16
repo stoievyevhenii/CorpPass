@@ -53,16 +53,17 @@ namespace CorpPass.ViewModels
 
             try
             {
-                var items = await DataStore.GetItemsAsync(true);
-                Items.Clear();
+                var items = (await DataStore.GetItemsAsync(true)).ToList().OrderBy(i=>i.Group).ToList();
                 
-                foreach(var item in items)
+                Items.Clear();
+
+                foreach (var item in items)
                 {
                     Items.Add(item);
                 }
-                
-                GroupedItems.Clear();                
-                var grouped = items.GroupBy(i=>i.Group).ToList();
+
+                GroupedItems.Clear();
+                var grouped = items.GroupBy(i => i.Group).ToList();
                 foreach (var item in grouped)
                 {
                     GroupedItems.Add(new ItemsGroup(item.Key, item.ToList()));
