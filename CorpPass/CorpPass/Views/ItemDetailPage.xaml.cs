@@ -43,7 +43,6 @@ namespace CorpPass.Views
             await this.DisplaySnackBarAsync(options);
         }
 
-
         public async void GoBack(object sender, SwipedEventArgs e)
         {
             await Shell.Current.Navigation.PopModalAsync();

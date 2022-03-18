@@ -83,82 +83,54 @@
                 <StackLayout>
                     <ScrollView xct:CornerRadiusEffect.CornerRadius="15">
                         <StackLayout Spacing="15">
-                            <Frame
-                                Padding="5"
+                            <Entry
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
-                                CornerRadius="15"
-                                HasShadow="False">
-                                <Entry
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                      Dark={StaticResource DarkPanelBackground}}"
-                                    FontSize="Small"
-                                    Placeholder="Name"
-                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                       Dark={StaticResource DarkForegroundSecondary}}"
-                                    Text="{Binding Name, Mode=TwoWay}"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                Dark={StaticResource DarkForegroundMain}}" />
-                            </Frame>
+                                FontSize="Small"
+                                Placeholder="Name"
+                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                   Dark={StaticResource DarkForegroundSecondary}}"
+                                Text="{Binding Name, Mode=TwoWay}"
+                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                            Dark={StaticResource DarkForegroundMain}}" />
 
-                            <Frame
-                                Padding="5"
+                            <Entry
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
-                                CornerRadius="15"
-                                HasShadow="False">
-                                <Entry
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                      Dark={StaticResource DarkPanelBackground}}"
-                                    FontSize="Small"
-                                    Placeholder="Login"
-                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                       Dark={StaticResource DarkForegroundSecondary}}"
-                                    Text="{Binding Login, Mode=TwoWay}"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                Dark={StaticResource DarkForegroundMain}}" />
-                            </Frame>
+                                FontSize="Small"
+                                Placeholder="Login"
+                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                   Dark={StaticResource DarkForegroundSecondary}}"
+                                Text="{Binding Login, Mode=TwoWay}"
+                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                            Dark={StaticResource DarkForegroundMain}}" />
 
-                            <Frame
-                                Padding="5"
+                            <Entry
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
-                                CornerRadius="15"
-                                HasShadow="False">
-                                <Entry
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                      Dark={StaticResource DarkPanelBackground}}"
-                                    FontSize="Small"
-                                    IsPassword="True"
-                                    Placeholder="Password"
-                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                       Dark={StaticResource DarkForegroundSecondary}}"
-                                    Text="{Binding Password, Mode=TwoWay}"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                Dark={StaticResource DarkForegroundMain}}" />
-                            </Frame>
+                                FontSize="Small"
+                                IsPassword="True"
+                                Placeholder="Password"
+                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                   Dark={StaticResource DarkForegroundSecondary}}"
+                                Text="{Binding Password, Mode=TwoWay}"
+                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                            Dark={StaticResource DarkForegroundMain}}" />
 
-                            <Frame
-                                Padding="5"
+                            <Picker
+                                x:Name="GroupPicker"
+                                Title="Group"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
-                                CornerRadius="15"
-                                HasShadow="False">
-                                <Picker
-                                    x:Name="GroupPicker"
-                                    Title="Group"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                      Dark={StaticResource DarkPanelBackground}}"
-                                    FontSize="Small"
-                                    InputTransparent="False"
-                                    ItemsSource="{Binding FolderList}"
-                                    SelectedIndex="0"
-                                    SelectedIndexChanged="GroupPicker_SelectedIndexChanged"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                Dark={StaticResource DarkForegroundMain}}"
-                                    TitleColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                 Dark={StaticResource DarkForegroundSecondary}}" />
-                            </Frame>
+                                FontSize="Small"
+                                InputTransparent="False"
+                                ItemsSource="{Binding FolderList}"
+                                SelectedIndex="0"
+                                SelectedIndexChanged="GroupPicker_SelectedIndexChanged"
+                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                            Dark={StaticResource DarkForegroundMain}}"
+                                TitleColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                             Dark={StaticResource DarkForegroundSecondary}}" />
                             <Entry
                                 x:Name="SelectedGroup"
                                 IsVisible="False"
@@ -169,47 +141,33 @@
                                 IsVisible="False"
                                 Text="{Binding Folder, Mode=TwoWay}" />
 
-                            <Frame
-                                Padding="5"
+                            <Picker
+                                x:Name="FolderPicker"
+                                Title="Folder"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
-                                CornerRadius="15"
-                                HasShadow="False">
-                                <Picker
-                                    x:Name="FolderPicker"
-                                    Title="Folder"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                      Dark={StaticResource DarkPanelBackground}}"
-                                    FontSize="Small"
-                                    ItemsSource="{Binding GroupList}"
-                                    SelectedIndex="0"
-                                    SelectedIndexChanged="FolderPicker_SelectedIndexChanged"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                Dark={StaticResource DarkForegroundMain}}"
-                                    TitleColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                 Dark={StaticResource DarkForegroundSecondary}}" />
-                            </Frame>
+                                FontSize="Small"
+                                ItemsSource="{Binding GroupList}"
+                                SelectedIndex="0"
+                                SelectedIndexChanged="FolderPicker_SelectedIndexChanged"
+                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                            Dark={StaticResource DarkForegroundMain}}"
+                                TitleColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                             Dark={StaticResource DarkForegroundSecondary}}" />
 
-                            <Frame
-                                Padding="5"
+                            <Editor
+                                Margin="0"
+                                AutoSize="TextChanges"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
-                                CornerRadius="15"
-                                HasShadow="False">
-                                <Editor
-                                    Margin="0"
-                                    AutoSize="TextChanges"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                      Dark={StaticResource DarkPanelBackground}}"
-                                    FontSize="Small"
-                                    MaxLength="160"
-                                    Placeholder="Description"
-                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                       Dark={StaticResource DarkForegroundSecondary}}"
-                                    Text="{Binding Description, Mode=TwoWay}"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                Dark={StaticResource DarkForegroundMain}}" />
-                            </Frame>
+                                FontSize="Small"
+                                MaxLength="160"
+                                Placeholder="Description"
+                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                   Dark={StaticResource DarkForegroundSecondary}}"
+                                Text="{Binding Description, Mode=TwoWay}"
+                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                            Dark={StaticResource DarkForegroundMain}}" />
                         </StackLayout>
                     </ScrollView>
 

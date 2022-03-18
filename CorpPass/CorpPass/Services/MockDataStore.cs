@@ -23,6 +23,7 @@ namespace CorpPass.Services
                 items.Add(new Item
                 {
                     Id = Guid.NewGuid().ToString(),
+                    IsFavorite = rnd.Next(2) == 1,
                     Name = $"Name - {i}",
                     Login = $"Item - {i}",
                     Description = $"Description for item - {i}",

@@ -8,6 +8,7 @@
         public string Password { get; set; }
         public string Group { get; set; }
         public string Folder { get; set; }
+        public bool IsFavorite { get; set; }
         public string Description { get; set; }
     }
 }

@@ -6,8 +6,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 
 namespace CorpPass.ViewModels
@@ -26,6 +24,7 @@ namespace CorpPass.ViewModels
     {
         private Item _selectedItem;
         public ObservableCollection<ItemsGroup> GroupedItems { get; private set; }
+        public ObservableCollection<Item> GroupedFavoriteItems { get; private set; }
         public List<Item> Items { get; set; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
@@ -38,6 +37,7 @@ namespace CorpPass.ViewModels
         {
             Items = new List<Item>();
             GroupedItems = new ObservableCollection<ItemsGroup>();
+            GroupedFavoriteItems = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             ItemTapped = new Command<Item>(OnItemSelected);
             AddItemCommand = new Command(OnAddItem);
@@ -54,13 +54,17 @@ namespace CorpPass.ViewModels
                 var items = (await DataStore.GetItemsAsync(true)).ToList().OrderBy(i=>i.Group).ToList();
                 
                 Items.Clear();
+                GroupedFavoriteItems.Clear();
+                GroupedItems.Clear();
 
                 foreach (var item in items)
                 {
-                    Items.Add(item);
+                    if (item.IsFavorite)
+                    {
+                        GroupedFavoriteItems.Add(item);
+                    }
                 }
-
-                GroupedItems.Clear();
+                
                 var grouped = items.GroupBy(i => i.Group).ToList();
                 foreach (var item in grouped)
                 {

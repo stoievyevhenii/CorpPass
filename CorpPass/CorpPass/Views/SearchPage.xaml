@@ -12,6 +12,7 @@
     BackgroundColor="{StaticResource Secondary}"
     Shell.BackgroundColor="{StaticResource Secondary}"
     Shell.NavBarIsVisible="False"
+    Shell.PresentationMode="ModalAnimated"
     Visual="Material"
     mc:Ignorable="d">
     <ContentPage.Content>
@@ -39,8 +40,6 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-
-                <Frame />
 
                 <Frame
                     Grid.Row="0"
@@ -180,6 +179,26 @@
                                 </StackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
+                        <CollectionView.EmptyView>
+                            <ContentView>
+
+                                <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="100" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Grid.Row="0" Source="icon_empty" />
+                                    <Label
+                                        Grid.Row="1"
+                                        FontSize="12"
+                                        HorizontalOptions="Fill"
+                                        HorizontalTextAlignment="Center"
+                                        Text="Nothing to show here! Sooryyyyy!" />
+
+                                </Grid>
+                            </ContentView>
+                        </CollectionView.EmptyView>
                     </CollectionView>
                 </RefreshView>
             </Frame>

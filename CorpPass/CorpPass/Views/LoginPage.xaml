@@ -11,234 +11,307 @@
     Visual="Material"
     mc:Ignorable="d">
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-            <FlexLayout
-                Direction="Column"
-                HorizontalOptions="FillAndExpand"
-                JustifyContent="SpaceBetween"
-                VerticalOptions="Center">
-                <Image
-                    Margin="0,15"
-                    xct:IconTintColorEffect.TintColor="White"
-                    HeightRequest="28"
-                    Source="icon_lock.xml" />
-                <Entry
-                    x:Name="PassField"
-                    BackgroundColor="{StaticResource Secondary}"
-                    CharacterSpacing="5"
-                    FontSize="65"
-                    HorizontalOptions="FillAndExpand"
-                    HorizontalTextAlignment="Center"
-                    IsPassword="True"
-                    IsReadOnly="True"
-                    MaxLength="4"
-                    Text=""
-                    TextChanged="PassField_TextChanged"
-                    TextColor="White" />
-                <Label
-                    Padding="0,15"
-                    CharacterSpacing="5"
-                    FontSize="Body"
-                    HorizontalOptions="FillAndExpand"
-                    HorizontalTextAlignment="Center"
-                    Text="Enter pass code"
-                    TextColor="White" />
-            </FlexLayout>
-
-            <Frame
-                x:Name="LoadIndicator"
-                Grid.Row="1"
-                Margin="0,0,0,-5"
-                BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
-                                                  Dark={StaticResource DarkBackground}}"
-                CornerRadius="15"
-                HasShadow="False"
-                IsVisible="False">
-
-                <ActivityIndicator
-                    IsRunning="True"
-                    IsVisible="True"
-                    Scale="0.5"
-                    Color="{AppThemeBinding Dark={StaticResource PrimaryDark},
-                                            Light={StaticResource Primary}}" />
-            </Frame>
-
-            <Frame
-                x:Name="NumericPad"
-                Grid.Row="1"
-                Margin="0,0,0,-5"
-                BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
-                                                  Dark={StaticResource DarkBackground}}"
-                CornerRadius="15"
-                HasShadow="False"
-                IsVisible="True">
-                <Grid ColumnSpacing="15" RowSpacing="15">
+        <xct:TabView
+            x:Name="PinTabView"
+            IsSwipeEnabled="False"
+            IsTabStripVisible="False"
+            IsTabTransitionEnabled="True">
+            <!--  Enter PIN  -->
+            <xct:TabViewItem>
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <FlexLayout
+                        Direction="Column"
+                        HorizontalOptions="FillAndExpand"
+                        JustifyContent="SpaceBetween"
+                        VerticalOptions="Center">
+                        <Image
+                            Margin="0,15"
+                            xct:IconTintColorEffect.TintColor="White"
+                            HeightRequest="28"
+                            Source="icon_lock.xml" />
+                        <Entry
+                            x:Name="PassField"
+                            BackgroundColor="{StaticResource Secondary}"
+                            CharacterSpacing="5"
+                            FontSize="65"
+                            HorizontalOptions="FillAndExpand"
+                            HorizontalTextAlignment="Center"
+                            IsPassword="True"
+                            IsReadOnly="True"
+                            MaxLength="4"
+                            Text=""
+                            TextChanged="PassField_TextChanged"
+                            TextColor="White" />
+                        <Label
+                            Padding="0,15"
+                            CharacterSpacing="5"
+                            FontSize="Body"
+                            HorizontalOptions="FillAndExpand"
+                            HorizontalTextAlignment="Center"
+                            Text="Enter pass code"
+                            TextColor="White" />
+                    </FlexLayout>
+
+                    <Frame
+                        x:Name="LoadIndicator"
+                        Grid.Row="1"
+                        Margin="0,0,0,-5"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
+                                                          Dark={StaticResource DarkBackground}}"
+                        CornerRadius="15"
+                        HasShadow="False"
+                        IsVisible="False">
+
+                        <ActivityIndicator
+                            IsRunning="True"
+                            IsVisible="True"
+                            Scale="0.5"
+                            Color="{AppThemeBinding Dark={StaticResource PrimaryDark},
+                                                    Light={StaticResource Primary}}" />
+                    </Frame>
+
+                    <Frame
+                        x:Name="NumericPad"
+                        Grid.Row="1"
+                        Margin="0,0,0,-5"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
+                                                          Dark={StaticResource DarkBackground}}"
+                        CornerRadius="15"
+                        HasShadow="False"
+                        IsVisible="True">
+                        <Grid ColumnSpacing="15" RowSpacing="15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                Clicked="NumberButtonClicked"
+                                CornerRadius="15"
+                                FontSize="28"
+                                Text="1"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}" />
+                            <Button
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                Clicked="NumberButtonClicked"
+                                CornerRadius="15"
+                                FontSize="28"
+                                Text="2"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}" />
+                            <Button
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                Clicked="NumberButtonClicked"
+                                CornerRadius="15"
+                                FontSize="28"
+                                Text="3"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}" />
+
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                Clicked="NumberButtonClicked"
+                                CornerRadius="15"
+                                FontSize="28"
+                                Text="4"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                Clicked="NumberButtonClicked"
+                                CornerRadius="15"
+                                FontSize="28"
+                                Text="5"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                Clicked="NumberButtonClicked"
+                                CornerRadius="15"
+                                FontSize="28"
+                                Text="6"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}" />
+
+                            <Button
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                Clicked="NumberButtonClicked"
+                                CornerRadius="15"
+                                FontSize="28"
+                                Text="7"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}" />
+                            <Button
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                Clicked="NumberButtonClicked"
+                                CornerRadius="15"
+                                FontSize="28"
+                                Text="8"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}" />
+                            <Button
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                Clicked="NumberButtonClicked"
+                                CornerRadius="15"
+                                FontSize="28"
+                                Text="9"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}" />
+
+                            <ImageButton
+                                x:Name="FingerprintAuth"
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Padding="20"
+                                xct:IconTintColorEffect.TintColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                                    Dark={StaticResource DarkForegroundSecondary}}"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="Transparent"
+                                Clicked="UseFingerprintAuth"
+                                CornerRadius="15"
+                                Source="icon_fingerprint" />
+
+                            <Button
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                Clicked="NumberButtonClicked"
+                                CornerRadius="15"
+                                FontSize="28"
+                                Text="0"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}" />
+                            <ImageButton
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                Padding="20"
+                                xct:IconTintColorEffect.TintColor="{StaticResource DangerBackgroundIcon}"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource DangerBackground},
+                                                                  Dark={StaticResource DangerDarkBackground}}"
+                                Clicked="BackspaceButtonClicked"
+                                CornerRadius="15"
+                                Source="icon_backspace" />
+
+                        </Grid>
+                    </Frame>
+
+                </Grid>
+            </xct:TabViewItem>
+            <!--  New PIN  -->
+            <xct:TabViewItem>
+                <Grid>
+                    <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
 
-                    <Button
+                    <StackLayout
                         Grid.Row="0"
-                        Grid.Column="0"
-                        xct:TouchEffect.NativeAnimation="True"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                          Dark={StaticResource DarkPanelBackground}}"
-                        Clicked="NumberButtonClicked"
-                        CornerRadius="15"
-                        FontSize="28"
-                        Text="1"
-                        TextColor="{AppThemeBinding Light=Black,
-                                                    Dark=White}" />
-                    <Button
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        xct:TouchEffect.NativeAnimation="True"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                          Dark={StaticResource DarkPanelBackground}}"
-                        Clicked="NumberButtonClicked"
-                        CornerRadius="15"
-                        FontSize="28"
-                        Text="2"
-                        TextColor="{AppThemeBinding Light=Black,
-                                                    Dark=White}" />
-                    <Button
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        xct:TouchEffect.NativeAnimation="True"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                          Dark={StaticResource DarkPanelBackground}}"
-                        Clicked="NumberButtonClicked"
-                        CornerRadius="15"
-                        FontSize="28"
-                        Text="3"
-                        TextColor="{AppThemeBinding Light=Black,
-                                                    Dark=White}" />
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground}, Dark={StaticResource DarkPanelBackground}}" CornerRadius="15">
+                            <Image
+                                xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                    Dark=White}"
+                                HeightRequest="50"
+                                Source="icon_lock" />
+                        </Frame>
 
-                    <Button
+                        <Label
+                            Padding="0,15"
+                            CharacterSpacing="5"
+                            FontSize="Body"
+                            HorizontalOptions="FillAndExpand"
+                            HorizontalTextAlignment="Center"
+                            Text="Enter new PIN"
+                            TextColor="White" />
+                    </StackLayout>
+
+                    <Frame
                         Grid.Row="1"
-                        Grid.Column="0"
-                        xct:TouchEffect.NativeAnimation="True"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                          Dark={StaticResource DarkPanelBackground}}"
-                        Clicked="NumberButtonClicked"
+                        Margin="0,0,0,-5"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
+                                                          Dark={StaticResource DarkBackground}}"
                         CornerRadius="15"
-                        FontSize="28"
-                        Text="4"
-                        TextColor="{AppThemeBinding Light=Black,
-                                                    Dark=White}" />
-                    <Button
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        xct:TouchEffect.NativeAnimation="True"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                          Dark={StaticResource DarkPanelBackground}}"
-                        Clicked="NumberButtonClicked"
-                        CornerRadius="15"
-                        FontSize="28"
-                        Text="5"
-                        TextColor="{AppThemeBinding Light=Black,
-                                                    Dark=White}" />
-                    <Button
-                        Grid.Row="1"
-                        Grid.Column="2"
-                        xct:TouchEffect.NativeAnimation="True"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                          Dark={StaticResource DarkPanelBackground}}"
-                        Clicked="NumberButtonClicked"
-                        CornerRadius="15"
-                        FontSize="28"
-                        Text="6"
-                        TextColor="{AppThemeBinding Light=Black,
-                                                    Dark=White}" />
-
-                    <Button
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        xct:TouchEffect.NativeAnimation="True"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                          Dark={StaticResource DarkPanelBackground}}"
-                        Clicked="NumberButtonClicked"
-                        CornerRadius="15"
-                        FontSize="28"
-                        Text="7"
-                        TextColor="{AppThemeBinding Light=Black,
-                                                    Dark=White}" />
-                    <Button
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        xct:TouchEffect.NativeAnimation="True"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                          Dark={StaticResource DarkPanelBackground}}"
-                        Clicked="NumberButtonClicked"
-                        CornerRadius="15"
-                        FontSize="28"
-                        Text="8"
-                        TextColor="{AppThemeBinding Light=Black,
-                                                    Dark=White}" />
-                    <Button
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        xct:TouchEffect.NativeAnimation="True"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                          Dark={StaticResource DarkPanelBackground}}"
-                        Clicked="NumberButtonClicked"
-                        CornerRadius="15"
-                        FontSize="28"
-                        Text="9"
-                        TextColor="{AppThemeBinding Light=Black,
-                                                    Dark=White}" />
-
-                    <ImageButton
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        Padding="20"
-                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                            Dark={StaticResource DarkForegroundSecondary}}"
-                        xct:TouchEffect.NativeAnimation="True"
-                        BackgroundColor="Transparent"
-                        Clicked="UseFingerprintAuth"
-                        CornerRadius="15"
-                        Source="icon_fingerprint" />
-                    <Button
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        xct:TouchEffect.NativeAnimation="True"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                          Dark={StaticResource DarkPanelBackground}}"
-                        Clicked="NumberButtonClicked"
-                        CornerRadius="15"
-                        FontSize="28"
-                        Text="0"
-                        TextColor="{AppThemeBinding Light=Black,
-                                                    Dark=White}" />
-                    <ImageButton
-                        Grid.Row="3"
-                        Grid.Column="2"
-                        Padding="20"
-                        xct:IconTintColorEffect.TintColor="{StaticResource DangerBackgroundIcon}"
-                        xct:TouchEffect.NativeAnimation="True"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource DangerBackground},
-                                                          Dark={StaticResource DangerDarkBackground}}"
-                        Clicked="BackspaceButtonClicked"
-                        CornerRadius="15"
-                        Source="icon_backspace" />
-
+                        HasShadow="False"
+                        IsVisible="True">
+                        <StackLayout>
+                            <Entry
+                                x:Name="NewPin"
+                                Margin="0,15"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                FontSize="Small"
+                                IsPassword="True"
+                                Keyboard="Numeric"
+                                MaxLength="4"
+                                Placeholder="PIN"
+                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                   Dark={StaticResource DarkForegroundSecondary}}"
+                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                            Dark={StaticResource DarkForegroundMain}}"
+                                VerticalOptions="Center" />
+                            <Button
+                                Padding="10"
+                                Clicked="SetNewPin"
+                                Text="Save PIN" />
+                        </StackLayout>
+                    </Frame>
                 </Grid>
-            </Frame>
-
-        </Grid>
+            </xct:TabViewItem>
+        </xct:TabView>
     </ContentPage.Content>
 </ContentPage>

@@ -81,6 +81,13 @@
                 VerticalOptions="FillAndExpand">
                 <ScrollView>
                     <StackLayout Margin="0,0,0,5" BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
+                        <Label
+                            Padding="20,15"
+                            FontAttributes="Bold"
+                            FontSize="Large"
+                            Text="Data"
+                            TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
+                                                        Dark={StaticResource LightTitle}}" />
                         <Frame
                             Margin="0"
                             Padding="0"
@@ -121,7 +128,152 @@
                                     Grid.Column="1"
                                     Margin="10,0"
                                     FontSize="Body"
-                                    Text="DB Connection"
+                                    Text="Save to DB"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                        </Frame>
+                        <Frame
+                            Margin="0"
+                            Padding="0"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                              Dark={StaticResource DarkPanelBackground}}"
+                            CornerRadius="15"
+                            HasShadow="False">
+
+                            <Grid
+                                Padding="15"
+                                xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:SettingsPageViewModel}}, Path=RedirectToDBConnectPage}"
+                                xct:TouchEffect.NativeAnimation="True">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Frame
+                                    Margin="0,0,0,0"
+                                    Padding="5"
+                                    BackgroundColor="Transparent"
+                                    CornerRadius="5"
+                                    HasShadow="False">
+                                    <Image
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                            Dark=White}"
+                                        BackgroundColor="Transparent"
+                                        Source="icon_import.xml" />
+                                </Frame>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="10,0"
+                                    FontSize="Body"
+                                    Text="Import"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                        </Frame>
+                        <Frame
+                            Margin="0"
+                            Padding="0"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                              Dark={StaticResource DarkPanelBackground}}"
+                            CornerRadius="15"
+                            HasShadow="False">
+
+                            <Grid
+                                Padding="15"
+                                xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:SettingsPageViewModel}}, Path=RedirectToDBConnectPage}"
+                                xct:TouchEffect.NativeAnimation="True">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Frame
+                                    Margin="0,0,0,0"
+                                    Padding="5"
+                                    BackgroundColor="Transparent"
+                                    CornerRadius="5"
+                                    HasShadow="False">
+                                    <Image
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                            Dark=White}"
+                                        BackgroundColor="Transparent"
+                                        Source="icon_export.xml" />
+                                </Frame>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="10,0"
+                                    FontSize="Body"
+                                    Text="Export"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                        </Frame>
+                        <Label
+                            Padding="20,15"
+                            FontAttributes="Bold"
+                            FontSize="Large"
+                            Text="Security"
+                            TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
+                                                        Dark={StaticResource LightTitle}}" />
+                        <Frame
+                            Margin="0"
+                            Padding="0"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                              Dark={StaticResource DarkPanelBackground}}"
+                            CornerRadius="15"
+                            HasShadow="False">
+
+                            <Grid
+                                Padding="15"
+                                xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:SettingsPageViewModel}}, Path=RedirectToPINPage}"
+                                xct:TouchEffect.NativeAnimation="True">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Frame
+                                    Margin="0,0,0,0"
+                                    Padding="5"
+                                    BackgroundColor="Transparent"
+                                    CornerRadius="5"
+                                    HasShadow="False">
+                                    <Image
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                            Dark=White}"
+                                        BackgroundColor="Transparent"
+                                        Source="icon_lock" />
+                                </Frame>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="10,0"
+                                    FontSize="Body"
+                                    Text="PIN"
                                     TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
                                                                 Dark={StaticResource DarkForegroundMain}}"
                                     VerticalOptions="Center" />
