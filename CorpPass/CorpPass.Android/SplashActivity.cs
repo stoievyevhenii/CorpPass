@@ -21,9 +21,8 @@ namespace CorpPass.Droid
             Task startupWork = new Task(() => { SimulateStartup(); });
             startupWork.Start();
         }
-        async void SimulateStartup()
+        void SimulateStartup()
         {
-            await Task.Delay(4000);
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
     }

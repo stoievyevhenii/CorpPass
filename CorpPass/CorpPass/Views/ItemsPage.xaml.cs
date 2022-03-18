@@ -17,8 +17,9 @@ namespace CorpPass.Views
         public ItemsPage()
         {
             InitializeComponent();
+
             BindingContext = _viewModel = new ItemsViewModel();
-            _imageButton = FloatAddButton;
+            _imageButton = FloatAddButton;           
         }
 
         protected override void OnAppearing()
@@ -29,26 +30,12 @@ namespace CorpPass.Views
 
         private void GoToFirstElement(object sender, EventArgs e)
         {
-            ItemsListView.ScrollTo(0,0, animate: false);
+            ItemsListView.ScrollTo(0, 0, animate: false);
         }
-
         private void EditPage(object sender, EventArgs args)
         {
 
         }
-
-        private void ItemsListView_Scrolled(object sender, ItemsViewScrolledEventArgs e)
-        {
-            if (e.VerticalDelta > 1)
-            {
-                Task.WhenAll(_imageButton.ScaleTo(0, 200));
-            }
-            else if (e.VerticalDelta < 0 && Math.Abs(e.VerticalDelta) > 10)
-            {
-                Task.WhenAll(_imageButton.ScaleTo(1, 200));
-            }
-        }
-
         private async void AddItemToFavorite(object sender, EventArgs e)
         {
             var options = new SnackBarOptions
@@ -62,7 +49,6 @@ namespace CorpPass.Views
 
             await this.DisplaySnackBarAsync(options);
         }
-
         private async void DeleteItem(object sender, EventArgs e)
         {
             var actions = new SnackBarActionOptions
@@ -82,6 +68,10 @@ namespace CorpPass.Views
             };
 
             await this.DisplaySnackBarAsync(options);
+        }
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

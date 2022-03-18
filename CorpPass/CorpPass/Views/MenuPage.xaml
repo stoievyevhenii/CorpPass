@@ -7,18 +7,16 @@
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Title="Menu"
     BackgroundColor="{StaticResource Secondary}"
-    Shell.BackgroundColor="{StaticResource Secondary}"
     Shell.ForegroundColor="White"
     Shell.NavBarHasShadow="False"
     Shell.NavBarIsVisible="False"
-    Shell.PresentationMode="ModalAnimated"
     Shell.TitleColor="White"
     Visual="Material">
     <ContentPage.Content>
 
         <StackLayout>
-
-            <Frame BackgroundColor="{StaticResource Secondary}">
+            <!--  Swipe frame  -->
+            <Frame BackgroundColor="Transparent" HasShadow="False">
                 <BoxView
                     BackgroundColor="Gray"
                     CornerRadius="5"
@@ -32,6 +30,7 @@
                 </Frame.GestureRecognizers>
             </Frame>
 
+            <!--  Places  -->
             <Label
                 Padding="20,10"
                 FontAttributes="Bold"
@@ -119,71 +118,70 @@
                 </StackLayout>
             </FlexLayout>
 
+            <!--  Additional  -->
             <Label
                 Padding="20,10"
                 FontAttributes="Bold"
-                Text="Settings"
+                Text="Additional"
                 TextColor="{StaticResource LightForegroundSecondary}" />
             <Frame
                 Margin="0,0,0,-5"
                 Padding="0"
+                BackgroundColor="Transparent"
                 CornerRadius="15"
                 HasShadow="False"
                 VerticalOptions="FillAndExpand">
-                <ScrollView>
+                <FlexLayout
+                    Padding="10"
+                    AlignItems="Start"
+                    BackgroundColor="Transparent"
+                    Direction="Row"
+                    JustifyContent="Start"
+                    Wrap="Wrap">
                     <StackLayout
-                        Margin="0,0,0,5"
-                        Padding="15"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
-                                                          Dark={StaticResource DarkBackground}}">
-                        <Frame
-                            Margin="0"
-                            Padding="0"
+                        Margin="10,10,10,10"
+                        BackgroundColor="Transparent"
+                        FlexLayout.AlignSelf="Start"
+                        FlexLayout.Basis="{OnIdiom Phone='33%',
+                                                   Tablet='33%'}">
+                        <ImageButton
+                            Padding="25"
+                            xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                Dark=White}"
+                            xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:MenuPageViewModel}}, Path=RedirectToSettingsPage}"
+                            xct:TouchEffect.NativeAnimation="True"
                             BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                               Dark={StaticResource DarkPanelBackground}}"
                             CornerRadius="15"
-                            HasShadow="False">
-
-                            <Grid
-                                Padding="25"
-                                xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:MenuPageViewModel}}, Path=RedirectToDBConnectPage}"
-                                xct:TouchEffect.NativeAnimation="True">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-
-                                <Frame
-                                    Margin="0,0,0,0"
-                                    Padding="5"
-                                    BackgroundColor="Transparent"
-                                    CornerRadius="5"
-                                    HasShadow="False">
-                                    <Image
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                            Dark=White}"
-                                        BackgroundColor="Transparent"
-                                        Source="icon_dbconnection.xml" />
-                                </Frame>
-                                <Label
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    Margin="10,0"
-                                    FontSize="Body"
-                                    Text="DB Connection"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                Dark={StaticResource DarkForegroundMain}}"
-                                    VerticalOptions="Center" />
-                            </Grid>
-                        </Frame>
+                            HeightRequest="100"
+                            Source="icon_settings"
+                            WidthRequest="100" />
+                        <Label
+                            HorizontalOptions="Center"
+                            Text="Settings"
+                            TextColor="White" />
                     </StackLayout>
-                </ScrollView>
+                    <StackLayout
+                        Margin="10,10,10,10"
+                        FlexLayout.AlignSelf="Start"
+                        FlexLayout.Basis="{OnIdiom Phone='33%',
+                                                   Tablet='33%'}">
+                        <ImageButton
+                            Padding="25"
+                            xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                Dark=White}"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                              Dark={StaticResource DarkPanelBackground}}"
+                            CornerRadius="15"
+                            HeightRequest="100"
+                            Source="icon_details"
+                            WidthRequest="100" />
+                        <Label
+                            HorizontalOptions="Center"
+                            Text="Info"
+                            TextColor="White" />
+                    </StackLayout>
+                </FlexLayout>
             </Frame>
 
         </StackLayout>

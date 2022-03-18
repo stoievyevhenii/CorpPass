@@ -1,23 +1,22 @@
 ﻿using CorpPass.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels
 {
     public class MenuPageViewModel : BaseViewModel
     {
-        public Command RedirectToDBConnectPage { get; }
+        public Command RedirectToSettingsPage { get; }
 
         public MenuPageViewModel()
         {
-            RedirectToDBConnectPage = new Command(OpenDBSettings);
-        }       
-        
-        private async void OpenDBSettings()
+            RedirectToSettingsPage = new Command(OpenSettings);
+        }
+
+        private async void OpenSettings()
         {
-            await Shell.Current.GoToAsync(nameof(DBConnectionPage));
+            await Shell.Current.GoToAsync(nameof(SettingsPage));
         }
     }
 }
+
+

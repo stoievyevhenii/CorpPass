@@ -2,13 +2,13 @@
 using CorpPass.Views;
 using System;
 using System.Linq;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using MvvmHelpers;
-using Xamarin.Essentials;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 
 namespace CorpPass.ViewModels
 {
@@ -25,9 +25,8 @@ namespace CorpPass.ViewModels
     public class ItemsViewModel : BaseViewModel
     {
         private Item _selectedItem;
-        public List<ItemsGroup> GroupedItems { get; private set; }
+        public ObservableCollection<ItemsGroup> GroupedItems { get; private set; }
         public List<Item> Items { get; set; }
-
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
@@ -38,10 +37,9 @@ namespace CorpPass.ViewModels
         public ItemsViewModel()
         {
             Items = new List<Item>();
-            GroupedItems = new List<ItemsGroup>();
+            GroupedItems = new ObservableCollection<ItemsGroup>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             ItemTapped = new Command<Item>(OnItemSelected);
-            AdditionalTappedCommand = new Command<Item>(OnCopyToClipboard);
             AddItemCommand = new Command(OnAddItem);
             MenuPageRedirect = new Command(OnOpenMenuPage);
             SearchPageRedirect = new Command(OnOpenSearchPage);
@@ -118,17 +116,5 @@ namespace CorpPass.ViewModels
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
         }
 
-        async void OnCopyToClipboard(Item item)
-        {
-            if (item == null)
-            {
-                Debug.WriteLine("ITEMS IS EMPTY");
-            }
-            else
-            {
-                Debug.WriteLine($"ITEM LOGIN - {item.Login}");
-                await Clipboard.SetTextAsync(item.Login);
-            }
-        }
     }
 }

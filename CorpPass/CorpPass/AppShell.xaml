@@ -25,6 +25,6 @@
     </Shell.Resources>
 
     <ShellContent>
-        <local:ItemsPage />
+        <local:LoginPage />
     </ShellContent>
 </Shell>

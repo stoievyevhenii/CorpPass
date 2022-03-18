@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using Plugin.Fingerprint;
 
 namespace CorpPass.Droid
 {
@@ -17,6 +18,7 @@ namespace CorpPass.Droid
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
             LoadApplication(new App());
             Window.SetStatusBarColor(Android.Graphics.Color.Rgb(38, 38, 38));
+            CrossFingerprint.SetCurrentActivityResolver(() => Xamarin.Essentials.Platform.CurrentActivity);
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

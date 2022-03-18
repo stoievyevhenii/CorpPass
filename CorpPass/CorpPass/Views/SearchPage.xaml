@@ -12,7 +12,6 @@
     BackgroundColor="{StaticResource Secondary}"
     Shell.BackgroundColor="{StaticResource Secondary}"
     Shell.NavBarIsVisible="False"
-    Shell.PresentationMode="ModalAnimated"
     Visual="Material"
     mc:Ignorable="d">
     <ContentPage.Content>
@@ -41,6 +40,8 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
+                <Frame />
+
                 <Frame
                     Grid.Row="0"
                     Grid.Column="0"
@@ -67,63 +68,46 @@
                         TextColor="{StaticResource DarkForegroundMain}" />
                 </StackLayout>
 
-                <Entry
+                <Frame
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
                     Margin="0,15,0,0"
-                    BackgroundColor="#3c3c3c"
-                    Placeholder="Password name..."
-                    PlaceholderColor="Gray"
-                    TextColor="White" />
+                    Padding="0"
+                    BackgroundColor="Transparent"
+                    CornerRadius="15">
+                    <SearchBar
+                        x:Name="searchBar"
+                        BackgroundColor="#3c3c3c"
+                        Placeholder="Password name..."
+                        PlaceholderColor="Gray"
+                        SearchCommand="{Binding Source={RelativeSource AncestorType={x:Type local:SearchPageViewModel}}, Path=PerformSearch}"
+                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                        TextColor="White" />
+                </Frame>
+
             </Grid>
 
             <Frame
                 Margin="0,0,0,-5"
-                Padding="15,0"
+                Padding="0"
                 BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
                                                   Dark={StaticResource DarkBackground}}"
                 CornerRadius="15">
                 <RefreshView
-                    BackgroundColor="AliceBlue"
+                    x:DataType="local:SearchPageViewModel"
                     Command="{Binding LoadItemsCommand}"
+                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                     RefreshColor="{StaticResource Primary}">
-
                     <CollectionView
                         x:Name="ItemsListView"
-                        IsGrouped="True"
-                        ItemsSource="{Binding GroupedItems}"
+                        ItemsSource="{Binding Items}"
                         SelectionMode="None">
-
-                        <CollectionView.GroupHeaderTemplate>
-                            <DataTemplate>
-                                <Frame
-                                    Margin="0"
-                                    Padding="0"
-                                    BackgroundColor="Transparent"
-                                    CornerRadius="0"
-                                    HasShadow="False">
-
-                                    <StackLayout Padding="5,5">
-                                        <Label
-                                            Padding="15,0,0,0"
-                                            FontAttributes="Bold"
-                                            FontSize="Large"
-                                            Text="{Binding Name}"
-                                            TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
-                                                                        Dark={StaticResource LightTitle}}" />
-                                    </StackLayout>
-
-                                </Frame>
-
-                            </DataTemplate>
-                        </CollectionView.GroupHeaderTemplate>
-
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout Margin="0,5">
+                                <StackLayout Margin="0" x:DataType="model:Item">
                                     <Frame
-                                        Margin="0"
+                                        Margin="15,5"
                                         Padding="0"
                                         BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                           Dark={StaticResource DarkPanelBackground}}"
@@ -132,7 +116,7 @@
 
                                         <Grid
                                             Padding="10,10"
-                                            xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"
+                                            xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:SearchPageViewModel}}, Path=ItemTapped}"
                                             xct:TouchEffect.CommandParameter="{Binding .}"
                                             xct:TouchEffect.NativeAnimation="True">
                                             <Grid.ColumnDefinitions>
@@ -199,7 +183,6 @@
                     </CollectionView>
                 </RefreshView>
             </Frame>
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

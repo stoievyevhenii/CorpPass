@@ -10,6 +10,8 @@ namespace CorpPass
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
+            Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
+            Routing.RegisterRoute(nameof(ItemsPage), typeof(ItemsPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
             Routing.RegisterRoute(nameof(SearchPage), typeof(SearchPage));
             Routing.RegisterRoute(nameof(MenuPage), typeof(MenuPage));
