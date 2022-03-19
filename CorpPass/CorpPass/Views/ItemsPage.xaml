@@ -250,7 +250,7 @@
                             CornerRadius="100"
                             Source="icon_add.xml" />
                     </AbsoluteLayout>
-                    <controls:BottomSheet x:Name="Sheet" SheetHeight="300">
+                    <controls:BottomSheet x:Name="Sheet" SheetHeight="250">
                         <controls:BottomSheet.SheetContent>
                             <StackLayout>
                                 <BoxView
@@ -260,13 +260,41 @@
                                     HorizontalOptions="Center"
                                     VerticalOptions="Start"
                                     WidthRequest="40" />
-                                <Label
-                                    Margin="0,20"
-                                    FontSize="18"
-                                    HorizontalTextAlignment="Center"
-                                    Text="Welcome to Xamarin how to" />
-                                <Image HorizontalOptions="Center" Source="xamarin_logo" />
-
+                                <CollectionView ItemsSource="{Binding BottomSheetItems}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid
+                                                x:Name="SheetItem"
+                                                Padding="15"
+                                                xct:TouchEffect.Command="{Binding ItemCommand}"
+                                                xct:TouchEffect.NativeAnimation="True">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Image
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                                        Dark=White}"
+                                                    Source="{Binding Icon}" />
+                                                <Label
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    Padding="15,0"
+                                                    FontSize="16"
+                                                    Style="{DynamicResource ListItemTextStyle}"
+                                                    Text="{Binding Name}"
+                                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                                Dark={StaticResource DarkForegroundMain}}"
+                                                    VerticalOptions="CenterAndExpand" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
                             </StackLayout>
                         </controls:BottomSheet.SheetContent>
                     </controls:BottomSheet>

@@ -1,8 +1,6 @@
-﻿using CorpPass.Services;
-using CorpPass.ViewModels;
+﻿using CorpPass.ViewModels;
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.UI.Views.Options;
@@ -16,7 +14,6 @@ namespace CorpPass.Views
         public ItemsPage()
         {
             InitializeComponent();
-
             BindingContext = _viewModel = new ItemsViewModel();                     
         }
 

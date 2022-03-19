@@ -10,16 +10,6 @@ using System.Collections.ObjectModel;
 
 namespace CorpPass.ViewModels
 {
-    public class ItemsGroup : List<Item>
-    {
-        public string Name { get; private set; }
-
-        public ItemsGroup(string name, List<Item> items) : base(items)
-        {
-            Name = name;
-        }
-    }
-
     public class ItemsViewModel : BaseViewModel
     {
         bool isFavoriteBusy = false;
@@ -31,6 +21,7 @@ namespace CorpPass.ViewModels
         public ObservableCollection<ItemsGroup> GroupedItems { get; private set; }
         public ObservableCollection<Item> GroupedFavoriteItems { get; private set; }
         public List<Item> Items { get; set; }
+        public List<CollectionListItem> BottomSheetItems { get; set; }
         public Command LoadItemsCommand { get; }
         public Command LoadFavoriteItemsCommand { get; }
         public Command AddItemCommand { get; }
@@ -53,18 +44,43 @@ namespace CorpPass.ViewModels
         {
             GroupedItems = new ObservableCollection<ItemsGroup>();
             GroupedFavoriteItems = new ObservableCollection<Item>();
+            BottomSheetItems = new List<CollectionListItem>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             LoadFavoriteItemsCommand = new Command(async () => await ExecuteLoadFavoriteItemsCommand());
             ItemTapped = new Command<Item>(OnItemSelected);
             AddItemCommand = new Command(OnAddItem);
             MenuPageRedirect = new Command(OnOpenMenuPage);
             SearchPageRedirect = new Command(OnOpenSearchPage);
+            
+            InitItemContextMenuItems();
         }
         public void OnAppearing()
         {
             IsBusy = true;
             IsFavoriteBusy = true;
             SelectedItem = null;
+        }
+
+        void InitItemContextMenuItems()
+        {   
+            BottomSheetItems.Add(new CollectionListItem()
+            {
+                Icon = "icon_edit",
+                Name = "Edit",
+                ItemCommand = new Command(OnEditItem)
+            });
+            BottomSheetItems.Add(new CollectionListItem()
+            {
+                Icon = "icon_delete",
+                Name = "Delete",
+                ItemCommand = new Command(OnEditItem)
+            });
+            BottomSheetItems.Add(new CollectionListItem()
+            {
+                Icon = "icon_favorite",
+                Name = "Add to favorite",
+                ItemCommand = new Command(OnEditItem)
+            });
         }
 
         async Task ExecuteLoadFavoriteItemsCommand()
@@ -94,7 +110,6 @@ namespace CorpPass.ViewModels
                 IsFavoriteBusy = false;
             }
         }
-
         async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
@@ -119,23 +134,7 @@ namespace CorpPass.ViewModels
             {
                 IsBusy = false;
             }
-        }      
-
-        private async void OnAddItem(object obj)
-        {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
-
-        private async void OnOpenMenuPage(object obj)
-        {
-            await Shell.Current.GoToAsync(nameof(MenuPage));
-        }
-
-        private async void OnOpenSearchPage(object obj)
-        {
-            await Shell.Current.GoToAsync(nameof(SearchPage));
-        }
-
         async void OnItemSelected(Item item)
         {
             if (item == null)
@@ -143,6 +142,22 @@ namespace CorpPass.ViewModels
 
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
         }
-
+        
+        private async void OnEditItem()
+        {
+            await Shell.Current.GoToAsync(nameof(NewItemPage));
+        }
+        private async void OnAddItem(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(NewItemPage));
+        }
+        private async void OnOpenMenuPage(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(MenuPage));
+        }
+        private async void OnOpenSearchPage(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(SearchPage));
+        }
     }
 }
