@@ -186,5 +186,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon_save.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon_more_vertical.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

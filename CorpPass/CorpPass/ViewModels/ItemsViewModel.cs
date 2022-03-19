@@ -22,27 +22,77 @@ namespace CorpPass.ViewModels
 
     public class ItemsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        bool isFavoriteBusy = false;
+        public bool IsFavoriteBusy
+        {
+            get { return isFavoriteBusy; }
+            set { SetProperty(ref isFavoriteBusy, value); }
+        }
         public ObservableCollection<ItemsGroup> GroupedItems { get; private set; }
         public ObservableCollection<Item> GroupedFavoriteItems { get; private set; }
         public List<Item> Items { get; set; }
         public Command LoadItemsCommand { get; }
+        public Command LoadFavoriteItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
         public Command<Item> AdditionalTappedCommand { get; }
         public Command SearchPageRedirect { get; }
         public Command MenuPageRedirect { get; }
+        private Item _selectedItem;
+        public Item SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                SetProperty(ref _selectedItem, value);
+                OnItemSelected(value);
+            }
+        }
 
         public ItemsViewModel()
         {
-            Items = new List<Item>();
             GroupedItems = new ObservableCollection<ItemsGroup>();
             GroupedFavoriteItems = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            LoadFavoriteItemsCommand = new Command(async () => await ExecuteLoadFavoriteItemsCommand());
             ItemTapped = new Command<Item>(OnItemSelected);
             AddItemCommand = new Command(OnAddItem);
             MenuPageRedirect = new Command(OnOpenMenuPage);
             SearchPageRedirect = new Command(OnOpenSearchPage);
+        }
+        public void OnAppearing()
+        {
+            IsBusy = true;
+            IsFavoriteBusy = true;
+            SelectedItem = null;
+        }
+
+        async Task ExecuteLoadFavoriteItemsCommand()
+        {
+            IsFavoriteBusy = true;
+
+            try
+            {
+                var items = (await DataStore.GetItemsAsync(true)).ToList().OrderBy(i => i.Group).ToList();
+
+                GroupedFavoriteItems.Clear();
+
+                foreach (var item in items)
+                {
+                    if (item.IsFavorite)
+                    {
+                        GroupedFavoriteItems.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsFavoriteBusy = false;
+            }
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -53,18 +103,8 @@ namespace CorpPass.ViewModels
             {
                 var items = (await DataStore.GetItemsAsync(true)).ToList().OrderBy(i=>i.Group).ToList();
                 
-                Items.Clear();
-                GroupedFavoriteItems.Clear();
                 GroupedItems.Clear();
-
-                foreach (var item in items)
-                {
-                    if (item.IsFavorite)
-                    {
-                        GroupedFavoriteItems.Add(item);
-                    }
-                }
-                
+                                
                 var grouped = items.GroupBy(i => i.Group).ToList();
                 foreach (var item in grouped)
                 {
@@ -79,23 +119,7 @@ namespace CorpPass.ViewModels
             {
                 IsBusy = false;
             }
-        }
-
-        public void OnAppearing()
-        {
-            IsBusy = true;
-            SelectedItem = null;
-        }
-
-        public Item SelectedItem
-        {
-            get => _selectedItem;
-            set
-            {
-                SetProperty(ref _selectedItem, value);
-                OnItemSelected(value);
-            }
-        }
+        }      
 
         private async void OnAddItem(object obj)
         {

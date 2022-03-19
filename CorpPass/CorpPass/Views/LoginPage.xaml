@@ -100,6 +100,7 @@
                             <Button
                                 Grid.Row="0"
                                 Grid.Column="0"
+                                xct:ShadowEffect.Color="Transparent"
                                 xct:TouchEffect.NativeAnimation="True"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
@@ -112,6 +113,7 @@
                             <Button
                                 Grid.Row="0"
                                 Grid.Column="1"
+                                xct:ShadowEffect.Color="Transparent"
                                 xct:TouchEffect.NativeAnimation="True"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
@@ -124,6 +126,7 @@
                             <Button
                                 Grid.Row="0"
                                 Grid.Column="2"
+                                xct:ShadowEffect.Color="Transparent"
                                 xct:TouchEffect.NativeAnimation="True"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
@@ -137,6 +140,7 @@
                             <Button
                                 Grid.Row="1"
                                 Grid.Column="0"
+                                xct:ShadowEffect.Color="Transparent"
                                 xct:TouchEffect.NativeAnimation="True"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
@@ -149,6 +153,7 @@
                             <Button
                                 Grid.Row="1"
                                 Grid.Column="1"
+                                xct:ShadowEffect.Color="Transparent"
                                 xct:TouchEffect.NativeAnimation="True"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
@@ -161,6 +166,7 @@
                             <Button
                                 Grid.Row="1"
                                 Grid.Column="2"
+                                xct:ShadowEffect.Color="Transparent"
                                 xct:TouchEffect.NativeAnimation="True"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
@@ -174,6 +180,7 @@
                             <Button
                                 Grid.Row="2"
                                 Grid.Column="0"
+                                xct:ShadowEffect.Color="Transparent"
                                 xct:TouchEffect.NativeAnimation="True"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
@@ -186,6 +193,7 @@
                             <Button
                                 Grid.Row="2"
                                 Grid.Column="1"
+                                xct:ShadowEffect.Color="Transparent"
                                 xct:TouchEffect.NativeAnimation="True"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
@@ -198,6 +206,7 @@
                             <Button
                                 Grid.Row="2"
                                 Grid.Column="2"
+                                xct:ShadowEffect.Color="Transparent"
                                 xct:TouchEffect.NativeAnimation="True"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
@@ -215,6 +224,7 @@
                                 Padding="20"
                                 xct:IconTintColorEffect.TintColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
                                                                                     Dark={StaticResource DarkForegroundSecondary}}"
+                                xct:ShadowEffect.Color="Transparent"
                                 xct:TouchEffect.NativeAnimation="True"
                                 BackgroundColor="Transparent"
                                 Clicked="UseFingerprintAuth"
@@ -224,6 +234,7 @@
                             <Button
                                 Grid.Row="3"
                                 Grid.Column="1"
+                                xct:ShadowEffect.Color="Transparent"
                                 xct:TouchEffect.NativeAnimation="True"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
@@ -238,6 +249,7 @@
                                 Grid.Column="2"
                                 Padding="20"
                                 xct:IconTintColorEffect.TintColor="{StaticResource DangerBackgroundIcon}"
+                                xct:ShadowEffect.Color="Transparent"
                                 xct:TouchEffect.NativeAnimation="True"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource DangerBackground},
                                                                   Dark={StaticResource DangerDarkBackground}}"

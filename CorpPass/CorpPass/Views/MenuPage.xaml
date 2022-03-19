@@ -7,29 +7,15 @@
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Title="Menu"
     BackgroundColor="{StaticResource Secondary}"
+    Shell.BackgroundColor="{StaticResource Secondary}"
     Shell.ForegroundColor="White"
     Shell.NavBarHasShadow="False"
-    Shell.NavBarIsVisible="False"
+    Shell.NavBarIsVisible="True"
     Shell.TitleColor="White"
     Visual="Material">
     <ContentPage.Content>
 
         <StackLayout>
-            <!--  Swipe frame  -->
-            <Frame BackgroundColor="Transparent" HasShadow="False">
-                <BoxView
-                    BackgroundColor="Gray"
-                    CornerRadius="5"
-                    HeightRequest="5"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    WidthRequest="150" />
-
-                <Frame.GestureRecognizers>
-                    <SwipeGestureRecognizer Direction="Down" Swiped="GoBack" />
-                </Frame.GestureRecognizers>
-            </Frame>
-
             <!--  Places  -->
             <Label
                 Padding="20,10"
