@@ -1,18 +1,41 @@
-﻿using System;
-using System.Windows.Input;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+﻿using Xamarin.Essentials;
 
 namespace CorpPass.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {
-        public AboutViewModel()
+        string appName;
+        string packageName;
+        string version;
+        string build;
+
+        public string AppName
         {
-            Title = "About";
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
+            get { return appName; }
+            set { SetProperty(ref appName, value); }
+        }
+        public string PackageName
+        {
+            get { return packageName; }
+            set { SetProperty(ref packageName, value); }
+        }
+        public string Version
+        {
+            get { return version; }
+            set { SetProperty(ref version, value); }
+        }
+        public string Build
+        {
+            get { return build; }
+            set { SetProperty(ref build, value); }
         }
 
-        public ICommand OpenWebCommand { get; }
+        public AboutViewModel()
+        {
+            AppName = AppInfo.Name;
+            PackageName = AppInfo.PackageName;
+            Version = AppInfo.VersionString;
+            Build = AppInfo.BuildString;
+        }
     }
 }

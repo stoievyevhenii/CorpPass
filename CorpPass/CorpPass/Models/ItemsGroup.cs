@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace CorpPass.ViewModels
 {
-    public class ItemsGroup : List<Item>
+    public class ItemsGroup<T> : List<T>
     {
         public string Name { get; private set; }
 
-        public ItemsGroup(string name, List<Item> items) : base(items)
+        public ItemsGroup(string name, List<T> items) : base(items)
         {
             Name = name;
         }

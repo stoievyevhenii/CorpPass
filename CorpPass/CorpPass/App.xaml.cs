@@ -1,8 +1,5 @@
 ﻿using CorpPass.Services;
-using CorpPass.Views;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace CorpPass
 {

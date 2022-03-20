@@ -17,33 +17,6 @@ namespace CorpPass.ViewModels
         private List<string> groupList;
         private List<string> folderList;
 
-        public NewItemViewModel()
-        {
-            SaveCommand = new Command(OnSave, ValidateSave);
-            CancelCommand = new Command(OnCancel);
-
-            groupList = new List<string>();
-            folderList = new List<string>();
-
-            string[] alphabet = new[] { "A", "B", "C", "D", "E", "F" };
-
-            for (var i = 0; i < alphabet.Length; i++)
-            {
-                groupList.Add($"{alphabet[i]}");
-                folderList.Add($"{alphabet[i]}");
-            }
-
-            this.PropertyChanged +=
-                (_, __) => SaveCommand.ChangeCanExecute();
-        }
-
-        private bool ValidateSave()
-        {
-            return !string.IsNullOrWhiteSpace(login)
-                && !string.IsNullOrWhiteSpace(password)
-                && !string.IsNullOrWhiteSpace(name);
-        }
-
         public string Login
         {
             get => login;
@@ -74,12 +47,10 @@ namespace CorpPass.ViewModels
             get => name;
             set => SetProperty(ref name, value);
         }
-
         public List<string> GroupList
         {
             get => groupList;
         }
-
         public List<string> FolderList
         {
             get => folderList;
@@ -87,6 +58,34 @@ namespace CorpPass.ViewModels
 
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
+
+
+        public NewItemViewModel()
+        {
+            SaveCommand = new Command(OnSave, ValidateSave);
+            CancelCommand = new Command(OnCancel);
+
+            groupList = new List<string>();
+            folderList = new List<string>();
+
+            string[] alphabet = new[] { "A", "B", "C", "D", "E", "F" };
+
+            for (var i = 0; i < alphabet.Length; i++)
+            {
+                groupList.Add($"{alphabet[i]}");
+                folderList.Add($"{alphabet[i]}");
+            }
+
+            this.PropertyChanged +=
+                (_, __) => SaveCommand.ChangeCanExecute();
+        }
+
+        private bool ValidateSave()
+        {
+            return !string.IsNullOrWhiteSpace(login)
+                && !string.IsNullOrWhiteSpace(password)
+                && !string.IsNullOrWhiteSpace(name);
+        }
 
         private async void OnCancel()
         {
@@ -104,9 +103,9 @@ namespace CorpPass.ViewModels
                 Login = Login,
                 Password = Password,
                 Description = Description,
-                Name = folderList[selectedFolderIndex],
+                Name = Name,
                 Group = groupList[selectedGroupIndex],
-                Folder = Folder
+                Folder = folderList[selectedFolderIndex]
             };
 
             await DataStore.AddItemAsync(newItem);

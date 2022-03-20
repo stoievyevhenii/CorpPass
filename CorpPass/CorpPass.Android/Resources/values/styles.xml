@@ -12,6 +12,7 @@
 		<item name="android:windowBackground">@drawable/splash_screen</item>
 		<item name="android:windowNoTitle">true</item>
 		<item name="android:statusBarColor">#262626</item>
+		<item name="android:navigationBarColor">#262626</item>
 		<item name="android:windowContentOverlay">@null</item>
 		<item name="android:windowActionBar">true</item>
 	</style>

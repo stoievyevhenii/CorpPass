@@ -12,7 +12,6 @@
     BackgroundColor="{StaticResource Secondary}"
     Shell.BackgroundColor="{StaticResource Secondary}"
     Shell.NavBarIsVisible="False"
-    Shell.PresentationMode="ModalAnimated"
     Visual="Material"
     mc:Ignorable="d">
     <ContentPage.Content>
@@ -87,101 +86,89 @@
             </Grid>
 
             <Frame
-                Margin="0,0,0,-5"
+                Margin="15,10"
                 Padding="0"
                 BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
                                                   Dark={StaticResource DarkBackground}}"
-                CornerRadius="15">
+                CornerRadius="15"
+                HasShadow="False">
                 <RefreshView
-                    x:DataType="local:SearchPageViewModel"
                     Command="{Binding LoadItemsCommand}"
                     CommandParameter="{Binding Text, Source={x:Reference searchBar}}"
                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                     RefreshColor="{StaticResource Primary}">
                     <CollectionView
-                        x:Name="ItemsListView"
+                        x:Name="SearchListView"
                         ItemsSource="{Binding Items}"
                         SelectionMode="None">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout Margin="0" x:DataType="model:Item">
+                                <Grid
+                                    Padding="15,10"
+                                    xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:SearchPageViewModel}}, Path=ItemTapped}"
+                                    xct:TouchEffect.CommandParameter="{Binding .}"
+                                    xct:TouchEffect.NativeAnimation="True">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
                                     <Frame
-                                        Margin="15,5"
-                                        Padding="0"
-                                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                          Dark={StaticResource DarkPanelBackground}}"
+                                        Grid.RowSpan="2"
+                                        Grid.Column="0"
+                                        Padding="10"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource ItemBackgroundOnLightBackground},
+                                                                          Dark={StaticResource ItemBackgroundOnDarkBackground}}"
                                         CornerRadius="15"
-                                        HasShadow="False">
-
-                                        <Grid
-                                            Padding="10,10"
-                                            xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:SearchPageViewModel}}, Path=ItemTapped}"
-                                            xct:TouchEffect.CommandParameter="{Binding .}"
-                                            xct:TouchEffect.NativeAnimation="True">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-
-                                            <Frame
-                                                Grid.RowSpan="2"
-                                                Grid.Column="0"
-                                                Padding="10"
-                                                BackgroundColor="{AppThemeBinding Light={StaticResource ItemBackgroundOnLightBackground},
-                                                                                  Dark={StaticResource ItemBackgroundOnDarkBackground}}"
-                                                CornerRadius="15"
-                                                HasShadow="True"
-                                                HorizontalOptions="Center"
-                                                VerticalOptions="Fill"
-                                                WidthRequest="45">
-                                                <Label
-                                                    FontSize="20"
-                                                    HorizontalOptions="Center"
-                                                    Text="A"
-                                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                                Dark={StaticResource DarkForegroundMain}}"
-                                                    VerticalOptions="CenterAndExpand" />
-                                            </Frame>
-
-                                            <Label
-                                                Grid.Row="0"
-                                                Grid.Column="1"
-                                                Margin="0,10,0,0"
-                                                Padding="5,0"
-                                                FontAttributes="Bold"
-                                                FontSize="Medium"
-                                                LineBreakMode="NoWrap"
-                                                Style="{DynamicResource ListItemTextStyle}"
-                                                Text="{Binding Name}"
-                                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                            Dark={StaticResource DarkForegroundMain}}"
-                                                VerticalOptions="FillAndExpand" />
-                                            <Label
-                                                Grid.Row="1"
-                                                Grid.Column="1"
-                                                Margin="0,0,0,10"
-                                                Padding="5,0"
-                                                FontSize="Small"
-                                                LineBreakMode="NoWrap"
-                                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                                Text="{Binding Login}"
-                                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                            Dark={StaticResource DarkForegroundSecondary}}"
-                                                VerticalOptions="FillAndExpand" />
-                                        </Grid>
+                                        HasShadow="True"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Fill"
+                                        WidthRequest="45">
+                                        <Label
+                                            FontSize="20"
+                                            HorizontalOptions="Center"
+                                            Text="A"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                        Dark={StaticResource DarkForegroundMain}}"
+                                            VerticalOptions="CenterAndExpand" />
                                     </Frame>
-                                </StackLayout>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="0,10,0,0"
+                                        Padding="5,0"
+                                        FontAttributes="Bold"
+                                        FontSize="Medium"
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemTextStyle}"
+                                        Text="{Binding Name}"
+                                        TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                    Dark={StaticResource DarkForegroundMain}}"
+                                        VerticalOptions="FillAndExpand" />
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="0,0,0,10"
+                                        Padding="5,0"
+                                        FontSize="Small"
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        Text="{Binding Login}"
+                                        TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                    Dark={StaticResource DarkForegroundSecondary}}"
+                                        VerticalOptions="FillAndExpand" />
+                                </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                         <CollectionView.EmptyView>
                             <ContentView>
-
                                 <Grid HorizontalOptions="Center" VerticalOptions="Center">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="100" />
@@ -195,7 +182,6 @@
                                         HorizontalOptions="Fill"
                                         HorizontalTextAlignment="Center"
                                         Text="Nothing to show here! Sooryyyyy!" />
-
                                 </Grid>
                             </ContentView>
                         </CollectionView.EmptyView>

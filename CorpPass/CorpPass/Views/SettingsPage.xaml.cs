@@ -14,10 +14,5 @@ namespace CorpPass.Views
             InitializeComponent();
             BindingContext = _viewModel = new SettingsPageViewModel();
         }
-
-        private async void GoBack(object sender, SwipedEventArgs e)
-        {
-            await Shell.Current.Navigation.PopModalAsync();
-        }
     }
 }

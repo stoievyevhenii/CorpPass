@@ -44,6 +44,7 @@
                             IsPassword="True"
                             IsReadOnly="True"
                             MaxLength="4"
+                            PlaceholderColor="{StaticResource Secondary}"
                             Text=""
                             TextChanged="PassField_TextChanged"
                             TextColor="White" />
@@ -229,6 +230,7 @@
                                 BackgroundColor="Transparent"
                                 Clicked="UseFingerprintAuth"
                                 CornerRadius="15"
+                                IsVisible="{Binding FingerprinstIsAvailable}"
                                 Source="icon_fingerprint" />
 
                             <Button

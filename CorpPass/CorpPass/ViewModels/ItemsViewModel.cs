@@ -18,14 +18,15 @@ namespace CorpPass.ViewModels
             get { return isFavoriteBusy; }
             set { SetProperty(ref isFavoriteBusy, value); }
         }
-        public ObservableCollection<ItemsGroup> GroupedItems { get; private set; }
-        public ObservableCollection<Item> GroupedFavoriteItems { get; private set; }
+        public ObservableCollection<ItemsGroup<Item>> GroupedItems { get; private set; }
+        public ObservableCollection<ItemsGroup<Item>> GroupedFavoriteItems { get; private set; }
         public List<Item> Items { get; set; }
         public List<CollectionListItem> BottomSheetItems { get; set; }
         public Command LoadItemsCommand { get; }
         public Command LoadFavoriteItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
+        public Command<string> DeleteItem { get; }
         public Command<Item> AdditionalTappedCommand { get; }
         public Command SearchPageRedirect { get; }
         public Command MenuPageRedirect { get; }
@@ -42,12 +43,14 @@ namespace CorpPass.ViewModels
 
         public ItemsViewModel()
         {
-            GroupedItems = new ObservableCollection<ItemsGroup>();
-            GroupedFavoriteItems = new ObservableCollection<Item>();
+            GroupedItems = new ObservableCollection<ItemsGroup<Item>>();
+            GroupedFavoriteItems = new ObservableCollection<ItemsGroup<Item>>();
             BottomSheetItems = new List<CollectionListItem>();
+            
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             LoadFavoriteItemsCommand = new Command(async () => await ExecuteLoadFavoriteItemsCommand());
             ItemTapped = new Command<Item>(OnItemSelected);
+            DeleteItem = new Command<string>(OnDeleteItem);
             AddItemCommand = new Command(OnAddItem);
             MenuPageRedirect = new Command(OnOpenMenuPage);
             SearchPageRedirect = new Command(OnOpenSearchPage);
@@ -60,8 +63,7 @@ namespace CorpPass.ViewModels
             IsFavoriteBusy = true;
             SelectedItem = null;
         }
-
-        void InitItemContextMenuItems()
+        private void InitItemContextMenuItems()
         {   
             BottomSheetItems.Add(new CollectionListItem()
             {
@@ -73,7 +75,7 @@ namespace CorpPass.ViewModels
             {
                 Icon = "icon_delete",
                 Name = "Delete",
-                ItemCommand = new Command(OnEditItem)
+                ItemCommand = DeleteItem
             });
             BottomSheetItems.Add(new CollectionListItem()
             {
@@ -92,14 +94,23 @@ namespace CorpPass.ViewModels
                 var items = (await DataStore.GetItemsAsync(true)).ToList().OrderBy(i => i.Group).ToList();
 
                 GroupedFavoriteItems.Clear();
+                var tempList = new ObservableCollection<Item>();
 
                 foreach (var item in items)
                 {
                     if (item.IsFavorite)
                     {
-                        GroupedFavoriteItems.Add(item);
+                        tempList.Add(item);
                     }
                 }
+
+                var groupedFavoriteList = tempList.GroupBy(i => i.Group).ToList();
+
+                foreach (var item in groupedFavoriteList)
+                {
+                    GroupedFavoriteItems.Add(new ItemsGroup<Item>(item.Key, item.ToList()));
+                }
+
             }
             catch (Exception ex)
             {
@@ -123,7 +134,7 @@ namespace CorpPass.ViewModels
                 var grouped = items.GroupBy(i => i.Group).ToList();
                 foreach (var item in grouped)
                 {
-                    GroupedItems.Add(new ItemsGroup(item.Key, item.ToList()));
+                    GroupedItems.Add(new ItemsGroup<Item>(item.Key, item.ToList()));
                 }
             }
             catch (Exception ex)
@@ -146,6 +157,11 @@ namespace CorpPass.ViewModels
         private async void OnEditItem()
         {
             await Shell.Current.GoToAsync(nameof(NewItemPage));
+        }
+        public async void OnDeleteItem(string itemId)
+        {
+            await DataStore.DeleteItemAsync(itemId);
+            OnAppearing();
         }
         private async void OnAddItem(object obj)
         {

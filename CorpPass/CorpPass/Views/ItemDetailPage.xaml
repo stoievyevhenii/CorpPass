@@ -19,15 +19,16 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <Frame
-                    Grid.Row="1"
+                    Grid.RowSpan="2"
                     Grid.Column="0"
                     BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                       Dark={StaticResource DarkPanelBackground}}"
@@ -40,18 +41,15 @@
                         WidthRequest="25" />
                 </Frame>
 
-                <StackLayout
-                    Grid.Row="1"
+                <Label
+                    Grid.RowSpan="2"
                     Grid.Column="1"
                     Margin="15,0,0,0"
-                    VerticalOptions="Center">
-                    <Label
-                        FontAttributes="Bold"
-                        FontSize="Title"
-                        Text="Details"
-                        TextColor="{StaticResource DarkForegroundMain}" />
-                </StackLayout>
-
+                    FontAttributes="Bold"
+                    FontSize="Title"
+                    Text="Details"
+                    TextColor="{StaticResource DarkForegroundMain}"
+                    VerticalOptions="Center" />
             </Grid>
         </StackLayout>
         <!--  Main content  -->

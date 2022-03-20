@@ -1,7 +1,6 @@
-﻿using CorpPass.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CorpPass.Services;
+using CorpPass.Views;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels
@@ -10,14 +9,21 @@ namespace CorpPass.ViewModels
     {
         public Command LoginCommand { get; }
 
+        bool fingerprinstIsAvailable = false;
+        public bool FingerprinstIsAvailable
+        {
+            get { return fingerprinstIsAvailable; }
+            set { SetProperty(ref fingerprinstIsAvailable, value); }
+        }
+
         public LoginViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
+            FingerprinstIsAvailable = Task.Run(async () => await FingerrintChecker.CheckFingerprintAvailibility()).Result;
         }
 
         private async void OnLoginClicked(object obj)
         {
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
             await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
         }
     }

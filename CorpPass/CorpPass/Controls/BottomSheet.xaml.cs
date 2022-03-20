@@ -62,7 +62,7 @@ namespace CorpPass.Controls
         #endregion
 
         uint duration = 250;
-        double openPosition = (DeviceInfo.Platform == DevicePlatform.Android) ? 20 : 60;
+        double openPosition = (DeviceInfo.Platform == DevicePlatform.Android) ? 0 : 60;
         double currentPosition = 0;
 
         public async void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)

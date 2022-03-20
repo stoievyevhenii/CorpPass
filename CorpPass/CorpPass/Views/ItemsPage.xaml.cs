@@ -4,17 +4,21 @@ using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.UI.Views.Options;
+using System.Threading.Tasks;
 
 namespace CorpPass.Views
 {
     public partial class ItemsPage : ContentPage
     {
         ItemsViewModel _viewModel;
+        ImageButton _imageButton;
+        string _itemId;
 
         public ItemsPage()
         {
             InitializeComponent();
-            BindingContext = _viewModel = new ItemsViewModel();                     
+            BindingContext = _viewModel = new ItemsViewModel();
+            _imageButton = FloatAddButton;
         }
 
         protected override void OnAppearing()
@@ -22,14 +26,20 @@ namespace CorpPass.Views
             base.OnAppearing();
             _viewModel.OnAppearing();
         }
-
+        private void ItemsListView_Scrolled(object sender, ItemsViewScrolledEventArgs e)
+        {
+            if (e.VerticalDelta > 1)
+            {
+                Task.WhenAll(_imageButton.ScaleTo(0, 200));
+            }
+            else if (e.VerticalDelta < 0 && Math.Abs(e.VerticalDelta) > 10)
+            {
+                Task.WhenAll(_imageButton.ScaleTo(1, 200));
+            }
+        }
         private void GoToFirstElement(object sender, EventArgs e)
         {
             ItemsListView.ScrollTo(0, 0, animate: false);
-        }
-        private void EditPage(object sender, EventArgs args)
-        {
-
         }
         private async void AddItemToFavorite(object sender, EventArgs e)
         {
@@ -44,36 +54,33 @@ namespace CorpPass.Views
 
             await this.DisplaySnackBarAsync(options);
         }
-        private async void DeleteItem(object sender, EventArgs e)
-        {
-            var actions = new SnackBarActionOptions
-            {
-                Action = () => DisplayAlert("Alert", "Clicked!", "OK"),
-                Text = "Delete"
-            };
-
-            var options = new SnackBarOptions
-            {
-                MessageOptions = new MessageOptions
-                {
-                    Padding = 15,
-                    Message = "Items was added to favorite list",
-                },
-                Actions = new[] { actions },
-            };
-
-            await this.DisplaySnackBarAsync(options);
-        }
         protected override bool OnBackButtonPressed()
         {
             return true;
         }
-
-        private async void Button_Clicked(object sender, EventArgs e)
+        private async void OpenBottomSheet(object sender, EventArgs e)
         {
             try
             {
+                var imageButton = sender as ImageButton;
+                var itemId = imageButton.CommandParameter as string;
+
+                _itemId = itemId;
+
+                SelectedItemID.Text = _itemId;
+                
                 await Sheet.OpenSheet();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+        }
+        private async void CloseBottomSheet(object sender, EventArgs e)
+        {
+            try
+            {
+                await Sheet.CloseSheet();
             }
             catch (Exception ex)
             {

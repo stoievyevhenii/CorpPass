@@ -73,11 +73,13 @@
             </Grid>
         </Frame>
         <xct:TabView
-            IsSwipeEnabled="False"
-            TabIndicatorColor="{AppThemeBinding Light={StaticResource Primary},
-                                                Dark={StaticResource PrimaryDark}}"
+            IsSwipeEnabled="True"
+            TabIndicatorHeight="5"
             TabIndicatorPlacement="Bottom"
             TabIndicatorWidth="128">
+            <xct:TabView.TabIndicatorView>
+                <BoxView xct:CornerRadiusEffect.CornerRadius="15,15,15,15" BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+            </xct:TabView.TabIndicatorView>
 
             <xct:TabView.TabStripBackgroundView>
                 <BoxView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" CornerRadius="15,15,0,0" />
@@ -111,17 +113,22 @@
                                     SelectionMode="None">
                                     <CollectionView.GroupHeaderTemplate>
                                         <DataTemplate>
-                                            <Label
-                                                Margin="15,0"
-                                                Padding="15,5"
-                                                xct:CornerRadiusEffect.CornerRadius="15,15,0,0"
-                                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                                  Dark={StaticResource DarkPanelBackground}}"
-                                                FontAttributes="Bold"
-                                                FontSize="Large"
-                                                Text="{Binding Name}"
-                                                TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
-                                                                            Dark={StaticResource LightTitle}}" />
+                                            <StackLayout>
+                                                <Label
+                                                    Margin="00"
+                                                    Padding="15,5"
+                                                    FontAttributes="Bold"
+                                                    FontSize="Large"
+                                                    Text="{Binding Name}"
+                                                    TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
+                                                                                Dark={StaticResource LightTitle}}" />
+                                                <BoxView
+                                                    Margin="0,0,0,-20"
+                                                    xct:CornerRadiusEffect.CornerRadius="15,15,0,0"
+                                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                                      Dark={StaticResource DarkPanelBackground}}" />
+
+                                            </StackLayout>
                                         </DataTemplate>
                                     </CollectionView.GroupHeaderTemplate>
                                     <CollectionView.ItemTemplate>
@@ -201,7 +208,8 @@
                                                                                                         Dark=White}"
                                                     xct:TouchEffect.NativeAnimation="True"
                                                     BackgroundColor="Transparent"
-                                                    Clicked="Button_Clicked"
+                                                    Clicked="OpenBottomSheet"
+                                                    CommandParameter="{Binding Id}"
                                                     CornerRadius="15"
                                                     Source="icon_more_vertical" />
                                             </Grid>
@@ -211,7 +219,11 @@
                                     <CollectionView.GroupFooterTemplate>
                                         <DataTemplate>
                                             <StackLayout>
-                                                <BoxView xct:CornerRadiusEffect.CornerRadius="0,0,15,15" BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground}, Dark={StaticResource DarkPanelBackground}}" />
+                                                <BoxView
+                                                    Margin="0,-20,0,0"
+                                                    xct:CornerRadiusEffect.CornerRadius="0,0,15,15"
+                                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                                      Dark={StaticResource DarkPanelBackground}}" />
                                                 <BoxView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" HeightRequest="5" />
                                             </StackLayout>
                                         </DataTemplate>
@@ -253,13 +265,7 @@
                     <controls:BottomSheet x:Name="Sheet" SheetHeight="250">
                         <controls:BottomSheet.SheetContent>
                             <StackLayout>
-                                <BoxView
-                                    BackgroundColor="Gray"
-                                    CornerRadius="2.5"
-                                    HeightRequest="5"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Start"
-                                    WidthRequest="40" />
+                                <Entry x:Name="SelectedItemID" IsVisible="False" />
                                 <CollectionView ItemsSource="{Binding BottomSheetItems}">
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate>
@@ -267,7 +273,13 @@
                                                 x:Name="SheetItem"
                                                 Padding="15"
                                                 xct:TouchEffect.Command="{Binding ItemCommand}"
+                                                xct:TouchEffect.CommandParameter="{Binding Text, Source={x:Reference SelectedItemID}}"
                                                 xct:TouchEffect.NativeAnimation="True">
+
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="CloseBottomSheet" />
+                                                </Grid.GestureRecognizers>
+
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
                                                 </Grid.RowDefinitions>
@@ -306,26 +318,51 @@
                                             Dark={StaticResource DarkForegroundSecondary}}"
                 TextColorSelected="{AppThemeBinding Light={StaticResource Primary},
                                                     Dark={StaticResource PrimaryDark}}">
-                <StackLayout Margin="0,45,0,0" BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
-                    <!--  Items list  -->
-                    <Frame
-                        Margin="15,10"
-                        Padding="0"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                          Dark={StaticResource DarkPanelBackground}}"
-                        CornerRadius="15"
-                        HasShadow="False">
-                        <RefreshView
-                            Command="{Binding LoadFavoriteItemsCommand}"
-                            IsRefreshing="{Binding IsFavoriteBusy}"
-                            RefreshColor="{StaticResource Primary}">
-                            <CollectionView
-                                x:Name="FavoriteItemsListView"
-                                ItemsSource="{Binding GroupedFavoriteItems}"
-                                SelectionMode="None">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
+                <StackLayout
+                    Margin="0,40,0,0"
+                    AbsoluteLayout.LayoutBounds="0,0,1,1"
+                    AbsoluteLayout.LayoutFlags="All"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
+                                                      Dark={StaticResource DarkBackground}}">
+                    <RefreshView
+                        Command="{Binding LoadFavoriteItemsCommand}"
+                        IsRefreshing="{Binding IsFavoriteBusy}"
+                        RefreshColor="{StaticResource Primary}">
+                        <CollectionView
+                            x:Name="FavoriteItemsListView"
+                            Margin="15,15"
+                            IsGrouped="True"
+                            ItemsSource="{Binding GroupedFavoriteItems}"
+                            SelectionMode="None">
+                            <CollectionView.GroupHeaderTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Label
+                                            Margin="00"
+                                            Padding="15,5"
+                                            FontAttributes="Bold"
+                                            FontSize="Large"
+                                            Text="{Binding Name}"
+                                            TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
+                                                                        Dark={StaticResource LightTitle}}" />
+                                        <BoxView
+                                            Margin="0,0,0,-20"
+                                            xct:CornerRadiusEffect.CornerRadius="15,15,0,0"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                              Dark={StaticResource DarkPanelBackground}}" />
+
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.GroupHeaderTemplate>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground}, Dark={StaticResource DarkPanelBackground}}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
                                         <Grid
+                                            Grid.Column="0"
                                             Padding="15,10"
                                             xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"
                                             xct:TouchEffect.CommandParameter="{Binding .}"
@@ -387,30 +424,42 @@
                                                                             Dark={StaticResource DarkForegroundSecondary}}"
                                                 VerticalOptions="FillAndExpand" />
                                         </Grid>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                                <CollectionView.EmptyView>
-                                    <ContentView>
-                                        <Grid HorizontalOptions="Center" VerticalOptions="Center">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="100" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
+                                    </Grid>
 
-                                            <Image Grid.Row="0" Source="icon_empty" />
-                                            <Label
-                                                Grid.Row="1"
-                                                FontSize="12"
-                                                HorizontalOptions="Fill"
-                                                HorizontalTextAlignment="Center"
-                                                Text="Nothing to show here! Sooryyyyy!" />
-                                        </Grid>
-                                    </ContentView>
-                                </CollectionView.EmptyView>
-                            </CollectionView>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                            <CollectionView.GroupFooterTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <BoxView
+                                            Margin="0,-20,0,0"
+                                            xct:CornerRadiusEffect.CornerRadius="0,0,15,15"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                              Dark={StaticResource DarkPanelBackground}}" />
+                                        <BoxView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" HeightRequest="5" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.GroupFooterTemplate>
+                            <CollectionView.EmptyView>
+                                <ContentView>
+                                    <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="100" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
-                        </RefreshView>
-                    </Frame>
+                                        <Image Grid.Row="0" Source="icon_empty" />
+                                        <Label
+                                            Grid.Row="1"
+                                            FontSize="12"
+                                            HorizontalOptions="Fill"
+                                            HorizontalTextAlignment="Center"
+                                            Text="Nothing to show here! Sooryyyyy!" />
+                                    </Grid>
+                                </ContentView>
+                            </CollectionView.EmptyView>
+                        </CollectionView>
+                    </RefreshView>
                 </StackLayout>
             </xct:TabViewItem>
         </xct:TabView>

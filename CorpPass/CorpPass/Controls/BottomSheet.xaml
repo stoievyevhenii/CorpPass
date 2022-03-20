@@ -25,11 +25,10 @@
                 x:Name="PanContainerRef"
                 HeightRequest="{Binding SheetHeight, Source={x:Reference BottomSheetRef}}"
                 VerticalOptions="End">
-                <controls:PanContainer.GestureRecognizers>
-                    <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
-                </controls:PanContainer.GestureRecognizers>
+
                 <Frame
                     x:Name="Sheet"
+                    Margin="15"
                     BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                       Dark={StaticResource DarkPanelBackground}}"
                     Content="{Binding SheetContent, Source={x:Reference BottomSheetRef}}"

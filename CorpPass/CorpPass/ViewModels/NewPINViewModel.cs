@@ -1,5 +1,4 @@
 ﻿using CorpPass.Services;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels
@@ -22,7 +21,8 @@ namespace CorpPass.ViewModels
 
         private void SaveNewPIN()
         {
-            Preferences.Set(PreferencesKeys.PIN, PIN);
+            var preferencesSecurity = new PreferencesSecurity();
+            preferencesSecurity.SetSecureData(PreferencesKeys.PIN, PIN);
         }
 
         #region UTILITIES

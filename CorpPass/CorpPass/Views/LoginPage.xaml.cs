@@ -12,13 +12,15 @@ namespace CorpPass.Views
     public partial class LoginPage : ContentPage
     {
         private string _pin;
+        private PreferencesSecurity _prefernecesSecurity;
 
         public LoginPage()
         {
             InitializeComponent();
             BindingContext = new LoginViewModel();
+            _prefernecesSecurity = new PreferencesSecurity();
 
-            _pin = Preferences.Get(PreferencesKeys.PIN, "");
+            _pin = _prefernecesSecurity.GetSecureData(PreferencesKeys.PIN).Result;
             CheckFirstStart();
         }
 
@@ -67,8 +69,8 @@ namespace CorpPass.Views
         private async void SetNewPin(object sender, EventArgs e)
         {
             try
-            {
-                Preferences.Set(PreferencesKeys.PIN, NewPin.Text);
+            {   
+                _prefernecesSecurity.SetSecureData(PreferencesKeys.PIN, NewPin.Text);                
                 PinTabView.SelectedIndex = 0;
             }
             catch
@@ -93,7 +95,8 @@ namespace CorpPass.Views
 
             if (passcodeText.Length == 4)
             {
-                _pin = Preferences.Get(PreferencesKeys.PIN, "");
+                //_pin = Preferences.Get(PreferencesKeys.PIN, "");
+                _pin = _prefernecesSecurity.GetSecureData(PreferencesKeys.PIN).Result;
                 if (passcodeText == _pin)
                 {
                     await Task.Delay(100);
