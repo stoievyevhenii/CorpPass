@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:CorpPass.Controls"
     xmlns:local="clr-namespace:CorpPass.ViewModels"
     xmlns:model="clr-namespace:CorpPass.Models"
+    xmlns:view="clr-namespace:CorpPass.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="BrowseItemsPage"
     BackgroundColor="{StaticResource Secondary}"
@@ -36,10 +37,10 @@
                     xct:CornerRadiusEffect.CornerRadius="15"
                     xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="Transparent"
-                    Command="{Binding MenuPageRedirect}"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=SearchPageRedirect}"
                     HeightRequest="40"
                     HorizontalOptions="Center"
-                    Source="icon_menu.xml"
+                    Source="icon_search.xml"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="40" />
 
@@ -62,12 +63,13 @@
                     Margin="5,0"
                     Padding="5"
                     xct:CornerRadiusEffect.CornerRadius="15"
+                    xct:IconTintColorEffect.TintColor="White"
                     xct:TouchEffect.NativeAnimation="True"
                     BackgroundColor="Transparent"
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=SearchPageRedirect}"
+                    Command="{Binding MenuPageRedirect}"
                     HeightRequest="40"
                     HorizontalOptions="Center"
-                    Source="icon_search.xml"
+                    Source="icon_menu.xml"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="40" />
             </Grid>
@@ -137,6 +139,7 @@
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
                                                 <Grid
                                                     Grid.Column="0"
@@ -166,12 +169,9 @@
                                                         HorizontalOptions="Center"
                                                         VerticalOptions="Fill"
                                                         WidthRequest="45">
-                                                        <Label
-                                                            FontSize="20"
+                                                        <Image
                                                             HorizontalOptions="Center"
-                                                            Text="A"
-                                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                                        Dark={StaticResource DarkForegroundMain}}"
+                                                            Source="{Binding Icon}"
                                                             VerticalOptions="CenterAndExpand" />
                                                     </Frame>
 
@@ -204,6 +204,17 @@
                                                 <ImageButton
                                                     Grid.Column="1"
                                                     Padding="15,5"
+                                                    xct:IconTintColorEffect.TintColor="{StaticResource AdditionalBackgroundIcon}"
+                                                    xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=OnChangeFavoriteStatus}"
+                                                    xct:TouchEffect.CommandParameter="{Binding Id}"
+                                                    xct:TouchEffect.NativeAnimation="True"
+                                                    BackgroundColor="Transparent"
+                                                    CornerRadius="15"
+                                                    IsVisible="{Binding IsFavorite}"
+                                                    Source="icon_favorite" />
+                                                <ImageButton
+                                                    Grid.Column="2"
+                                                    Padding="15,5"
                                                     xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
                                                                                                         Dark=White}"
                                                     xct:TouchEffect.NativeAnimation="True"
@@ -213,7 +224,6 @@
                                                     CornerRadius="15"
                                                     Source="icon_more_vertical" />
                                             </Grid>
-
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
                                     <CollectionView.GroupFooterTemplate>
@@ -229,22 +239,7 @@
                                         </DataTemplate>
                                     </CollectionView.GroupFooterTemplate>
                                     <CollectionView.EmptyView>
-                                        <ContentView>
-                                            <Grid HorizontalOptions="Center" VerticalOptions="Center">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="100" />
-                                                    <RowDefinition Height="Auto" />
-                                                </Grid.RowDefinitions>
-
-                                                <Image Grid.Row="0" Source="icon_empty" />
-                                                <Label
-                                                    Grid.Row="1"
-                                                    FontSize="12"
-                                                    HorizontalOptions="Fill"
-                                                    HorizontalTextAlignment="Center"
-                                                    Text="Nothing to show here! Sooryyyyy!" />
-                                            </Grid>
-                                        </ContentView>
+                                        <view:EmprtyView />
                                     </CollectionView.EmptyView>
                                 </CollectionView>
                             </RefreshView>
@@ -389,12 +384,9 @@
                                                 HorizontalOptions="Center"
                                                 VerticalOptions="Fill"
                                                 WidthRequest="45">
-                                                <Label
-                                                    FontSize="20"
+                                                <Image
                                                     HorizontalOptions="Center"
-                                                    Text="A"
-                                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                                Dark={StaticResource DarkForegroundMain}}"
+                                                    Source="{Binding Icon}"
                                                     VerticalOptions="CenterAndExpand" />
                                             </Frame>
 
@@ -424,8 +416,18 @@
                                                                             Dark={StaticResource DarkForegroundSecondary}}"
                                                 VerticalOptions="FillAndExpand" />
                                         </Grid>
+                                        <ImageButton
+                                            Grid.Column="1"
+                                            Padding="15,5"
+                                            xct:IconTintColorEffect.TintColor="{StaticResource AdditionalBackgroundIcon}"
+                                            xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=OnChangeFavoriteStatus}"
+                                            xct:TouchEffect.CommandParameter="{Binding Id}"
+                                            xct:TouchEffect.NativeAnimation="True"
+                                            BackgroundColor="Transparent"
+                                            CornerRadius="15"
+                                            IsVisible="{Binding IsFavorite}"
+                                            Source="icon_favorite" />
                                     </Grid>
-
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                             <CollectionView.GroupFooterTemplate>
@@ -441,22 +443,7 @@
                                 </DataTemplate>
                             </CollectionView.GroupFooterTemplate>
                             <CollectionView.EmptyView>
-                                <ContentView>
-                                    <Grid HorizontalOptions="Center" VerticalOptions="Center">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="100" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-
-                                        <Image Grid.Row="0" Source="icon_empty" />
-                                        <Label
-                                            Grid.Row="1"
-                                            FontSize="12"
-                                            HorizontalOptions="Fill"
-                                            HorizontalTextAlignment="Center"
-                                            Text="Nothing to show here! Sooryyyyy!" />
-                                    </Grid>
-                                </ContentView>
+                                <view:EmprtyView />
                             </CollectionView.EmptyView>
                         </CollectionView>
                     </RefreshView>

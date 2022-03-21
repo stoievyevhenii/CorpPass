@@ -24,11 +24,11 @@ namespace CorpPass.ViewModels
 
         public async Task StartSearch(string query)
         {
+            IsBusy = true;
+            
             Items.Clear();
             try
             {
-                IsBusy = true;
-
                 var items = await DataStore.GetItemsAsync();
                 var filteredList = items.Where(i => i.Name.Contains(query)).ToList();
 

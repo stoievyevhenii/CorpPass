@@ -9,10 +9,14 @@ namespace CorpPass.Services
     public class MockDataStore : IDataStore<Item>
     {
         readonly List<Item> items;
+        readonly IconsSet iconsSet;
         public MockDataStore()
         {
             items = new List<Item>();
             string[] alphabet = new[] { "A", "B", "C", "D", "E", "F" };
+            
+            iconsSet = new IconsSet();
+            var iconsList = iconsSet.GetIconsSet();
 
             var rnd = new Random();
 
@@ -24,12 +28,14 @@ namespace CorpPass.Services
                 {
                     Id = Guid.NewGuid().ToString(),
                     IsFavorite = rnd.Next(2) == 1,
+                    Icon = iconsList[rnd.Next(0, iconsList.Count)],
                     Name = $"Name - {i}",
                     Login = $"Item - {i}",
+                    Password = $"Password - {i}",
                     Description = $"Description for item - {i}",
                     Group = $"{alphabet[groupIndex]}",
                     Folder = $"Folder - {i}"
-                });
+                }) ;
             }
         }
 

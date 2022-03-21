@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="CorpPass.Views.EmprtyView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ContentView.Content>
+        <Grid HorizontalOptions="Center" VerticalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Image
+                Grid.Row="0"
+                xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                    Dark=White}"
+                Source="icon_empty" />
+
+            <StackLayout Grid.Row="1">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="Title"
+                    HorizontalOptions="Fill"
+                    HorizontalTextAlignment="Center"
+                    Text="Ooops!"
+                    TextColor="{AppThemeBinding Dark={StaticResource DarkForegroundSecondary},
+                                                Light={StaticResource DarkForegroundSecondary}}" />
+                <Label
+                    FontSize="Subtitle"
+                    HorizontalOptions="Fill"
+                    HorizontalTextAlignment="Center"
+                    Text="Nothing to show here!"
+                    TextColor="{AppThemeBinding Dark={StaticResource DarkForegroundSecondary},
+                                                Light={StaticResource DarkForegroundSecondary}}" />
+            </StackLayout>
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>

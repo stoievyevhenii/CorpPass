@@ -84,12 +84,12 @@
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState Name="Normal">
                                 <VisualState.Setters>
-                                    <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource LightForegroundSecondary}, Dark={StaticResource DarkForegroundSecondary}}" />
+                                    <Setter Property="TitleColor" Value="{AppThemeBinding Light={StaticResource LightForegroundSecondary}, Dark={StaticResource DarkForegroundSecondary}}" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState Name="Focused">
                                 <VisualState.Setters>
-                                    <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+                                    <Setter Property="TitleColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>

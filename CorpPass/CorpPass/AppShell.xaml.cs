@@ -14,6 +14,7 @@ namespace CorpPass
             Routing.RegisterRoute(nameof(AboutPage), typeof(AboutPage));
             Routing.RegisterRoute(nameof(ItemsPage), typeof(ItemsPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(ItemUpdatePage), typeof(ItemUpdatePage));
             Routing.RegisterRoute(nameof(SearchPage), typeof(SearchPage));
             Routing.RegisterRoute(nameof(MenuPage), typeof(MenuPage));
             Routing.RegisterRoute(nameof(DBConnectionPage), typeof(DBConnectionPage));

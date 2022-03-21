@@ -6,7 +6,6 @@
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{StaticResource Secondary}"
     Shell.NavBarIsVisible="False"
-    Shell.PresentationMode="ModalAnimated"
     Visual="Material">
     <ContentPage.Content>
         <StackLayout>
@@ -83,16 +82,51 @@
                 <StackLayout>
                     <ScrollView xct:CornerRadiusEffect.CornerRadius="15">
                         <StackLayout Spacing="15">
-                            <Entry
-                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                  Dark={StaticResource DarkPanelBackground}}"
-                                FontSize="Small"
-                                Placeholder="Name"
-                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                   Dark={StaticResource DarkForegroundSecondary}}"
-                                Text="{Binding Name, Mode=TwoWay}"
-                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                            Dark={StaticResource DarkForegroundMain}}" />
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Frame
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Padding="0"
+                                    CornerRadius="50">
+                                    <ImageButton
+                                        x:Name="ItemIcon"
+                                        Padding="15"
+                                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                            Dark=White}"
+                                        xct:TouchEffect.NativeAnimation="True"
+                                        BackgroundColor="Transparent"
+                                        Clicked="IconPicker_Clicked"
+                                        Source="icon_add" />
+                                </Frame>
+                                <Entry
+                                    x:Name="SelectedIcon"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    IsVisible="False"
+                                    Text="{Binding Icon, Mode=TwoWay}" />
+
+                                <Entry
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                      Dark={StaticResource DarkPanelBackground}}"
+                                    FontSize="Small"
+                                    Placeholder="Name"
+                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                       Dark={StaticResource DarkForegroundSecondary}}"
+                                    Text="{Binding Name, Mode=TwoWay}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}" />
+                            </Grid>
+
 
                             <Entry
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
@@ -171,13 +205,12 @@
                         </StackLayout>
                     </ScrollView>
 
-                    <StackLayout Margin="0,15" Orientation="Horizontal">
-                        <Button
-                            Padding="10"
-                            Command="{Binding SaveCommand}"
-                            HorizontalOptions="FillAndExpand"
-                            Text="Save" />
-                    </StackLayout>
+                    <Button
+                        Margin="0,15"
+                        Padding="10"
+                        Command="{Binding SaveCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Save" />
                 </StackLayout>
             </Frame>
         </StackLayout>

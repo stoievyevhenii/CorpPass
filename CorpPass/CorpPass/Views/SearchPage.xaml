@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:CorpPass.ViewModels"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="clr-namespace:CorpPass.Models"
+    xmlns:view="clr-namespace:CorpPass.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Title="Search"
     BackgroundColor="{StaticResource Secondary}"
@@ -130,12 +131,9 @@
                                         HorizontalOptions="Center"
                                         VerticalOptions="Fill"
                                         WidthRequest="45">
-                                        <Label
-                                            FontSize="20"
+                                        <Image
                                             HorizontalOptions="Center"
-                                            Text="A"
-                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                        Dark={StaticResource DarkForegroundMain}}"
+                                            Source="{Binding Icon}"
                                             VerticalOptions="CenterAndExpand" />
                                     </Frame>
 
@@ -168,22 +166,7 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                         <CollectionView.EmptyView>
-                            <ContentView>
-                                <Grid HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="100" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-
-                                    <Image Grid.Row="0" Source="icon_empty" />
-                                    <Label
-                                        Grid.Row="1"
-                                        FontSize="12"
-                                        HorizontalOptions="Fill"
-                                        HorizontalTextAlignment="Center"
-                                        Text="Nothing to show here! Sooryyyyy!" />
-                                </Grid>
-                            </ContentView>
+                            <view:EmprtyView />
                         </CollectionView.EmptyView>
                     </CollectionView>
                 </RefreshView>

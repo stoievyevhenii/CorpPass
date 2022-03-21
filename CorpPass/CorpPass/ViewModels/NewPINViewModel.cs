@@ -19,10 +19,17 @@ namespace CorpPass.ViewModels
             PropertyChanged += (_, __) => SavePIN.ChangeCanExecute();
         }
 
-        private void SaveNewPIN()
+        private async void SaveNewPIN()
         {
-            var preferencesSecurity = new PreferencesSecurity();
-            preferencesSecurity.SetSecureData(PreferencesKeys.PIN, PIN);
+            try
+            {
+                var preferencesSecurity = new PreferencesSecurity();
+                preferencesSecurity.SetSecureData(PreferencesKeys.PIN, PIN);
+
+                await Shell.Current.GoToAsync("..");
+            }
+            catch{ }
+
         }
 
         #region UTILITIES

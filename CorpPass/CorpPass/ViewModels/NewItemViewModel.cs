@@ -7,6 +7,7 @@ namespace CorpPass.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
+        private string icon;
         private string login;
         private string password;
         private string group;
@@ -17,6 +18,11 @@ namespace CorpPass.ViewModels
         private List<string> groupList;
         private List<string> folderList;
 
+        public string Icon
+        {
+            get => icon;
+            set => SetProperty(ref icon, value);
+        }
         public string Login
         {
             get => login;
@@ -59,7 +65,6 @@ namespace CorpPass.ViewModels
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
 
-
         public NewItemViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
@@ -100,6 +105,7 @@ namespace CorpPass.ViewModels
             Item newItem = new Item()
             {
                 Id = Guid.NewGuid().ToString(),
+                Icon = Icon,
                 Login = Login,
                 Password = Password,
                 Description = Description,

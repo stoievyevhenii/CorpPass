@@ -12,25 +12,16 @@ namespace CorpPass.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        bool isFavoriteBusy = false;
+        #region VARS
+
+        private bool isFavoriteBusy = false;
+        private Item _selectedItem;
+
         public bool IsFavoriteBusy
         {
             get { return isFavoriteBusy; }
             set { SetProperty(ref isFavoriteBusy, value); }
         }
-        public ObservableCollection<ItemsGroup<Item>> GroupedItems { get; private set; }
-        public ObservableCollection<ItemsGroup<Item>> GroupedFavoriteItems { get; private set; }
-        public List<Item> Items { get; set; }
-        public List<CollectionListItem> BottomSheetItems { get; set; }
-        public Command LoadItemsCommand { get; }
-        public Command LoadFavoriteItemsCommand { get; }
-        public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
-        public Command<string> DeleteItem { get; }
-        public Command<Item> AdditionalTappedCommand { get; }
-        public Command SearchPageRedirect { get; }
-        public Command MenuPageRedirect { get; }
-        private Item _selectedItem;
         public Item SelectedItem
         {
             get => _selectedItem;
@@ -40,21 +31,40 @@ namespace CorpPass.ViewModels
                 OnItemSelected(value);
             }
         }
+        public ObservableCollection<ItemsGroup<Item>> GroupedItems { get; private set; }
+        public ObservableCollection<ItemsGroup<Item>> GroupedFavoriteItems { get; private set; }
+        public Command LoadItemsCommand { get; }
+        public Command LoadFavoriteItemsCommand { get; }
+        public Command AddItemCommand { get; }
+        public Command SearchPageRedirect { get; }
+        public Command MenuPageRedirect { get; }
+        public Command<string> DeleteItem { get; }
+        public Command<string> OnChangeFavoriteStatus { get; }
+        public Command<string> UpdateItem { get; }
+        public Command<Item> ItemTapped { get; }
+        public Command<Item> AdditionalTappedCommand { get; }
+        public List<Item> Items { get; set; }
+        public List<CollectionListItem> BottomSheetItems { get; set; }
+
+        #endregion
 
         public ItemsViewModel()
         {
             GroupedItems = new ObservableCollection<ItemsGroup<Item>>();
             GroupedFavoriteItems = new ObservableCollection<ItemsGroup<Item>>();
             BottomSheetItems = new List<CollectionListItem>();
-            
+
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             LoadFavoriteItemsCommand = new Command(async () => await ExecuteLoadFavoriteItemsCommand());
             ItemTapped = new Command<Item>(OnItemSelected);
             DeleteItem = new Command<string>(OnDeleteItem);
+            UpdateItem = new Command<string>(OnEditItem);
+            OnChangeFavoriteStatus = new Command<string>(ChangeFavoriteStatus);
             AddItemCommand = new Command(OnAddItem);
+
             MenuPageRedirect = new Command(OnOpenMenuPage);
             SearchPageRedirect = new Command(OnOpenSearchPage);
-            
+
             InitItemContextMenuItems();
         }
         public void OnAppearing()
@@ -64,12 +74,12 @@ namespace CorpPass.ViewModels
             SelectedItem = null;
         }
         private void InitItemContextMenuItems()
-        {   
+        {
             BottomSheetItems.Add(new CollectionListItem()
             {
                 Icon = "icon_edit",
                 Name = "Edit",
-                ItemCommand = new Command(OnEditItem)
+                ItemCommand = UpdateItem
             });
             BottomSheetItems.Add(new CollectionListItem()
             {
@@ -81,10 +91,11 @@ namespace CorpPass.ViewModels
             {
                 Icon = "icon_favorite",
                 Name = "Add to favorite",
-                ItemCommand = new Command(OnEditItem)
+                ItemCommand = OnChangeFavoriteStatus
             });
         }
 
+        #region COMMANDS
         async Task ExecuteLoadFavoriteItemsCommand()
         {
             IsFavoriteBusy = true;
@@ -127,10 +138,10 @@ namespace CorpPass.ViewModels
 
             try
             {
-                var items = (await DataStore.GetItemsAsync(true)).ToList().OrderBy(i=>i.Group).ToList();
-                
+                var items = (await DataStore.GetItemsAsync(true)).ToList().OrderBy(i => i.Group).ToList();
+
                 GroupedItems.Clear();
-                                
+
                 var grouped = items.GroupBy(i => i.Group).ToList();
                 foreach (var item in grouped)
                 {
@@ -153,14 +164,22 @@ namespace CorpPass.ViewModels
 
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
         }
-        
-        private async void OnEditItem()
+
+        private async void OnEditItem(string itemId)
         {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
+            await Shell.Current.GoToAsync($"{nameof(ItemUpdatePage)}?{nameof(ItemUpdateViewModel.ItemId)}={itemId}");
         }
         public async void OnDeleteItem(string itemId)
         {
             await DataStore.DeleteItemAsync(itemId);
+            OnAppearing();
+        }
+        public async void ChangeFavoriteStatus(string itemId)
+        {
+            var selectedItem = await DataStore.GetItemAsync(itemId);
+            selectedItem.IsFavorite = selectedItem.IsFavorite == true ? false : true;
+            await DataStore.UpdateItemAsync(selectedItem);
+
             OnAppearing();
         }
         private async void OnAddItem(object obj)
@@ -175,5 +194,6 @@ namespace CorpPass.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(SearchPage));
         }
+        #endregion
     }
 }

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xct:Popup
+    x:Class="CorpPass.Controls.PopControl"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:CorpPass.Controls"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    BackgroundColor="Green"
+    IsLightDismissEnabled="True"
+    Size="400,700">
+    <Frame>
+        <StackLayout>
+            <Label
+                FontSize="Title"
+                Text="Select item icon"
+                TextColor="Black" />
+
+            <CollectionView
+                x:Name="ItemsListView"
+                HorizontalOptions="FillAndExpand"
+                ItemsLayout="VerticalGrid, 5"
+                ItemsSource="{Binding IconsList}"
+                SelectionMode="None"
+                VerticalOptions="FillAndExpand">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageButton
+                            Margin="5"
+                            Padding="15"
+                            xct:TouchEffect.NativeAnimation="True"
+                            BackgroundColor="Transparent"
+                            Clicked="Button_Clicked"
+                            CornerRadius="15"
+                            Source="{Binding Name}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </Frame>
+</xct:Popup>

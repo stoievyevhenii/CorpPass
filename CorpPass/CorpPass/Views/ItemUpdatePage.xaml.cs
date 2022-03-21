@@ -5,12 +5,14 @@ using Xamarin.Forms.Xaml;
 namespace CorpPass.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PINSettigsPage : ContentPage
+    public partial class ItemUpdatePage : ContentPage
     {
-        public PINSettigsPage()
+        ItemUpdateViewModel _viewModel;
+     
+        public ItemUpdatePage()
         {
             InitializeComponent();
-            BindingContext = new NewPINViewModel();
+            BindingContext = _viewModel = new ItemUpdateViewModel();
         }
     }
 }
