@@ -13,6 +13,7 @@
     BackgroundColor="{StaticResource Secondary}"
     Shell.BackgroundColor="{StaticResource Secondary}"
     Shell.NavBarIsVisible="False"
+    Shell.PresentationMode="ModalAnimated"
     Visual="Material"
     mc:Ignorable="d">
     <ContentPage.Content>
@@ -105,7 +106,7 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Grid
-                                    Padding="15,10"
+                                    Padding="15,5"
                                     xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:SearchPageViewModel}}, Path=ItemTapped}"
                                     xct:TouchEffect.CommandParameter="{Binding .}"
                                     xct:TouchEffect.NativeAnimation="True">
@@ -123,19 +124,41 @@
                                     <Frame
                                         Grid.RowSpan="2"
                                         Grid.Column="0"
-                                        Padding="10"
-                                        BackgroundColor="{AppThemeBinding Light={StaticResource ItemBackgroundOnLightBackground},
-                                                                          Dark={StaticResource ItemBackgroundOnDarkBackground}}"
+                                        Padding="0"
+                                        BackgroundColor="Transparent"
                                         CornerRadius="15"
                                         HasShadow="True"
                                         HorizontalOptions="Center"
-                                        VerticalOptions="Fill"
-                                        WidthRequest="45">
-                                        <Image
-                                            HorizontalOptions="Center"
-                                            Source="{Binding Icon}"
-                                            VerticalOptions="CenterAndExpand" />
+                                        VerticalOptions="Center">
+
+                                        <Grid BackgroundColor="{Binding IconModel.Accent}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <BoxView
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Opacity="0.75"
+                                                VerticalOptions="FillAndExpand"
+                                                Color="{AppThemeBinding Light=White,
+                                                                        Dark=Black}" />
+                                            <Image
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Margin="10"
+                                                HeightRequest="40"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="CenterAndExpand">
+                                                <Image.Source>
+                                                    <FileImageSource File="{Binding IconModel.Name}" />
+                                                </Image.Source>
+                                            </Image>
+                                        </Grid>
                                     </Frame>
+
 
                                     <Label
                                         Grid.Row="0"

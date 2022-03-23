@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using CorpPass.Services;
 
 namespace CorpPass.ViewModels
 {
@@ -16,6 +17,7 @@ namespace CorpPass.ViewModels
 
         private bool isFavoriteBusy = false;
         private Item _selectedItem;
+        private IconsSet _iconsSetModel = new IconsSet();
 
         public bool IsFavoriteBusy
         {
@@ -90,7 +92,7 @@ namespace CorpPass.ViewModels
             BottomSheetItems.Add(new CollectionListItem()
             {
                 Icon = "icon_favorite",
-                Name = "Add to favorite",
+                Name = "Change favorite status",
                 ItemCommand = OnChangeFavoriteStatus
             });
         }
@@ -103,7 +105,7 @@ namespace CorpPass.ViewModels
             try
             {
                 var items = (await DataStore.GetItemsAsync(true)).ToList().OrderBy(i => i.Group).ToList();
-
+                
                 GroupedFavoriteItems.Clear();
                 var tempList = new ObservableCollection<Item>();
 
@@ -135,11 +137,11 @@ namespace CorpPass.ViewModels
         async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
-
+           
             try
             {
                 var items = (await DataStore.GetItemsAsync(true)).ToList().OrderBy(i => i.Group).ToList();
-
+               
                 GroupedItems.Clear();
 
                 var grouped = items.GroupBy(i => i.Group).ToList();
@@ -194,6 +196,7 @@ namespace CorpPass.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(SearchPage));
         }
+
         #endregion
     }
 }

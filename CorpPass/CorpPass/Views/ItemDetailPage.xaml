@@ -12,45 +12,51 @@
 
     <StackLayout>
         <!--  Header  -->
-        <StackLayout
-            x:Name="NewItemHeader"
-            Padding="15"
-            BackgroundColor="{StaticResource Secondary}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
+        <StackLayout Padding="15" BackgroundColor="{StaticResource Secondary}">
+            <StackLayout Orientation="Horizontal">
                 <Frame
-                    Grid.RowSpan="2"
-                    Grid.Column="0"
+                    Margin="0"
+                    Padding="0"
                     BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                       Dark={StaticResource DarkPanelBackground}}"
                     CornerRadius="15">
-                    <Image
-                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                            Dark=White}"
-                        HeightRequest="25"
-                        Source="icon_details.xml"
-                        WidthRequest="25" />
+                    <Grid
+                        Margin="0"
+                        Padding="0"
+                        BackgroundColor="{Binding IconModel.Accent}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <BoxView
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Opacity="0.75"
+                            Color="{AppThemeBinding Light=White,
+                                                    Dark=Black}" />
+                        <Image
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Margin="10"
+                            HeightRequest="40">
+                            <Image.Source>
+                                <FileImageSource File="{Binding IconModel.Name}" />
+                            </Image.Source>
+                        </Image>
+                    </Grid>
                 </Frame>
 
-                <Label
-                    Grid.RowSpan="2"
-                    Grid.Column="1"
-                    Margin="15,0,0,0"
-                    FontAttributes="Bold"
-                    FontSize="Title"
-                    Text="Details"
-                    TextColor="{StaticResource DarkForegroundMain}"
-                    VerticalOptions="Center" />
-            </Grid>
+                <StackLayout Margin="15,0,0,0" VerticalOptions="Center">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Title"
+                        Text="Details"
+                        TextColor="{StaticResource DarkForegroundMain}" />
+                </StackLayout>
+
+            </StackLayout>
         </StackLayout>
         <!--  Main content  -->
         <Frame
@@ -59,7 +65,7 @@
             BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
                                               Dark={StaticResource DarkBackground}}"
             CornerRadius="15"
-            HasShadow="True"
+            HasShadow="False"
             VerticalOptions="FillAndExpand">
             <StackLayout>
                 <ScrollView>

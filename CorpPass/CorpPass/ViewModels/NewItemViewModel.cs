@@ -1,4 +1,5 @@
 ﻿using CorpPass.Models;
+using CorpPass.Services;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
@@ -101,11 +102,15 @@ namespace CorpPass.ViewModels
         {
             var selectedGroupIndex = int.Parse(Group);
             var selectedFolderIndex = int.Parse(Folder);
+            var selectedIcon = string.IsNullOrEmpty(Icon) ? "icon_add" : Icon.Replace("File:", "").Trim();
+
+            var iconSetModel = new IconsSet();
+            var icon = iconSetModel.GetIconsSet().Find(i => i.Name == selectedIcon);
 
             Item newItem = new Item()
             {
                 Id = Guid.NewGuid().ToString(),
-                Icon = Icon,
+                Icon = icon.Name,
                 Login = Login,
                 Password = Password,
                 Description = Description,
@@ -115,7 +120,6 @@ namespace CorpPass.ViewModels
             };
 
             await DataStore.AddItemAsync(newItem);
-
             await Shell.Current.GoToAsync("..");
         }
     }

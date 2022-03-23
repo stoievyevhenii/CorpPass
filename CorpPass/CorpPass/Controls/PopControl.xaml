@@ -6,7 +6,7 @@
     xmlns:controls="clr-namespace:CorpPass.Controls"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="Green"
-    IsLightDismissEnabled="True"
+    IsLightDismissEnabled="False"
     Size="400,700">
     <Frame>
         <StackLayout>
@@ -35,6 +35,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <Button Clicked="Button_Clicked_1" Text="Close" />
         </StackLayout>
     </Frame>
 </xct:Popup>

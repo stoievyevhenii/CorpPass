@@ -22,5 +22,10 @@ namespace CorpPass.Controls
             var selectedImageButton = sender as ImageButton;
             Dismiss(selectedImageButton.Source);
         }
+
+        private void Button_Clicked_1(object sender, EventArgs e)
+        {
+            Dismiss("icon_lock_color");
+        }
     }
 }

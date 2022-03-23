@@ -1,5 +1,4 @@
 ﻿using CorpPass.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,69 +7,77 @@ namespace CorpPass.Services
 {
     public class MockDataStore : IDataStore<Item>
     {
-        readonly List<Item> items;
-        readonly IconsSet iconsSet;
-        public MockDataStore()
-        {
-            items = new List<Item>();
-            string[] alphabet = new[] { "A", "B", "C", "D", "E", "F" };
-            
-            iconsSet = new IconsSet();
-            var iconsList = iconsSet.GetIconsSet();
-
-            var rnd = new Random();
-
-            for (int i = 0; i < rnd.Next(10,30); i++)
-            {
-                var groupIndex = rnd.Next(alphabet.Length);
-
-                items.Add(new Item
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    IsFavorite = rnd.Next(2) == 1,
-                    Icon = iconsList[rnd.Next(0, iconsList.Count)],
-                    Name = $"Name - {i}",
-                    Login = $"Item - {i}",
-                    Password = $"Password - {i}",
-                    Description = $"Description for item - {i}",
-                    Group = $"{alphabet[groupIndex]}",
-                    Folder = $"Folder - {i}"
-                }) ;
-            }
-        }
-
         public async Task<bool> AddItemAsync(Item item)
         {
-            items.Add(item);
-
-            return await Task.FromResult(true);
+            try
+            {
+                await App.Database.SaveItemAsync(item);
+                return await Task.FromResult(true);
+            }
+            catch
+            {
+                return await Task.FromResult(false);
+            }            
         }
-
         public async Task<bool> UpdateItemAsync(Item item)
         {
-            var oldItem = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
-            items.Remove(oldItem);
-            items.Add(item);
-
-            return await Task.FromResult(true);
+            try
+            {
+                await App.Database.UpdateItem(item);
+                return await Task.FromResult(true);
+            }
+            catch
+            {
+                return await Task.FromResult(false);
+            }
         }
-
         public async Task<bool> DeleteItemAsync(string id)
         {
-            var oldItem = items.Where((Item arg) => arg.Id == id).FirstOrDefault();
-            items.Remove(oldItem);
-
-            return await Task.FromResult(true);
+            try
+            {
+                await App.Database.DeleteItem(id);
+                return await Task.FromResult(true);
+            }
+            catch
+            {
+                return await Task.FromResult(false);
+            }
         }
-
         public async Task<Item> GetItemAsync(string id)
         {
-            return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
-        }
+            try
+            {
+                var iconModel = new IconsSet();
+                var table = await App.Database.GetItemsAsync();
+                var item = table.Where(i => i.Id == id).FirstOrDefault();
 
+                item.IconModel = iconModel.GetIconModel(item.Icon);
+
+                return item;
+            }
+            catch
+            {
+                var itemModel = new Item();
+                var defaultItem = itemModel.GetEmptyItem();
+                return await Task.FromResult(defaultItem);
+            }
+        }
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {
-            return await Task.FromResult(items);
+            try
+            {
+                var iconModel = new IconsSet();
+                var items = await App.Database.GetItemsAsync();
+                
+                items = iconModel.SetIconForItem(items);
+
+                return items;
+            }
+            catch
+            {
+                return await Task.FromResult(new List<Item>());
+            }
         }
+        
     }
 }

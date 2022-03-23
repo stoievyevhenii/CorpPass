@@ -11,6 +11,7 @@ namespace CorpPass.ViewModels
         private string itemId;
         private string name;
         private string login;
+        private string icon;
         private string password;
         private string group;
         private string folder;
@@ -26,7 +27,11 @@ namespace CorpPass.ViewModels
             get => login;
             set => SetProperty(ref login, value);
         }
-
+        public string Icon
+        {
+            get => icon;
+            set => SetProperty(ref icon, value);
+        }
         public string Password
         {
             get => password;
@@ -82,6 +87,7 @@ namespace CorpPass.ViewModels
 
                 Id = item.Id;
                 Name = item.Name;
+                Icon = item.Icon;
                 Login = item.Login;
                 Password = item.Password;
                 Group = item.Group;
@@ -100,6 +106,7 @@ namespace CorpPass.ViewModels
             {
                 Id = Id,
                 Name = Name,
+                Icon = Icon,
                 Login = Login,
                 Password = Password,
                 Group = Group,

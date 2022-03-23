@@ -6,7 +6,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:CorpPass.Controls"
     xmlns:local="clr-namespace:CorpPass.ViewModels"
-    xmlns:model="clr-namespace:CorpPass.Models"
     xmlns:view="clr-namespace:CorpPass.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="BrowseItemsPage"
@@ -75,14 +74,13 @@
             </Grid>
         </Frame>
         <xct:TabView
-            IsSwipeEnabled="True"
+            IsSwipeEnabled="False"
             TabIndicatorHeight="5"
             TabIndicatorPlacement="Bottom"
             TabIndicatorWidth="128">
             <xct:TabView.TabIndicatorView>
                 <BoxView xct:CornerRadiusEffect.CornerRadius="15,15,15,15" BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
             </xct:TabView.TabIndicatorView>
-
             <xct:TabView.TabStripBackgroundView>
                 <BoxView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" CornerRadius="15,15,0,0" />
             </xct:TabView.TabStripBackgroundView>
@@ -143,7 +141,7 @@
                                                 </Grid.ColumnDefinitions>
                                                 <Grid
                                                     Grid.Column="0"
-                                                    Padding="15,10"
+                                                    Padding="15,5"
                                                     xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"
                                                     xct:TouchEffect.CommandParameter="{Binding .}"
                                                     xct:TouchEffect.NativeAnimation="True">
@@ -161,18 +159,40 @@
                                                     <Frame
                                                         Grid.RowSpan="2"
                                                         Grid.Column="0"
-                                                        Padding="10"
-                                                        BackgroundColor="{AppThemeBinding Light={StaticResource ItemBackgroundOnLightBackground},
-                                                                                          Dark={StaticResource ItemBackgroundOnDarkBackground}}"
+                                                        Padding="0"
+                                                        BackgroundColor="Transparent"
                                                         CornerRadius="15"
                                                         HasShadow="True"
                                                         HorizontalOptions="Center"
-                                                        VerticalOptions="Fill"
-                                                        WidthRequest="45">
-                                                        <Image
-                                                            HorizontalOptions="Center"
-                                                            Source="{Binding Icon}"
-                                                            VerticalOptions="CenterAndExpand" />
+                                                        VerticalOptions="Center">
+
+                                                        <Grid BackgroundColor="{Binding IconModel.Accent}">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition />
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition />
+                                                            </Grid.ColumnDefinitions>
+                                                            <BoxView
+                                                                Grid.Row="0"
+                                                                Grid.Column="0"
+                                                                Opacity="0.75"
+                                                                VerticalOptions="FillAndExpand"
+                                                                Color="{AppThemeBinding Light=White,
+                                                                                        Dark=Black}" />
+
+                                                            <Image
+                                                                Grid.Row="0"
+                                                                Grid.Column="0"
+                                                                Margin="10"
+                                                                HeightRequest="40"
+                                                                HorizontalOptions="Center"
+                                                                VerticalOptions="CenterAndExpand">
+                                                                <Image.Source>
+                                                                    <FileImageSource File="{Binding IconModel.Name}" />
+                                                                </Image.Source>
+                                                            </Image>
+                                                        </Grid>
                                                     </Frame>
 
                                                     <Label
@@ -358,7 +378,7 @@
                                         </Grid.ColumnDefinitions>
                                         <Grid
                                             Grid.Column="0"
-                                            Padding="15,10"
+                                            Padding="15,5"
                                             xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"
                                             xct:TouchEffect.CommandParameter="{Binding .}"
                                             xct:TouchEffect.NativeAnimation="True">
@@ -372,23 +392,45 @@
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
-
                                             <Frame
                                                 Grid.RowSpan="2"
                                                 Grid.Column="0"
-                                                Padding="10"
-                                                BackgroundColor="{AppThemeBinding Light={StaticResource ItemBackgroundOnLightBackground},
-                                                                                  Dark={StaticResource ItemBackgroundOnDarkBackground}}"
+                                                Padding="0"
+                                                BackgroundColor="Transparent"
                                                 CornerRadius="15"
                                                 HasShadow="True"
                                                 HorizontalOptions="Center"
-                                                VerticalOptions="Fill"
-                                                WidthRequest="45">
-                                                <Image
-                                                    HorizontalOptions="Center"
-                                                    Source="{Binding Icon}"
-                                                    VerticalOptions="CenterAndExpand" />
+                                                VerticalOptions="Center">
+
+                                                <Grid BackgroundColor="{Binding IconModel.Accent}">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <BoxView
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        Opacity="0.75"
+                                                        VerticalOptions="FillAndExpand"
+                                                        Color="{AppThemeBinding Light=White,
+                                                                                Dark=Black}" />
+
+                                                    <Image
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        Margin="10"
+                                                        HeightRequest="40"
+                                                        HorizontalOptions="Center"
+                                                        VerticalOptions="CenterAndExpand">
+                                                        <Image.Source>
+                                                            <FileImageSource File="{Binding IconModel.Name}" />
+                                                        </Image.Source>
+                                                    </Image>
+                                                </Grid>
                                             </Frame>
+
 
                                             <Label
                                                 Grid.Row="0"

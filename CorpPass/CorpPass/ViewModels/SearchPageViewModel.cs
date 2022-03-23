@@ -1,4 +1,5 @@
 ﻿using CorpPass.Models;
+using CorpPass.Services;
 using CorpPass.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -24,8 +25,12 @@ namespace CorpPass.ViewModels
 
         public async Task StartSearch(string query)
         {
-            IsBusy = true;
+            if (string.IsNullOrEmpty(query))
+            {
+                await ExecuteLoadItemsCommand();
+            }
             
+            IsBusy = true;
             Items.Clear();
             try
             {
@@ -43,16 +48,14 @@ namespace CorpPass.ViewModels
                 IsBusy = false;
             }
         }
-        public async void OnAppearing()
+        public void OnAppearing()
         {
             IsBusy = true;
-            await ExecuteLoadItemsCommand();
         }
         public async Task ExecuteLoadItemsCommand()
         {
-            Items.Clear();
             IsBusy = true;
-
+            Items.Clear();
             try
             {
                 var items = (await DataStore.GetItemsAsync(true)).ToList();

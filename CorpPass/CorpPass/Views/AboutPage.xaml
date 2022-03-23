@@ -77,8 +77,8 @@
                                 <Image
                                     Grid.RowSpan="2"
                                     Grid.Column="0"
-                                    xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                        Dark=White}"
+                                    xct:IconTintColorEffect.TintColor="{AppThemeBinding Light={StaticResource Primary},
+                                                                                        Dark={StaticResource PrimaryDark}}"
                                     BackgroundColor="Transparent"
                                     Source="icon_package" />
 
@@ -127,8 +127,8 @@
                                 <Image
                                     Grid.Row="0"
                                     Grid.Column="0"
-                                    xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                        Dark=White}"
+                                    xct:IconTintColorEffect.TintColor="{AppThemeBinding Light={StaticResource Primary},
+                                                                                        Dark={StaticResource PrimaryDark}}"
                                     BackgroundColor="Transparent"
                                     Source="icon_build" />
                                 <Label
@@ -176,8 +176,8 @@
                                 <Image
                                     Grid.Row="0"
                                     Grid.Column="0"
-                                    xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                        Dark=White}"
+                                    xct:IconTintColorEffect.TintColor="{AppThemeBinding Light={StaticResource Primary},
+                                                                                        Dark={StaticResource PrimaryDark}}"
                                     BackgroundColor="Transparent"
                                     Source="icon_version" />
                                 <Label

@@ -6,6 +6,7 @@
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{StaticResource Secondary}"
     Shell.NavBarIsVisible="False"
+    Shell.PresentationMode="ModalAnimated"
     Visual="Material">
     <ContentPage.Content>
         <StackLayout>
@@ -42,32 +43,31 @@
                         </StackLayout.GestureRecognizers>
                     </StackLayout>
 
-                    <Frame
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                          Dark={StaticResource DarkPanelBackground}}"
-                        CornerRadius="15">
-                        <Image
-                            xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                Dark=White}"
-                            HeightRequest="25"
-                            Source="icon_add_doc.xml"
-                            WidthRequest="25" />
-                    </Frame>
-
-                    <StackLayout
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="15,0,0,0"
-                        VerticalOptions="Center">
-                        <Label
-                            FontAttributes="Bold"
-                            FontSize="Title"
-                            Text="Create"
-                            TextColor="{StaticResource DarkForegroundMain}" />
+                    <StackLayout Grid.Row="1" Grid.ColumnSpan="2">
+                        <Frame
+                            x:Name="IconPickerFrame"
+                            Padding="20"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                              Dark={StaticResource DarkPanelBackground}}"
+                            CornerRadius="50"
+                            HeightRequest="40"
+                            HorizontalOptions="Center"
+                            WidthRequest="40">
+                            <ImageButton
+                                x:Name="ItemIcon"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="Transparent"
+                                Clicked="IconPicker_Clicked"
+                                Source="icon_lock_color" />
+                        </Frame>
                     </StackLayout>
 
+                    <Entry
+                        x:Name="SelectedIcon"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        IsVisible="False"
+                        Text="{Binding Icon, Mode=TwoWay}" />
                 </Grid>
             </StackLayout>
             <!--  Main content  -->
@@ -82,51 +82,19 @@
                 <StackLayout>
                     <ScrollView xct:CornerRadiusEffect.CornerRadius="15">
                         <StackLayout Spacing="15">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Frame
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    Padding="0"
-                                    CornerRadius="50">
-                                    <ImageButton
-                                        x:Name="ItemIcon"
-                                        Padding="15"
-                                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                            Dark=White}"
-                                        xct:TouchEffect.NativeAnimation="True"
-                                        BackgroundColor="Transparent"
-                                        Clicked="IconPicker_Clicked"
-                                        Source="icon_add" />
-                                </Frame>
-                                <Entry
-                                    x:Name="SelectedIcon"
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    IsVisible="False"
-                                    Text="{Binding Icon, Mode=TwoWay}" />
-
-                                <Entry
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                      Dark={StaticResource DarkPanelBackground}}"
-                                    FontSize="Small"
-                                    Placeholder="Name"
-                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                       Dark={StaticResource DarkForegroundSecondary}}"
-                                    Text="{Binding Name, Mode=TwoWay}"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                Dark={StaticResource DarkForegroundMain}}" />
-                            </Grid>
-
+                            <Entry
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                FontSize="Small"
+                                Placeholder="Name"
+                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                   Dark={StaticResource DarkForegroundSecondary}}"
+                                Text="{Binding Name, Mode=TwoWay}"
+                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                            Dark={StaticResource DarkForegroundMain}}"
+                                VerticalOptions="End" />
 
                             <Entry
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},

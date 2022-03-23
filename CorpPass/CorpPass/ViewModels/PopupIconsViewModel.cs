@@ -30,7 +30,7 @@ namespace CorpPass.ViewModels
             {
                 var iconItem = new IconItem()
                 {
-                    Name = icon
+                    Name = icon.Name
                 };
 
                 IconsList.Add(iconItem);
