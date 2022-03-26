@@ -4,6 +4,8 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.CommunityToolkit.Extensions;
+using System;
+using System.Diagnostics;
 
 namespace CorpPass.Views
 {
@@ -46,6 +48,28 @@ namespace CorpPass.Views
         public async void GoBack(object sender, SwipedEventArgs e)
         {
             await Shell.Current.Navigation.PopModalAsync();
+        }
+        private async void OpenBottomSheet(object sender, EventArgs e)
+        {
+            try
+            {
+                await Sheet.OpenSheet();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+        }
+        private async void CloseBottomSheet(object sender, EventArgs e)
+        {
+            try
+            {
+                await Sheet.CloseSheet();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
         }
     }
 }

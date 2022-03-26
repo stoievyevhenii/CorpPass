@@ -13,8 +13,8 @@
 
             <Image
                 Grid.Row="0"
-                xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                    Dark=White}"
+                xct:IconTintColorEffect.TintColor="{AppThemeBinding Dark={StaticResource DarkForegroundSecondary},
+                                                                    Light={StaticResource DarkForegroundSecondary}}"
                 Source="icon_empty" />
 
             <StackLayout Grid.Row="1">

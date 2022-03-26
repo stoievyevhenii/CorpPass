@@ -1,11 +1,7 @@
-﻿using CorpPass.Services;
-using CorpPass.ViewModels;
+﻿using CorpPass.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace CorpPass.Controls
 {

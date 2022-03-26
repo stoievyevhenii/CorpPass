@@ -30,5 +30,21 @@ namespace CorpPass.Views
             ItemIcon.Source = icon.Name;
             IconPickerFrame.BorderColor = icon.Accent;
         }
+
+        private void GroupPicker_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            var selectedGroup = GroupPicker.SelectedIndex;
+            SelectedGroup.Text = selectedGroup.ToString();
+        }
+
+        private void FolderPicker_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            var selectedFolder = FolderPicker.SelectedItem.ToString();
+            SelectedFolder.Text = selectedFolder;
+        }
+        private void OpenPicker(object sender, System.EventArgs e)
+        {
+            FolderPicker.Focus();
+        }
     }
 }

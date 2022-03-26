@@ -97,27 +97,65 @@
                                 Text="{Binding Password, Mode=TwoWay}"
                                 TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
                                                             Dark={StaticResource DarkForegroundMain}}" />
+                            <Picker
+                                x:Name="GroupPicker"
+                                Title="Group"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                FontSize="Small"
+                                InputTransparent="False"
+                                ItemsSource="{Binding FolderList}"
+                                SelectedIndex="{Binding SelectedGroup}"
+                                SelectedIndexChanged="GroupPicker_SelectedIndexChanged"
+                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                            Dark={StaticResource DarkForegroundMain}}"
+                                TitleColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                             Dark={StaticResource DarkForegroundSecondary}}" />
+                            <Entry
+                                x:Name="SelectedGroup"
+                                IsVisible="False"
+                                Text="{Binding Group, Mode=TwoWay}" />
 
-                            <Entry
+                            <Picker
+                                x:Name="FolderPicker"
+                                Title="Folder"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"
                                 FontSize="Small"
-                                Placeholder="Group"
-                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                   Dark={StaticResource DarkForegroundSecondary}}"
-                                Text="{Binding Group, Mode=TwoWay}"
+                                IsVisible="False"
+                                ItemsSource="{Binding FolderList}"
+                                SelectedIndex="0"
+                                SelectedIndexChanged="FolderPicker_SelectedIndexChanged"
                                 TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                            Dark={StaticResource DarkForegroundMain}}" />
-                            <Entry
-                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                  Dark={StaticResource DarkPanelBackground}}"
-                                FontSize="Small"
-                                Placeholder="Folder"
-                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                   Dark={StaticResource DarkForegroundSecondary}}"
-                                Text="{Binding Folder, Mode=TwoWay}"
-                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                            Dark={StaticResource DarkForegroundMain}}" />
+                                                            Dark={StaticResource DarkForegroundMain}}"
+                                TitleColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                             Dark={StaticResource DarkForegroundSecondary}}" />
+
+                            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                <Entry
+                                    x:Name="SelectedFolder"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                      Dark={StaticResource DarkPanelBackground}}"
+                                    FontSize="Small"
+                                    HorizontalOptions="FillAndExpand"
+                                    IsVisible="True"
+                                    Placeholder="Folder"
+                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                       Dark={StaticResource DarkForegroundSecondary}}"
+                                    Text="{Binding Folder, Mode=TwoWay}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}" />
+                                <ImageButton
+                                    Margin="0"
+                                    Padding="15"
+                                    xct:TouchEffect.NativeAnimation="True"
+                                    BackgroundColor="Transparent"
+                                    Clicked="OpenPicker"
+                                    CornerRadius="15"
+                                    Source="icon_list"
+                                    VerticalOptions="Fill" />
+                            </StackLayout>
+
                             <Editor
                                 BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                   Dark={StaticResource DarkPanelBackground}}"

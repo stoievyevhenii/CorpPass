@@ -15,6 +15,8 @@ namespace CorpPass.Views
         {
             InitializeComponent();
             BindingContext = new NewItemViewModel();
+
+            SelectedIcon.Text = "icon_lock_color";
         }
 
         private async void GoBack(object sender, SwipedEventArgs e)
@@ -30,8 +32,8 @@ namespace CorpPass.Views
 
         private void FolderPicker_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            var selectedFolder = FolderPicker.SelectedIndex;
-            SelectedFolder.Text = selectedFolder.ToString();
+            var selectedFolder = FolderPicker.SelectedItem.ToString();
+            SelectedFolder.Text = selectedFolder;
         }
 
         private async void IconPicker_Clicked(object sender, System.EventArgs e)
@@ -45,6 +47,11 @@ namespace CorpPass.Views
             SelectedIcon.Text = selectedIconName;
             ItemIcon.Source = icon.Name;
             IconPickerFrame.BorderColor = icon.Accent;
+        }
+
+        private void OpenPicker(object sender, System.EventArgs e)
+        {
+            FolderPicker.Focus();
         }
     }
 }

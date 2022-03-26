@@ -3,198 +3,259 @@
     x:Class="CorpPass.Views.ItemDetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:CorpPass.Controls"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{StaticResource Secondary}"
     Shell.BackgroundColor="{StaticResource Secondary}"
     Shell.NavBarHasShadow="False"
     Shell.NavBarIsVisible="True"
     Visual="Material">
-
-    <StackLayout>
-        <!--  Header  -->
-        <StackLayout Padding="15" BackgroundColor="{StaticResource Secondary}">
-            <StackLayout Orientation="Horizontal">
-                <Frame
-                    Margin="0"
-                    Padding="0"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                      Dark={StaticResource DarkPanelBackground}}"
-                    CornerRadius="15">
-                    <Grid
+    <Grid>
+        <StackLayout>
+            <!--  Header  -->
+            <StackLayout Padding="15" BackgroundColor="{StaticResource Secondary}">
+                <StackLayout Orientation="Horizontal">
+                    <Frame
                         Margin="0"
                         Padding="0"
-                        BackgroundColor="{Binding IconModel.Accent}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <BoxView
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Opacity="0.75"
-                            Color="{AppThemeBinding Light=White,
-                                                    Dark=Black}" />
-                        <Image
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Margin="10"
-                            HeightRequest="40">
-                            <Image.Source>
-                                <FileImageSource File="{Binding IconModel.Name}" />
-                            </Image.Source>
-                        </Image>
-                    </Grid>
-                </Frame>
-
-                <StackLayout Margin="15,0,0,0" VerticalOptions="Center">
-                    <Label
-                        FontAttributes="Bold"
-                        FontSize="Title"
-                        Text="Details"
-                        TextColor="{StaticResource DarkForegroundMain}" />
-                </StackLayout>
-
-            </StackLayout>
-        </StackLayout>
-        <!--  Main content  -->
-        <Frame
-            Margin="0,0,0,-5"
-            Padding="15"
-            BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
-                                              Dark={StaticResource DarkBackground}}"
-            CornerRadius="15"
-            HasShadow="False"
-            VerticalOptions="FillAndExpand">
-            <StackLayout>
-                <ScrollView>
-                    <StackLayout Spacing="15">
-                        <Entry
-                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                              Dark={StaticResource DarkPanelBackground}}"
-                            FontSize="Small"
-                            IsReadOnly="True"
-                            Placeholder="Name"
-                            PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                               Dark={StaticResource DarkForegroundSecondary}}"
-                            Text="{Binding Name, Mode=TwoWay}"
-                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                        Dark={StaticResource DarkForegroundMain}}" />
-
-                        <Grid>
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                          Dark={StaticResource DarkPanelBackground}}"
+                        CornerRadius="15">
+                        <Grid
+                            Margin="0"
+                            Padding="0"
+                            BackgroundColor="{Binding IconModel.Accent}">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-
-                            <Entry
+                            <BoxView
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                  Dark={StaticResource DarkPanelBackground}}"
-                                FontSize="Small"
-                                IsReadOnly="True"
-                                Placeholder="Login"
-                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                   Dark={StaticResource DarkForegroundSecondary}}"
-                                Text="{Binding Login, Mode=TwoWay}"
-                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                            Dark={StaticResource DarkForegroundMain}}" />
-                            <ImageButton
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                Margin="0"
-                                Padding="10"
-                                xct:CornerRadiusEffect.CornerRadius="15"
-                                xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                    Dark=White}"
-                                xct:TouchEffect.NativeAnimation="True"
-                                BackgroundColor="Transparent"
-                                Clicked="CopyToClipboard"
-                                CommandParameter="{Binding Login}"
-                                Source="icon_copy.xml"
-                                WidthRequest="50" />
-                        </Grid>
-
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <Entry
+                                Opacity="0.75"
+                                Color="{AppThemeBinding Light=White,
+                                                        Dark=Black}" />
+                            <Image
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                  Dark={StaticResource DarkPanelBackground}}"
-                                FontSize="Small"
-                                IsReadOnly="True"
-                                Placeholder="Password"
-                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                   Dark={StaticResource DarkForegroundSecondary}}"
-                                Text="{Binding Password, Mode=TwoWay}"
-                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                            Dark={StaticResource DarkForegroundMain}}" />
-                            <ImageButton
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                Margin="0"
-                                Padding="10"
-                                xct:CornerRadiusEffect.CornerRadius="15"
-                                xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                    Dark=White}"
-                                xct:TouchEffect.NativeAnimation="True"
-                                BackgroundColor="Transparent"
-                                Clicked="CopyToClipboard"
-                                CommandParameter="{Binding Password}"
-                                Source="icon_copy.xml"
-                                WidthRequest="50" />
+                                Margin="10"
+                                HeightRequest="40">
+                                <Image.Source>
+                                    <FileImageSource File="{Binding IconModel.Name}" />
+                                </Image.Source>
+                            </Image>
                         </Grid>
-
-                        <Entry
-                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                              Dark={StaticResource DarkPanelBackground}}"
-                            FontSize="Small"
-                            IsReadOnly="True"
-                            Placeholder="Group"
-                            PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                               Dark={StaticResource DarkForegroundSecondary}}"
-                            Text="{Binding Group, Mode=TwoWay}"
-                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                        Dark={StaticResource DarkForegroundMain}}" />
-                        <Entry
-                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                              Dark={StaticResource DarkPanelBackground}}"
-                            FontSize="Small"
-                            IsReadOnly="True"
-                            Placeholder="Folder"
-                            PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                               Dark={StaticResource DarkForegroundSecondary}}"
-                            Text="{Binding Folder, Mode=TwoWay}"
-                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                        Dark={StaticResource DarkForegroundMain}}" />
-                        <Editor
-                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                              Dark={StaticResource DarkPanelBackground}}"
-                            FontSize="Small"
-                            IsReadOnly="True"
-                            Placeholder="Description"
-                            PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                               Dark={StaticResource DarkForegroundSecondary}}"
-                            Text="{Binding Description, Mode=TwoWay}"
-                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                        Dark={StaticResource DarkForegroundMain}}" />
+                    </Frame>
+                    <StackLayout Margin="15,0,0,0" VerticalOptions="Center">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="Title"
+                            Text="Details"
+                            TextColor="{StaticResource DarkForegroundMain}" />
                     </StackLayout>
-                </ScrollView>
+                    <ImageButton
+                        Padding="15"
+                        xct:IconTintColorEffect.TintColor="White"
+                        xct:TouchEffect.NativeAnimation="True"
+                        BackgroundColor="Transparent"
+                        Clicked="OpenBottomSheet"
+                        CornerRadius="15"
+                        HorizontalOptions="EndAndExpand"
+                        Source="icon_more_vertical" />
+                </StackLayout>
             </StackLayout>
-        </Frame>
-    </StackLayout>
+            <!--  Main content  -->
+            <Frame
+                Margin="0,0,0,-5"
+                Padding="15"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
+                                                  Dark={StaticResource DarkBackground}}"
+                CornerRadius="15"
+                HasShadow="False"
+                VerticalOptions="FillAndExpand">
+                <Grid>
+                    <StackLayout>
+                        <ScrollView>
+                            <StackLayout Spacing="15">
+                                <Entry
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                      Dark={StaticResource DarkPanelBackground}}"
+                                    FontSize="Small"
+                                    IsReadOnly="True"
+                                    Placeholder="Name"
+                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                       Dark={StaticResource DarkForegroundSecondary}}"
+                                    Text="{Binding Name, Mode=TwoWay}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}" />
 
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Entry
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                          Dark={StaticResource DarkPanelBackground}}"
+                                        FontSize="Small"
+                                        IsReadOnly="True"
+                                        Placeholder="Login"
+                                        PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                           Dark={StaticResource DarkForegroundSecondary}}"
+                                        Text="{Binding Login, Mode=TwoWay}"
+                                        TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                    Dark={StaticResource DarkForegroundMain}}" />
+                                    <ImageButton
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="0"
+                                        Padding="10"
+                                        xct:CornerRadiusEffect.CornerRadius="15"
+                                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                            Dark=White}"
+                                        xct:TouchEffect.NativeAnimation="True"
+                                        BackgroundColor="Transparent"
+                                        Clicked="CopyToClipboard"
+                                        CommandParameter="{Binding Login}"
+                                        Source="icon_copy.xml"
+                                        WidthRequest="50" />
+                                </Grid>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Entry
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                          Dark={StaticResource DarkPanelBackground}}"
+                                        FontSize="Small"
+                                        IsReadOnly="True"
+                                        Placeholder="Password"
+                                        PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                           Dark={StaticResource DarkForegroundSecondary}}"
+                                        Text="{Binding Password, Mode=TwoWay}"
+                                        TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                    Dark={StaticResource DarkForegroundMain}}" />
+                                    <ImageButton
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="0"
+                                        Padding="10"
+                                        xct:CornerRadiusEffect.CornerRadius="15"
+                                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                            Dark=White}"
+                                        xct:TouchEffect.NativeAnimation="True"
+                                        BackgroundColor="Transparent"
+                                        Clicked="CopyToClipboard"
+                                        CommandParameter="{Binding Password}"
+                                        Source="icon_copy.xml"
+                                        WidthRequest="50" />
+                                </Grid>
+
+                                <Entry
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                      Dark={StaticResource DarkPanelBackground}}"
+                                    FontSize="Small"
+                                    IsReadOnly="True"
+                                    Placeholder="Group"
+                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                       Dark={StaticResource DarkForegroundSecondary}}"
+                                    Text="{Binding Group, Mode=TwoWay}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}" />
+                                <Entry
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                      Dark={StaticResource DarkPanelBackground}}"
+                                    FontSize="Small"
+                                    IsReadOnly="True"
+                                    Placeholder="Folder"
+                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                       Dark={StaticResource DarkForegroundSecondary}}"
+                                    Text="{Binding Folder, Mode=TwoWay}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}" />
+                                <Editor
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                      Dark={StaticResource DarkPanelBackground}}"
+                                    FontSize="Small"
+                                    IsReadOnly="True"
+                                    Placeholder="Description"
+                                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                       Dark={StaticResource DarkForegroundSecondary}}"
+                                    Text="{Binding Description, Mode=TwoWay}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}" />
+                            </StackLayout>
+                        </ScrollView>
+                    </StackLayout>
+                </Grid>
+            </Frame>
+        </StackLayout>
+        <controls:BottomSheet x:Name="Sheet" SheetHeight="250">
+            <controls:BottomSheet.SheetContent>
+                <StackLayout>
+                    <Entry
+                        x:Name="SelectedItemID"
+                        IsVisible="False"
+                        Text="{Binding Id}" />
+                    <CollectionView ItemsSource="{Binding BottomSheetItems}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    x:Name="SheetItem"
+                                    Padding="15"
+                                    xct:TouchEffect.Command="{Binding ItemCommand}"
+                                    xct:TouchEffect.CommandParameter="{Binding Text, Source={x:Reference SelectedItemID}}"
+                                    xct:TouchEffect.NativeAnimation="True">
+
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="CloseBottomSheet" />
+                                    </Grid.GestureRecognizers>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                            Dark=White}"
+                                        Source="{Binding Icon}" />
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Padding="15,0"
+                                        FontSize="16"
+                                        Style="{DynamicResource ListItemTextStyle}"
+                                        Text="{Binding Name}"
+                                        TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                    Dark={StaticResource DarkForegroundMain}}"
+                                        VerticalOptions="CenterAndExpand" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </controls:BottomSheet.SheetContent>
+        </controls:BottomSheet>
+    </Grid>
 </ContentPage>

@@ -16,8 +16,11 @@ namespace CorpPass.ViewModels
         private string description;
         private string name;
 
-        private List<string> groupList;
-        private List<string> folderList;
+        private readonly List<string> _groupList;
+        private readonly List<string> _folderList;
+
+        private readonly GroupItems _groupItemsModel;
+        private readonly FolderItems _folderItemsModel;
 
         public string Icon
         {
@@ -56,11 +59,11 @@ namespace CorpPass.ViewModels
         }
         public List<string> GroupList
         {
-            get => groupList;
+            get => _groupList;
         }
         public List<string> FolderList
         {
-            get => folderList;
+            get => _folderList;
         }
 
         public Command SaveCommand { get; }
@@ -71,16 +74,11 @@ namespace CorpPass.ViewModels
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
 
-            groupList = new List<string>();
-            folderList = new List<string>();
+            _groupItemsModel = new GroupItems();
+            _groupList = _groupItemsModel.GetGroupsNameList();
 
-            string[] alphabet = new[] { "A", "B", "C", "D", "E", "F" };
-
-            for (var i = 0; i < alphabet.Length; i++)
-            {
-                groupList.Add($"{alphabet[i]}");
-                folderList.Add($"{alphabet[i]}");
-            }
+            _folderItemsModel = new FolderItems();
+            _folderList = _folderItemsModel.GetFoldersList();
 
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
@@ -101,7 +99,6 @@ namespace CorpPass.ViewModels
         private async void OnSave()
         {
             var selectedGroupIndex = int.Parse(Group);
-            var selectedFolderIndex = int.Parse(Folder);
             var selectedIcon = string.IsNullOrEmpty(Icon) ? "icon_add" : Icon.Replace("File:", "").Trim();
 
             var iconSetModel = new IconsSet();
@@ -115,8 +112,8 @@ namespace CorpPass.ViewModels
                 Password = Password,
                 Description = Description,
                 Name = Name,
-                Group = groupList[selectedGroupIndex],
-                Folder = folderList[selectedFolderIndex]
+                Group = _groupList[selectedGroupIndex],
+                Folder = Folder
             };
 
             await DataStore.AddItemAsync(newItem);

@@ -95,7 +95,6 @@ namespace CorpPass.Views
 
             if (passcodeText.Length == 4)
             {
-                //_pin = Preferences.Get(PreferencesKeys.PIN, "");
                 _pin = _prefernecesSecurity.GetSecureData(PreferencesKeys.PIN).Result;
                 if (passcodeText == _pin)
                 {
@@ -126,6 +125,10 @@ namespace CorpPass.Views
             LoadIndicator.IsVisible = true;
 
             await Shell.Current.Navigation.PushAsync(new ItemsPage());
+
+            PassField.Text = "";
+            NumericPad.IsVisible = true;
+            LoadIndicator.IsVisible = false;
         }
         #endregion
     }

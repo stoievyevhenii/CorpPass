@@ -56,7 +56,7 @@ namespace CorpPass.Views
         }
         protected override bool OnBackButtonPressed()
         {
-            return true;
+            return false;
         }
         private async void OpenBottomSheet(object sender, EventArgs e)
         {
