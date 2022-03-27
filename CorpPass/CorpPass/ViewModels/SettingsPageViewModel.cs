@@ -7,19 +7,20 @@ namespace CorpPass.ViewModels
 {
     public class SettingsPageViewModel : BaseViewModel
     {
-        public Command RedirectToDBConnectPage { get; }
-        public Command RedirectToPINPage { get; }
-        public List<ItemsGroup<CollectionListItem>> SettingsPagesList { get; }
-
-
         public SettingsPageViewModel()
         {
             RedirectToDBConnectPage = new Command(OpenDBSettings);
             RedirectToPINPage = new Command(OpenPINSettings);
+            RedirectToAboutPage = new Command(OpenAboutPage);
             SettingsPagesList = new List<ItemsGroup<CollectionListItem>>();
 
             InitSettingsPages();
         }
+
+        public Command RedirectToAboutPage { get; }
+        public Command RedirectToDBConnectPage { get; }
+        public Command RedirectToPINPage { get; }
+        public List<ItemsGroup<CollectionListItem>> SettingsPagesList { get; }
 
         private void InitSettingsPages()
         {
@@ -42,6 +43,20 @@ namespace CorpPass.ViewModels
                     ItemCommand = RedirectToPINPage
                 }
             }));
+            SettingsPagesList.Add(new ItemsGroup<CollectionListItem>("About", new List<CollectionListItem>()
+            {
+                new CollectionListItem()
+                {
+                    Name = "Info",
+                    Icon = "icon_details",
+                    ItemCommand = RedirectToAboutPage
+                }
+            }));
+        }
+
+        private async void OpenAboutPage()
+        {
+            await Shell.Current.GoToAsync(nameof(AboutPage));
         }
 
         private async void OpenDBSettings()

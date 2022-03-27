@@ -6,6 +6,7 @@
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{StaticResource Secondary}"
     Shell.NavBarIsVisible="False"
+    Shell.PresentationMode="ModalAnimated"
     Visual="Material">
     <ContentPage.Content>
         <StackLayout>

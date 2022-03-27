@@ -7,20 +7,21 @@ namespace CorpPass.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        public Command LoginCommand { get; }
-
-        bool fingerprinstIsAvailable = false;
-        public bool FingerprinstIsAvailable
-        {
-            get { return fingerprinstIsAvailable; }
-            set { SetProperty(ref fingerprinstIsAvailable, value); }
-        }
+        private bool fingerprinstIsAvailable = false;
 
         public LoginViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
             FingerprinstIsAvailable = Task.Run(async () => await FingerrintChecker.CheckFingerprintAvailibility()).Result;
         }
+
+        public bool FingerprinstIsAvailable
+        {
+            get { return fingerprinstIsAvailable; }
+            set { SetProperty(ref fingerprinstIsAvailable, value); }
+        }
+
+        public Command LoginCommand { get; }
 
         private async void OnLoginClicked(object obj)
         {

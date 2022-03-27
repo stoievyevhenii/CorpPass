@@ -18,19 +18,8 @@
             Padding="15"
             BackgroundColor="{StaticResource Secondary}"
             CornerRadius="0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
+            <StackLayout Orientation="Horizontal">
                 <ImageButton
-                    Grid.Row="0"
-                    Grid.Column="0"
                     Margin="5,0"
                     Padding="5"
                     xct:CornerRadiusEffect.CornerRadius="15"
@@ -42,36 +31,35 @@
                     Source="icon_search.xml"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="40" />
-
-                <Label
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    FontAttributes="Bold"
-                    HorizontalOptions="Center"
-                    Text="Passwords"
-                    TextColor="White"
-                    VerticalOptions="CenterAndExpand">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="GoToFirstElement" />
-                    </Label.GestureRecognizers>
-                </Label>
-
-                <ImageButton
-                    Grid.Row="0"
-                    Grid.Column="2"
-                    Margin="5,0"
-                    Padding="5"
-                    xct:CornerRadiusEffect.CornerRadius="15"
-                    xct:IconTintColorEffect.TintColor="White"
-                    xct:TouchEffect.NativeAnimation="True"
-                    BackgroundColor="Transparent"
-                    Command="{Binding MenuPageRedirect}"
-                    HeightRequest="40"
-                    HorizontalOptions="Center"
-                    Source="icon_menu.xml"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="40" />
-            </Grid>
+                <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                    <ImageButton
+                        Margin="5,0"
+                        Padding="5"
+                        xct:CornerRadiusEffect.CornerRadius="15"
+                        xct:IconTintColorEffect.TintColor="White"
+                        xct:TouchEffect.NativeAnimation="True"
+                        BackgroundColor="Transparent"
+                        Command="{Binding GroupsPageRedirect}"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        Source="icon_group"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="40" />
+                    <ImageButton
+                        Margin="5,0"
+                        Padding="5"
+                        xct:CornerRadiusEffect.CornerRadius="15"
+                        xct:IconTintColorEffect.TintColor="White"
+                        xct:TouchEffect.NativeAnimation="True"
+                        BackgroundColor="Transparent"
+                        Command="{Binding SettingsPageRedirect}"
+                        HeightRequest="40"
+                        HorizontalOptions="Center"
+                        Source="icon_settings"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="40" />
+                </StackLayout>
+            </StackLayout>
         </Frame>
         <xct:TabView
             IsSwipeEnabled="False"

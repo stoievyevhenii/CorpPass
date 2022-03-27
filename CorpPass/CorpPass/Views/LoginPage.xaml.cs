@@ -46,25 +46,9 @@ namespace CorpPass.Views
         {
             await PasscodeFieldChecker();
         }
-        private async void UseFingerprintAuth(object sender, EventArgs e)
+        private void UseFingerprintAuth(object sender, EventArgs e)
         {
-            var scannerIsAvailable = await FingerrintChecker.CheckFingerprintAvailibility();
-
-            if (scannerIsAvailable)
-            {
-                var fingerprintScanResult = await FingerrintChecker.UseFingerprint();
-                var authed = fingerprintScanResult[FingerprintScanKeys.Authed];
-
-                if (authed)
-                {
-                    UserWasAuth();
-                }
-
-            }
-            else
-            {
-                await DisplayAlert("Error", "Biometric scanner was not found!", "OK");
-            }
+            UseBiometrickAuth();
         }
         private async void SetNewPin(object sender, EventArgs e)
         {
@@ -86,6 +70,20 @@ namespace CorpPass.Views
             if (string.IsNullOrEmpty(_pin))
             {
                 PinTabView.SelectedIndex = 1;
+            }
+        }
+        private async void UseBiometrickAuth() {
+            var scannerIsAvailable = await FingerrintChecker.CheckFingerprintAvailibility();
+
+            if (scannerIsAvailable)
+            {
+                var fingerprintScanResult = await FingerrintChecker.UseFingerprint();
+                var authed = fingerprintScanResult[FingerprintScanKeys.Authed];
+
+                if (authed)
+                {
+                    UserWasAuth();
+                }
             }
         }
         private async Task PasscodeFieldChecker()

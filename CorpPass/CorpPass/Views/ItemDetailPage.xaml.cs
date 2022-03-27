@@ -1,5 +1,4 @@
 ﻿using CorpPass.ViewModels;
-using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using Xamarin.CommunityToolkit.UI.Views.Options;
@@ -44,7 +43,11 @@ namespace CorpPass.Views
 
             await this.DisplaySnackBarAsync(options);
         }
-
+        public void ShowPassword(object sender, System.EventArgs e)
+        {
+            var passwordEntry = sender as Entry;
+            passwordEntry.IsPassword = !passwordEntry.IsPassword;
+        }
         public async void GoBack(object sender, SwipedEventArgs e)
         {
             await Shell.Current.Navigation.PopModalAsync();

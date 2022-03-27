@@ -8,66 +8,17 @@ namespace CorpPass.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
+        private readonly FolderItems _folderItemsModel;
+        private readonly List<string> _folderList;
+        private readonly GroupItems _groupItemsModel;
+        private readonly List<string> _groupList;
+        private string description;
+        private string folder;
+        private string group;
         private string icon;
         private string login;
-        private string password;
-        private string group;
-        private string folder;
-        private string description;
         private string name;
-
-        private readonly List<string> _groupList;
-        private readonly List<string> _folderList;
-
-        private readonly GroupItems _groupItemsModel;
-        private readonly FolderItems _folderItemsModel;
-
-        public string Icon
-        {
-            get => icon;
-            set => SetProperty(ref icon, value);
-        }
-        public string Login
-        {
-            get => login;
-            set => SetProperty(ref login, value);
-        }
-        public string Password
-        {
-            get => password;
-            set => SetProperty(ref password, value);
-        }
-        public string Group
-        {
-            get => group;
-            set => SetProperty(ref group, value);
-        }
-        public string Folder
-        {
-            get => folder;
-            set => SetProperty(ref folder, value);
-        }
-        public string Description
-        {
-            get => description;
-            set => SetProperty(ref description, value);
-        }
-        public string Name
-        {
-            get => name;
-            set => SetProperty(ref name, value);
-        }
-        public List<string> GroupList
-        {
-            get => _groupList;
-        }
-        public List<string> FolderList
-        {
-            get => _folderList;
-        }
-
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
+        private string password;
 
         public NewItemViewModel()
         {
@@ -84,12 +35,61 @@ namespace CorpPass.ViewModels
                 (_, __) => SaveCommand.ChangeCanExecute();
         }
 
-        private bool ValidateSave()
+        public Command CancelCommand { get; }
+
+        public string Description
         {
-            return !string.IsNullOrWhiteSpace(login)
-                && !string.IsNullOrWhiteSpace(password)
-                && !string.IsNullOrWhiteSpace(name);
+            get => description;
+            set => SetProperty(ref description, value);
         }
+
+        public string Folder
+        {
+            get => folder;
+            set => SetProperty(ref folder, value);
+        }
+
+        public List<string> FolderList
+        {
+            get => _folderList;
+        }
+
+        public string Group
+        {
+            get => group;
+            set => SetProperty(ref group, value);
+        }
+
+        public List<string> GroupList
+        {
+            get => _groupList;
+        }
+
+        public string Icon
+        {
+            get => icon;
+            set => SetProperty(ref icon, value);
+        }
+
+        public string Login
+        {
+            get => login;
+            set => SetProperty(ref login, value);
+        }
+
+        public string Name
+        {
+            get => name;
+            set => SetProperty(ref name, value);
+        }
+
+        public string Password
+        {
+            get => password;
+            set => SetProperty(ref password, value);
+        }
+
+        public Command SaveCommand { get; }
 
         private async void OnCancel()
         {
@@ -118,6 +118,13 @@ namespace CorpPass.ViewModels
 
             await DataStore.AddItemAsync(newItem);
             await Shell.Current.GoToAsync("..");
+        }
+
+        private bool ValidateSave()
+        {
+            return !string.IsNullOrWhiteSpace(login)
+                && !string.IsNullOrWhiteSpace(password)
+                && !string.IsNullOrWhiteSpace(name);
         }
     }
 }

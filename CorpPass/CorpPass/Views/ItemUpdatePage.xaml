@@ -104,7 +104,7 @@
                                                                   Dark={StaticResource DarkPanelBackground}}"
                                 FontSize="Small"
                                 InputTransparent="False"
-                                ItemsSource="{Binding FolderList}"
+                                ItemsSource="{Binding GroupList}"
                                 SelectedIndex="{Binding SelectedGroup}"
                                 SelectedIndexChanged="GroupPicker_SelectedIndexChanged"
                                 TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},

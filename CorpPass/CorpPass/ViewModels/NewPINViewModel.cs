@@ -15,7 +15,7 @@ namespace CorpPass.ViewModels
 
         public NewPINViewModel()
         {
-            SavePIN = new Command(SaveNewPIN,ValidateSave);
+            SavePIN = new Command(SaveNewPIN, ValidateSave);
             PropertyChanged += (_, __) => SavePIN.ChangeCanExecute();
         }
 
@@ -28,7 +28,7 @@ namespace CorpPass.ViewModels
 
                 await Shell.Current.GoToAsync("..");
             }
-            catch{ }
+            catch { }
 
         }
 

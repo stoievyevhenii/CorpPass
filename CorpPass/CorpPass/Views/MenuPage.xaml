@@ -29,44 +29,7 @@
                 JustifyContent="Start"
                 Wrap="Wrap">
                 <StackLayout
-                    Margin="10,10,10,10"
-                    FlexLayout.AlignSelf="Start"
-                    FlexLayout.Basis="{OnIdiom Phone='33%',
-                                               Tablet='33%'}">
-                    <ImageButton
-                        Padding="25"
-                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                            Dark=White}"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                          Dark={StaticResource DarkPanelBackground}}"
-                        CornerRadius="15"
-                        HeightRequest="100"
-                        Source="icon_folder.xml"
-                        WidthRequest="100">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal">
-                                    <VisualState.Setters>
-                                        <Setter Property="Scale" Value="1" />
-                                    </VisualState.Setters>
-                                </VisualState>
-
-                                <VisualState x:Name="Pressed">
-                                    <VisualState.Setters>
-                                        <Setter Property="Scale" Value="0.95" />
-                                    </VisualState.Setters>
-                                </VisualState>
-
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                    </ImageButton>
-                    <Label
-                        HorizontalOptions="Center"
-                        Text="Folders"
-                        TextColor="White" />
-                </StackLayout>
-                <StackLayout
-                    Margin="10,10,10,10"
+                    Margin="5"
                     FlexLayout.AlignSelf="Start"
                     FlexLayout.Basis="{OnIdiom Phone='33%',
                                                Tablet='33%'}">
@@ -105,73 +68,100 @@
             </FlexLayout>
 
             <!--  Additional  -->
-            <Label
-                Padding="20,10"
-                FontAttributes="Bold"
-                Text="Additional"
-                TextColor="{StaticResource LightForegroundSecondary}" />
             <Frame
-                Margin="0,0,0,-5"
+                Margin="0"
                 Padding="0"
-                BackgroundColor="Transparent"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
+                                                  Dark={StaticResource DarkBackground}}"
                 CornerRadius="15"
                 HasShadow="False"
                 VerticalOptions="FillAndExpand">
-                <FlexLayout
-                    Padding="10"
-                    AlignItems="Start"
-                    BackgroundColor="Transparent"
-                    Direction="Row"
-                    JustifyContent="Start"
-                    Wrap="Wrap">
-                    <StackLayout
-                        Margin="10,10,10,10"
-                        BackgroundColor="Transparent"
-                        FlexLayout.AlignSelf="Start"
-                        FlexLayout.Basis="{OnIdiom Phone='33%',
-                                                   Tablet='33%'}">
-                        <ImageButton
-                            Padding="25"
-                            xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                Dark=White}"
-                            xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:MenuPageViewModel}}, Path=RedirectToSettingsPage}"
-                            xct:TouchEffect.NativeAnimation="True"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                              Dark={StaticResource DarkPanelBackground}}"
-                            CornerRadius="15"
-                            HeightRequest="100"
-                            Source="icon_settings"
-                            WidthRequest="100" />
-                        <Label
-                            HorizontalOptions="Center"
-                            Text="Settings"
-                            TextColor="White" />
-                    </StackLayout>
-                    <StackLayout
-                        Margin="10,10,10,10"
-                        FlexLayout.AlignSelf="Start"
-                        FlexLayout.Basis="{OnIdiom Phone='33%',
-                                                   Tablet='33%'}">
-                        <ImageButton
-                            Padding="25"
-                            xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                Dark=White}"
-                            xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:MenuPageViewModel}}, Path=RedirectToAboutPage}"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                              Dark={StaticResource DarkPanelBackground}}"
-                            CornerRadius="15"
-                            HeightRequest="100"
-                            Source="icon_details"
-                            WidthRequest="100" />
-                        <Label
-                            HorizontalOptions="Center"
-                            Text="Info"
-                            TextColor="White" />
-                    </StackLayout>
-                </FlexLayout>
+                <CollectionView
+                    x:Name="ItemsListView"
+                    Grid.Row="1"
+                    Margin="15"
+                    IsGrouped="True"
+                    ItemsSource="{Binding MenuPagesList}"
+                    SelectionMode="None">
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Label
+                                    Margin="00"
+                                    Padding="15,5"
+                                    FontAttributes="Bold"
+                                    FontSize="Large"
+                                    Text="{Binding Name}"
+                                    TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
+                                                                Dark={StaticResource LightTitle}}" />
+                                <BoxView
+                                    Margin="0,0,0,-20"
+                                    xct:CornerRadiusEffect.CornerRadius="15,15,0,0"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                      Dark={StaticResource DarkPanelBackground}}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Padding="15"
+                                xct:TouchEffect.Command="{Binding ItemCommand}"
+                                xct:TouchEffect.NativeAnimation="True"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Image
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                        Dark=White}"
+                                    BackgroundColor="Transparent"
+                                    Source="{Binding Icon}" />
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="10,0"
+                                    FontSize="Body"
+                                    Text="{Binding Name}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}"
+                                    VerticalOptions="Center" />
+
+                                <Image
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                        Dark=White}"
+                                    BackgroundColor="Transparent"
+                                    Source="icon_arrow_right" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.GroupFooterTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <BoxView
+                                    Margin="0,-20,0,0"
+                                    xct:CornerRadiusEffect.CornerRadius="0,0,15,15"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                      Dark={StaticResource DarkPanelBackground}}" />
+                                <BoxView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" HeightRequest="5" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.GroupFooterTemplate>
+                </CollectionView>
+
             </Frame>
-
         </StackLayout>
-
     </ContentPage.Content>
 </ContentPage>

@@ -1,5 +1,4 @@
 ﻿using CorpPass.Models;
-using CorpPass.Services;
 using CorpPass.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -29,7 +28,7 @@ namespace CorpPass.ViewModels
             {
                 await ExecuteLoadItemsCommand();
             }
-            
+
             IsBusy = true;
             Items.Clear();
             try

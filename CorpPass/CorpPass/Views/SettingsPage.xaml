@@ -95,6 +95,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
                                 <Grid.RowDefinitions>
@@ -104,8 +105,8 @@
                                 <Image
                                     Grid.Row="0"
                                     Grid.Column="0"
-                                    xct:IconTintColorEffect.TintColor="{AppThemeBinding Light={StaticResource Primary},
-                                                                                        Dark={StaticResource PrimaryDark}}"
+                                    xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                        Dark=White}"
                                     BackgroundColor="Transparent"
                                     Source="{Binding Icon}" />
                                 <Label
@@ -117,6 +118,14 @@
                                     TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
                                                                 Dark={StaticResource DarkForegroundMain}}"
                                     VerticalOptions="Center" />
+
+                                <Image
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                        Dark=White}"
+                                    BackgroundColor="Transparent"
+                                    Source="icon_arrow_right" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

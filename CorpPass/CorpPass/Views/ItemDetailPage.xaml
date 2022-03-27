@@ -139,6 +139,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Entry
+                                        x:Name="PasswordField"
                                         Grid.Row="0"
                                         Grid.Column="0"
                                         BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
@@ -150,7 +151,11 @@
                                                                            Dark={StaticResource DarkForegroundSecondary}}"
                                         Text="{Binding Password, Mode=TwoWay}"
                                         TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                    Dark={StaticResource DarkForegroundMain}}" />
+                                                                    Dark={StaticResource DarkForegroundMain}}">
+                                        <Entry.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="ShowPassword" />
+                                        </Entry.GestureRecognizers>
+                                    </Entry>
                                     <ImageButton
                                         Grid.Row="0"
                                         Grid.Column="1"
