@@ -34,7 +34,7 @@
                             xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
                                                                                 Dark=White}"
                             HeightRequest="25"
-                            Source="icon_group"
+                            Source="{Binding GroupItemModel.Icon}"
                             WidthRequest="25" />
                     </Frame>
 
@@ -46,7 +46,7 @@
                         <Label
                             FontAttributes="Bold"
                             FontSize="Title"
-                            Text="Groups"
+                            Text="{Binding GroupItemModel.Name}"
                             TextColor="{StaticResource DarkForegroundMain}" />
                     </StackLayout>
                 </StackLayout>
@@ -85,7 +85,6 @@
                                             xct:CornerRadiusEffect.CornerRadius="15,15,0,0"
                                             BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                               Dark={StaticResource DarkPanelBackground}}" />
-
                                     </StackLayout>
                                 </DataTemplate>
                             </CollectionView.GroupHeaderTemplate>
@@ -100,7 +99,7 @@
                                         <Grid
                                             Grid.Column="0"
                                             Padding="15,5"
-                                            xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"
+                                            xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:GroupItemsViewModel}}, Path=ItemTapped}"
                                             xct:TouchEffect.CommandParameter="{Binding .}"
                                             xct:TouchEffect.NativeAnimation="True">
                                             <Grid.ColumnDefinitions>

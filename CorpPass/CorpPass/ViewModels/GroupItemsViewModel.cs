@@ -1,4 +1,5 @@
 ﻿using CorpPass.Models;
+using CorpPass.Services;
 using CorpPass.Views;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,16 @@ namespace CorpPass.ViewModels
     [QueryProperty(nameof(GroupName), nameof(GroupName))]
     public class GroupItemsViewModel : BaseViewModel
     {
+        private readonly GroupItems groupItemsModel;
         private string groupName;
+        private GroupItem groupNameTitle;
 
         public GroupItemsViewModel()
         {
+            groupItemsModel = new GroupItems();
+
             GroupedItems = new ObservableCollection<ItemsGroup<Item>>();
+            ItemTapped = new Command<Item>(OnItemSelected);
             BottomSheetItems = new List<CollectionListItem>();
             LoadItemsCommand = new Command(async () => await LoadGroupItemsAsync(groupName));
 
@@ -29,10 +35,14 @@ namespace CorpPass.ViewModels
         }
 
         public List<CollectionListItem> BottomSheetItems { get; set; }
-
         public Command<string> DeleteItem { get; }
-
         public ObservableCollection<ItemsGroup<Item>> GroupedItems { get; private set; }
+
+        public GroupItem GroupItemModel
+        {
+            get { return groupNameTitle; }
+            set { SetProperty(ref groupNameTitle, value); }
+        }
 
         public string GroupName
         {
@@ -47,6 +57,7 @@ namespace CorpPass.ViewModels
             }
         }
 
+        public Command<Item> ItemTapped { get; }
         public Command LoadItemsCommand { get; }
 
         public Command<string> OnChangeFavoriteStatus { get; }
@@ -92,6 +103,7 @@ namespace CorpPass.ViewModels
         private async Task LoadGroupItemsAsync(string name)
         {
             IsBusy = true;
+            GroupItemModel = groupItemsModel.GetItemByName(name);
 
             try
             {
@@ -127,6 +139,14 @@ namespace CorpPass.ViewModels
         private async void OnEditItem(string itemId)
         {
             await Shell.Current.GoToAsync($"{nameof(ItemUpdatePage)}?{nameof(ItemUpdateViewModel.ItemId)}={itemId}");
+        }
+
+        private async void OnItemSelected(Item item)
+        {
+            if (string.IsNullOrEmpty(item.Id))
+                return;
+
+            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
         }
     }
 }

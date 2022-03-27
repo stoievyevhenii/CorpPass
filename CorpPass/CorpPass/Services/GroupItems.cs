@@ -1,10 +1,10 @@
-﻿
-using CorpPass.Models;
+﻿using CorpPass.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CorpPass.Services
 {
-    class GroupItems
+    internal class GroupItems
     {
         private List<CollectionListItem> groupItems;
 
@@ -17,13 +17,13 @@ namespace CorpPass.Services
         {
             groupItems = new List<CollectionListItem>()
             {
-                new CollectionListItem(){ Name ="Work", Icon = "icon_work" },
-                new CollectionListItem(){ Name ="Education", Icon = "icon_education" },
-                new CollectionListItem(){ Name ="Home", Icon = "icon_home" }
+                new GroupItem(){ Name ="Work", Icon = "icon_work" },
+                new GroupItem(){ Name ="Education", Icon = "icon_education" },
+                new GroupItem(){ Name ="Home", Icon = "icon_home" }
             };
         }
 
-        public List<CollectionListItem>  GetGroupsItems()
+        public List<CollectionListItem> GetGroupsItems()
         {
             return groupItems;
         }
@@ -38,6 +38,18 @@ namespace CorpPass.Services
             }
 
             return groupsName;
+        }
+
+        public GroupItem GetItemByName(string name)
+        {
+            var groupsList = GetGroupsItems();
+            var item = groupsList.Where(i => i.Name == name).FirstOrDefault();
+
+            return new GroupItem()
+            {
+                Name = item.Name,
+                Icon = item.Icon
+            };
         }
     }
 }

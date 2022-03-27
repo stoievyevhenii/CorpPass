@@ -10,8 +10,8 @@ namespace CorpPass.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ItemUpdatePage : ContentPage
     {
-        ItemUpdateViewModel _viewModel;
-     
+        private ItemUpdateViewModel _viewModel;
+
         public ItemUpdatePage()
         {
             InitializeComponent();
@@ -33,8 +33,7 @@ namespace CorpPass.Views
 
         private void GroupPicker_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            var selectedGroup = GroupPicker.SelectedIndex;
-            SelectedGroup.Text = selectedGroup.ToString();
+            SelectedGroup.Text = GroupPicker.Items[GroupPicker.SelectedIndex];
         }
 
         private void FolderPicker_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -42,6 +41,7 @@ namespace CorpPass.Views
             var selectedFolder = FolderPicker.SelectedItem.ToString();
             SelectedFolder.Text = selectedFolder;
         }
+
         private void OpenPicker(object sender, System.EventArgs e)
         {
             FolderPicker.Focus();
