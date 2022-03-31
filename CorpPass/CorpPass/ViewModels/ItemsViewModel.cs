@@ -151,7 +151,7 @@ namespace CorpPass.ViewModels
                     }
                 }
 
-                var groupedFavoriteList = tempList.GroupBy(i => i.Name[0]).ToList();
+                var groupedFavoriteList = tempList.GroupBy(i => i.Name[0].ToString().ToUpper()).ToList();
 
                 foreach (var item in groupedFavoriteList)
                 {
@@ -178,7 +178,7 @@ namespace CorpPass.ViewModels
 
                 GroupedItems.Clear();
 
-                var grouped = items.GroupBy(i => i.Name[0]).ToList();
+                var grouped = items.GroupBy(i => i.Name[0].ToString().ToUpper()).ToList();
                 foreach (var item in grouped)
                 {
                     GroupedItems.Add(new ItemsGroup<Item>(item.Key.ToString(), item.ToList()));

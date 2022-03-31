@@ -11,11 +11,9 @@
         <Grid>
             <BoxView
                 x:Name="Backdrop"
-                CornerRadius="15"
                 InputTransparent="True"
                 Opacity="0"
-                Color="{AppThemeBinding Light={StaticResource LightBackground},
-                                        Dark={StaticResource DarkBackground}}">
+                Color="{StaticResource Secondary}">
                 <BoxView.GestureRecognizers>
                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                 </BoxView.GestureRecognizers>
@@ -36,7 +34,6 @@
                     HeightRequest="{Binding SheetHeight, Source={x:Reference BottomSheetRef}}"
                     VerticalOptions="End" />
             </controls:PanContainer>
-
         </Grid>
     </ContentView.Content>
 </ContentView>

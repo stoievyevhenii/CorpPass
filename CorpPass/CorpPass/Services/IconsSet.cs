@@ -22,7 +22,7 @@ namespace CorpPass.Services
                 new Icon(){ Name = "icon_behance", Accent = Color.FromHex("#0053f2")},
                 new Icon(){ Name = "icon_dribbble", Accent = Color.FromHex("#eb528c")},
                 new Icon(){ Name = "icon_facebook", Accent = Color.FromHex("#0f89e2")},
-                
+
                 new Icon(){ Name = "icon_flickr", Accent = Color.FromHex("#063ca8")},
                 new Icon(){ Name = "icon_github", Accent = Color.FromHex("#f2f2f2")},
                 new Icon(){ Name = "icon_google", Accent = Color.FromHex("#e13e33")},
@@ -39,7 +39,7 @@ namespace CorpPass.Services
                 new Icon(){ Name = "icon_whatsapp", Accent = Color.FromHex("#279c1c")},
                 new Icon(){ Name = "icon_wordpress", Accent = Color.FromHex("#006e92")},
                 new Icon(){ Name = "icon_youtube_logo", Accent = Color.FromHex("#f20000")},
-                
+
                 new Icon(){ Name = "icon_1cestart", Accent = Color.FromHex("#faea1c")},
                 new Icon(){ Name = "icon_airvpn", Accent = Color.FromHex("#2c9aed")},
                 new Icon(){ Name = "icon_applications_office", Accent = Color.FromHex("#ce3906")},
@@ -69,7 +69,7 @@ namespace CorpPass.Services
                 new Icon(){ Name = "icon_visual_studio", Accent = Color.FromHex("#944ed2")},
                 new Icon(){ Name = "icon_visual_studio_code_2019", Accent = Color.FromHex("#0288d1")},
                 new Icon(){ Name = "icon_youtube_studio", Accent = Color.FromHex("#eb313f")},
-                
+                new Icon(){ Name = "icon_moodle", Accent = Color.FromHex("#ffab40")},
 
                 new Icon(){ Name = "icon_lock_color", Accent = Color.FromHex("#ffffff")}
             };
@@ -79,15 +79,17 @@ namespace CorpPass.Services
         {
             return icons;
         }
+
         public Icon GetIconModel(string name)
         {
             var iconsSet = GetIconsSet();
             return iconsSet.Find(i => i.Name == name);
         }
+
         public List<Item> SetIconForItem(List<Item> items)
         {
             var iconsSet = GetIconsSet();
-            
+
             foreach (var item in items)
             {
                 item.IconModel = iconsSet.Find(x => x.Name == item.Icon);

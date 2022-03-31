@@ -1,10 +1,10 @@
 ﻿using CorpPass.ViewModels;
-using Xamarin.Forms;
-using Xamarin.Essentials;
-using Xamarin.CommunityToolkit.UI.Views.Options;
-using Xamarin.CommunityToolkit.Extensions;
 using System;
 using System.Diagnostics;
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views.Options;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace CorpPass.Views
 {
@@ -16,7 +16,7 @@ namespace CorpPass.Views
             BindingContext = new ItemDetailViewModel();
         }
 
-        public async void CopyToClipboard(object sender, System.EventArgs e)
+        public async void CopyToClipboard(object sender, EventArgs e)
         {
             string message;
             var button = sender as ImageButton;
@@ -43,31 +43,43 @@ namespace CorpPass.Views
 
             await this.DisplaySnackBarAsync(options);
         }
-        public void ShowPassword(object sender, System.EventArgs e)
-        {
-            var passwordEntry = sender as Entry;
-            passwordEntry.IsPassword = !passwordEntry.IsPassword;
-        }
+
         public async void GoBack(object sender, SwipedEventArgs e)
         {
             await Shell.Current.Navigation.PopModalAsync();
         }
-        private async void OpenBottomSheet(object sender, EventArgs e)
+
+        public void ChangePasswordVisibility(object sender, EventArgs e)
+        {
+            if (PasswordField.IsPassword)
+            {
+                ShowPasswordButton.Source = "icon_hide";
+                PasswordField.IsPassword = false;
+            }
+            else
+            {
+                ShowPasswordButton.Source = "icon_show";
+                PasswordField.IsPassword = true;
+            }
+        }
+
+        private async void CloseBottomSheet(object sender, EventArgs e)
         {
             try
             {
-                await Sheet.OpenSheet();
+                await Sheet.CloseSheet();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
             }
         }
-        private async void CloseBottomSheet(object sender, EventArgs e)
+
+        private async void OpenBottomSheet(object sender, EventArgs e)
         {
             try
             {
-                await Sheet.CloseSheet();
+                await Sheet.OpenSheet();
             }
             catch (Exception ex)
             {
