@@ -10,10 +10,12 @@ namespace CorpPass.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     internal class ItemUpdateViewModel : BaseViewModel
     {
-        private readonly FolderItems _itemsFolderModel;
-        private readonly GroupItems _itemsGroupModel;
+        private int selectedFolder;
+        private int selectedGroup;
         private List<string> _folderList;
         private List<string> _groupList;
+        private readonly FolderItems _itemsFolderModel;
+        private readonly GroupItems _itemsGroupModel;
         private string description;
         private string folder;
         private string group;
@@ -22,21 +24,17 @@ namespace CorpPass.ViewModels
         private string login;
         private string name;
         private string password;
-        private int selectedFolder;
-        private int selectedGroup;
 
         public ItemUpdateViewModel()
         {
+            _itemsFolderModel = new FolderItems();
             _itemsGroupModel = new GroupItems();
+
+            _folderList = _itemsFolderModel.GetFoldersList();
             _groupList = _itemsGroupModel.GetGroupsNameList();
 
-            _itemsFolderModel = new FolderItems();
-            _folderList = _itemsFolderModel.GetFoldersList();
-
+            this.PropertyChanged += (_, __) => UpdateCommand.ChangeCanExecute();
             UpdateCommand = new Command(UpdateItem, ValidateSave);
-
-            this.PropertyChanged +=
-                (_, __) => UpdateCommand.ChangeCanExecute();
         }
 
         public string Description
@@ -149,14 +147,15 @@ namespace CorpPass.ViewModels
             {
                 var updatedItem = new Item()
                 {
-                    Id = Id,
-                    Name = Name,
-                    Icon = Icon,
-                    Login = Login,
-                    Password = Password,
-                    Group = Group,
+                    Description = Description,
                     Folder = Folder,
-                    Description = Description
+                    Group = Group,
+                    Icon = Icon,
+                    Id = Id,
+                    LastModified = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
+                    Login = Login,
+                    Name = Name,
+                    Password = Password
                 };
 
                 await DataStore.UpdateItemAsync(updatedItem);

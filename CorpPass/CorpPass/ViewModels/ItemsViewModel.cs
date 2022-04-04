@@ -18,6 +18,7 @@ namespace CorpPass.ViewModels
         private IconsSet _iconsSetModel = new IconsSet();
         private Item _selectedItem;
         private bool isFavoriteBusy = false;
+        private string totalItemsCount;
         public Command AddItemCommand { get; }
 
         public Command<Item> AdditionalTappedCommand { get; }
@@ -36,6 +37,12 @@ namespace CorpPass.ViewModels
         {
             get { return isFavoriteBusy; }
             set { SetProperty(ref isFavoriteBusy, value); }
+        }
+
+        public string TotalItemsCount
+        {
+            get { return totalItemsCount; }
+            set { SetProperty(ref totalItemsCount, value); }
         }
 
         public List<Item> Items { get; set; }
@@ -175,6 +182,8 @@ namespace CorpPass.ViewModels
             try
             {
                 var items = (await DataStore.GetItemsAsync(true)).ToList().OrderBy(i => i.Name).ToList();
+
+                TotalItemsCount = items.Count.ToString();
 
                 GroupedItems.Clear();
 

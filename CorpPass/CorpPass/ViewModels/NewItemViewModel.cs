@@ -106,17 +106,22 @@ namespace CorpPass.ViewModels
 
             Item newItem = new Item()
             {
-                Id = Guid.NewGuid().ToString(),
-                Icon = icon.Name,
-                Login = Login,
-                Password = Password,
+                Created = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
                 Description = Description,
-                Name = Name,
+                Folder = Folder,
                 Group = _groupList[selectedGroupIndex],
-                Folder = Folder
+                Icon = icon.Name,
+                Id = Guid.NewGuid().ToString(),
+                IsLeaked = false,
+                LastModified = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
+                Login = Login,
+                Name = Name,
+                Password = Password,
+                PasswordScore = PasswordSecurity.CheckStrength(Password)
             };
 
             await DataStore.AddItemAsync(newItem);
+
             await Shell.Current.GoToAsync("..");
         }
 

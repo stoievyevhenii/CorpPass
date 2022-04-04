@@ -76,7 +76,6 @@
                                             Margin="00"
                                             Padding="15,5"
                                             FontAttributes="Bold"
-                                            FontSize="Large"
                                             Text="{Binding Name}"
                                             TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
                                                                         Dark={StaticResource LightTitle}}" />

@@ -71,7 +71,6 @@
                                     Margin="00"
                                     Padding="15,5"
                                     FontAttributes="Bold"
-                                    FontSize="Large"
                                     Text="{Binding Name}"
                                     TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
                                                                 Dark={StaticResource LightTitle}}" />
@@ -80,7 +79,6 @@
                                     xct:CornerRadiusEffect.CornerRadius="15,15,0,0"
                                     BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                       Dark={StaticResource DarkPanelBackground}}" />
-
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>

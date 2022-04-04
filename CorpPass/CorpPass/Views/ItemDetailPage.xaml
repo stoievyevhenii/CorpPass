@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:CorpPass.Controls"
+    xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{StaticResource Secondary}"
     Shell.BackgroundColor="{StaticResource Secondary}"
@@ -183,9 +184,98 @@
                                     Text="Folder"
                                     TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
                                                                 Dark={StaticResource DarkForegroundSecondary}}" />
+
+                                <FlexLayout>
+                                    <Frame
+                                        Padding="15,5"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                          Dark={StaticResource DarkPanelBackground}}"
+                                        HasShadow="False"
+                                        OutlineColor="{Binding IconModel.Accent}">
+                                        <Label
+                                            xct:CornerRadiusEffect.CornerRadius="15"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                              Dark={StaticResource DarkPanelBackground}}"
+                                            FontSize="Small"
+                                            Text="{Binding Folder, Mode=TwoWay}"
+                                            TextColor="{Binding IconModel.Accent}" />
+                                    </Frame>
+                                </FlexLayout>
+
+                                <!--  Microcharts  -->
+                                <StackLayout Orientation="Horizontal">
+                                    <microcharts:ChartView
+                                        x:Name="chartView"
+                                        Chart="{Binding Chart}"
+                                        HeightRequest="128"
+                                        WidthRequest="128" />
+                                    <StackLayout VerticalOptions="CenterAndExpand">
+                                        <StackLayout Orientation="Horizontal">
+                                            <StackLayout>
+                                                <Label
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    Padding="0,15,0,0"
+                                                    FontAttributes="Bold"
+                                                    FontSize="Medium"
+                                                    Text="Password Score:"
+                                                    TextColor="{AppThemeBinding Light=Black,
+                                                                                Dark=White}"
+                                                    VerticalOptions="FillAndExpand" />
+                                            </StackLayout>
+                                            <StackLayout>
+                                                <Label
+                                                    Grid.Row="0"
+                                                    Grid.Column="2"
+                                                    Padding="0,15,0,0"
+                                                    FontAttributes="Bold"
+                                                    FontSize="Medium"
+                                                    Text="{Binding PasswordScore, Mode=OneWay}"
+                                                    TextColor="{AppThemeBinding Light=Black,
+                                                                                Dark=White}"
+                                                    VerticalOptions="FillAndExpand" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <StackLayout>
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    Text="Password strenght:"
+                                                    TextColor="{AppThemeBinding Light=Black,
+                                                                                Dark=White}"
+                                                    VerticalOptions="FillAndExpand" />
+                                            </StackLayout>
+                                            <StackLayout>
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Grid.Column="2"
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding PasswordStrenght}"
+                                                    TextColor="{StaticResource NormalBackgroundIcon}" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+
+                                <Label
+                                    FontAttributes="Bold"
+                                    Text="Last modified"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                Dark={StaticResource DarkForegroundSecondary}}" />
                                 <Label
                                     FontSize="Small"
-                                    Text="{Binding Folder, Mode=TwoWay}"
+                                    Text="{Binding LastModified, Mode=TwoWay}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                Dark={StaticResource DarkForegroundMain}}" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    Text="Created"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                Dark={StaticResource DarkForegroundSecondary}}" />
+                                <Label
+                                    FontSize="Small"
+                                    Text="{Binding Created, Mode=TwoWay}"
                                     TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
                                                                 Dark={StaticResource DarkForegroundMain}}" />
                                 <Label

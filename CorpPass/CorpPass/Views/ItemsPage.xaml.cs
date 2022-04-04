@@ -1,7 +1,6 @@
 ﻿using CorpPass.ViewModels;
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
@@ -10,7 +9,6 @@ namespace CorpPass.Views
 {
     public partial class ItemsPage : ContentPage
     {
-        private ImageButton _imageButton;
         private string _itemId;
         private ItemsViewModel _viewModel;
 
@@ -18,7 +16,6 @@ namespace CorpPass.Views
         {
             InitializeComponent();
             BindingContext = _viewModel = new ItemsViewModel();
-            _imageButton = FloatAddButton;
         }
 
         protected override void OnAppearing()
@@ -61,18 +58,6 @@ namespace CorpPass.Views
         private void GoToFirstElement(object sender, EventArgs e)
         {
             ItemsListView.ScrollTo(0, 0, animate: false);
-        }
-
-        private void ItemsListView_Scrolled(object sender, ItemsViewScrolledEventArgs e)
-        {
-            if (e.VerticalDelta > 1)
-            {
-                Task.WhenAll(_imageButton.ScaleTo(0, 200));
-            }
-            else if (e.VerticalDelta < 0 && Math.Abs(e.VerticalDelta) > 10)
-            {
-                Task.WhenAll(_imageButton.ScaleTo(1, 200));
-            }
         }
 
         private async void OpenBottomSheet(object sender, EventArgs e)

@@ -16,6 +16,20 @@ namespace CorpPass.Views
             BindingContext = new ItemDetailViewModel();
         }
 
+        public void ChangePasswordVisibility(object sender, EventArgs e)
+        {
+            if (PasswordField.IsPassword)
+            {
+                ShowPasswordButton.Source = "icon_hide";
+                PasswordField.IsPassword = false;
+            }
+            else
+            {
+                ShowPasswordButton.Source = "icon_show";
+                PasswordField.IsPassword = true;
+            }
+        }
+
         public async void CopyToClipboard(object sender, EventArgs e)
         {
             string message;
@@ -47,20 +61,6 @@ namespace CorpPass.Views
         public async void GoBack(object sender, SwipedEventArgs e)
         {
             await Shell.Current.Navigation.PopModalAsync();
-        }
-
-        public void ChangePasswordVisibility(object sender, EventArgs e)
-        {
-            if (PasswordField.IsPassword)
-            {
-                ShowPasswordButton.Source = "icon_hide";
-                PasswordField.IsPassword = false;
-            }
-            else
-            {
-                ShowPasswordButton.Source = "icon_show";
-                PasswordField.IsPassword = true;
-            }
         }
 
         private async void CloseBottomSheet(object sender, EventArgs e)
