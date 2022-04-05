@@ -17,8 +17,9 @@ namespace CorpPass.Services
             catch
             {
                 return await Task.FromResult(false);
-            }            
+            }
         }
+
         public async Task<bool> UpdateItemAsync(Item item)
         {
             try
@@ -31,6 +32,7 @@ namespace CorpPass.Services
                 return await Task.FromResult(false);
             }
         }
+
         public async Task<bool> DeleteItemAsync(string id)
         {
             try
@@ -43,12 +45,13 @@ namespace CorpPass.Services
                 return await Task.FromResult(false);
             }
         }
+
         public async Task<Item> GetItemAsync(string id)
         {
             try
             {
                 var iconModel = new IconsSet();
-                var table = await App.Database.GetItemsAsync();
+                var table = App.Database.GetItemsAsync();
                 var item = table.Where(i => i.Id == id).FirstOrDefault();
 
                 item.IconModel = iconModel.GetIconModel(item.Icon);
@@ -62,13 +65,14 @@ namespace CorpPass.Services
                 return await Task.FromResult(defaultItem);
             }
         }
+
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {
             try
             {
                 var iconModel = new IconsSet();
-                var items = await App.Database.GetItemsAsync();
-                
+                var items = App.Database.GetItemsAsync();
+
                 items = iconModel.SetIconForItem(items);
 
                 return items;
@@ -78,6 +82,5 @@ namespace CorpPass.Services
                 return await Task.FromResult(new List<Item>());
             }
         }
-        
     }
 }

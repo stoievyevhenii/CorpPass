@@ -55,11 +55,8 @@
                             FontSize="Title"
                             Text="{Binding Name}"
                             TextColor="{StaticResource DarkForegroundMain}" />
-                        <xct:Shield
-                            HorizontalOptions="Start"
-                            Status="{Binding Group}"
-                            StatusBackgroundColor="{Binding IconModel.Accent}"
-                            Subject="Group" />
+
+                        <Label Text="{Binding Group}" TextColor="{StaticResource DarkForegroundMain}" />
                     </StackLayout>
                     <ImageButton
                         Padding="15"
@@ -190,8 +187,7 @@
                                         Padding="15,5"
                                         BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                           Dark={StaticResource DarkPanelBackground}}"
-                                        HasShadow="False"
-                                        OutlineColor="{Binding IconModel.Accent}">
+                                        HasShadow="False">
                                         <Label
                                             xct:CornerRadiusEffect.CornerRadius="15"
                                             BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
@@ -203,18 +199,21 @@
                                 </FlexLayout>
 
                                 <!--  Microcharts  -->
+                                <Label
+                                    FontAttributes="Bold"
+                                    Text="Password health"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                Dark={StaticResource DarkForegroundSecondary}}" />
                                 <StackLayout Orientation="Horizontal">
                                     <microcharts:ChartView
                                         x:Name="chartView"
                                         Chart="{Binding Chart}"
-                                        HeightRequest="128"
-                                        WidthRequest="128" />
+                                        HeightRequest="200"
+                                        WidthRequest="190" />
                                     <StackLayout VerticalOptions="CenterAndExpand">
                                         <StackLayout Orientation="Horizontal">
                                             <StackLayout>
                                                 <Label
-                                                    Grid.Row="0"
-                                                    Grid.Column="1"
                                                     Padding="0,15,0,0"
                                                     FontAttributes="Bold"
                                                     FontSize="Medium"
@@ -225,8 +224,6 @@
                                             </StackLayout>
                                             <StackLayout>
                                                 <Label
-                                                    Grid.Row="0"
-                                                    Grid.Column="2"
                                                     Padding="0,15,0,0"
                                                     FontAttributes="Bold"
                                                     FontSize="Medium"
@@ -239,8 +236,6 @@
                                         <StackLayout Orientation="Horizontal">
                                             <StackLayout>
                                                 <Label
-                                                    Grid.Row="1"
-                                                    Grid.Column="1"
                                                     Text="Password strenght:"
                                                     TextColor="{AppThemeBinding Light=Black,
                                                                                 Dark=White}"
@@ -248,13 +243,68 @@
                                             </StackLayout>
                                             <StackLayout>
                                                 <Label
-                                                    Grid.Row="1"
-                                                    Grid.Column="2"
+                                                    x:Name="PasswordStrengthText"
                                                     FontAttributes="Bold"
                                                     Text="{Binding PasswordStrenght}"
-                                                    TextColor="{StaticResource NormalBackgroundIcon}" />
+                                                    TextColor="{AppThemeBinding Light=Black,
+                                                                                Dark=White}" />
                                             </StackLayout>
                                         </StackLayout>
+
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Padding="15,5"
+                                                xct:CornerRadiusEffect.CornerRadius="5"
+                                                BackgroundColor="{StaticResource NormalBackground}"
+                                                Orientation="Horizontal">
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Image
+                                                        Margin="5"
+                                                        xct:IconTintColorEffect.TintColor="{StaticResource NormalBackgroundIcon}"
+                                                        HeightRequest="20"
+                                                        Source="icon_shield_done"
+                                                        WidthRequest="20" />
+                                                    <Label
+                                                        FontAttributes="Bold"
+                                                        Text="Password isn`t leaked"
+                                                        TextColor="{StaticResource NormalBackgroundIcon}"
+                                                        VerticalOptions="CenterAndExpand" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Padding="15,5"
+                                                xct:CornerRadiusEffect.CornerRadius="5"
+                                                BackgroundColor="{StaticResource DangerBackground}"
+                                                IsVisible="{Binding IsLeaked}"
+                                                Orientation="Horizontal">
+                                                <StackLayout
+                                                    HorizontalOptions="FillAndExpand"
+                                                    Orientation="Horizontal"
+                                                    VerticalOptions="CenterAndExpand">
+                                                    <Image
+                                                        Margin="5"
+                                                        xct:IconTintColorEffect.TintColor="{StaticResource DangerBackgroundIcon}"
+                                                        HeightRequest="20"
+                                                        Source="icon_shield_error"
+                                                        WidthRequest="20" />
+                                                    <Label
+                                                        FontAttributes="Bold"
+                                                        Text="Password is leaked"
+                                                        TextColor="{StaticResource DangerBackgroundIcon}"
+                                                        VerticalOptions="CenterAndExpand" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </Grid>
                                     </StackLayout>
                                 </StackLayout>
 

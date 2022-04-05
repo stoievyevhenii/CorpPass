@@ -129,7 +129,9 @@ namespace CorpPass.ViewModels
         {
             return !string.IsNullOrWhiteSpace(login)
                 && !string.IsNullOrWhiteSpace(password)
-                && !string.IsNullOrWhiteSpace(name);
+                && !string.IsNullOrWhiteSpace(name)
+                && !string.IsNullOrWhiteSpace(folder)
+                && !string.IsNullOrWhiteSpace(group);
         }
     }
 }

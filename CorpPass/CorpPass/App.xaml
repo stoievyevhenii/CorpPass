@@ -6,8 +6,8 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="Primary">#0272ca</Color>
-            <Color x:Key="PrimaryDark">#5ba0fd</Color>
+            <Color x:Key="Primary">#f66d67</Color>
+            <Color x:Key="PrimaryDark">#ffb168</Color>
             <Color x:Key="Secondary">#262626</Color>
 
             <Color x:Key="LightBackground">#f2f2f2</Color>

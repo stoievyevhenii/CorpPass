@@ -16,22 +16,50 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <ControlTemplate x:Key="FabTabItemTemplate">
-                <Grid>
+                <Grid Margin="0,0,0,20">
                     <ImageButton
-                        Margin="5"
+                        Margin="6"
                         Padding="15"
-                        xct:TouchEffect.NativeAnimation="True"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary},
-                                                          Dark={StaticResource PrimaryDark}}"
-                        CornerRadius="100"
-                        HeightRequest="50"
+                        BackgroundColor="Gray"
+                        HeightRequest="60"
                         HorizontalOptions="Center"
                         InputTransparent="True"
-                        Source="icon_add" />
+                        Source="icon_add"
+                        WidthRequest="60">
+                        <ImageButton.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Int32">
+                                <On Platform="iOS" Value="30" />
+                                <On Platform="Android" Value="60" />
+                                <On Platform="UWP" Value="36" />
+                            </OnPlatform>
+                        </ImageButton.CornerRadius>
+                        <ImageButton.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean">
+                                <On Platform="Android, iOS, UWP">True</On>
+                                <On Platform="macOS">False</On>
+                            </OnPlatform>
+                        </ImageButton.IsVisible>
+                        <ImageButton.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Offset="0.1" Color="{StaticResource Primary}" />
+                                <GradientStop Offset="1.0" Color="{StaticResource PrimaryDark}" />
+                            </LinearGradientBrush>
+                        </ImageButton.Background>
+                    </ImageButton>
                 </Grid>
             </ControlTemplate>
+
+
+            <Style x:Key="CustomTabStyle" TargetType="xct:TabView">
+                <Setter Property="IsTabTransitionEnabled" Value="True" />
+                <Setter Property="TabStripHeight" Value="30" />
+                <Setter Property="TabContentBackgroundColor" Value="#484848" />
+                <Setter Property="TabStripPlacement" Value="Bottom" />
+            </Style>
+
         </ResourceDictionary>
     </ContentPage.Resources>
+
     <Grid>
         <StackLayout Spacing="0">
             <StackLayout Margin="0,0,0,-1">
@@ -132,7 +160,7 @@
                             FontAttributes="Bold"
                             FontSize="Large"
                             HorizontalOptions="EndAndExpand"
-                            Text="-"
+                            Text="{Binding TotalLeakedItemsCount}"
                             TextColor="{AppThemeBinding Light=Black,
                                                         Dark=White}"
                             VerticalOptions="Center" />
@@ -142,19 +170,19 @@
             <xct:TabView
                 Margin="0"
                 IsSwipeEnabled="False"
-                TabIndicatorHeight="5"
-                TabIndicatorPlacement="Bottom"
-                TabIndicatorWidth="100"
+                Style="{StaticResource CustomTabStyle}"
+                TabIndicatorHeight="0"
                 TabStripHeight="60"
                 TabStripPlacement="Bottom">
-                <xct:TabView.TabIndicatorView>
-                    <BoxView xct:CornerRadiusEffect.CornerRadius="15,15,0,0" BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
-                </xct:TabView.TabIndicatorView>
                 <xct:TabView.TabStripBackgroundView>
-                    <BoxView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" />
+                    <BoxView xct:ShadowEffect.Color="Black" BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" />
                 </xct:TabView.TabStripBackgroundView>
                 <xct:TabViewItem
-                    Text="ALL"
+                    Margin="0,30,0,0"
+                    FontFamily="SegoeFluentIcons.ttf"
+                    FontSize="20"
+                    FontSizeSelected="25"
+                    Text="&#xe71d;"
                     TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
                                                 Dark={StaticResource DarkForegroundSecondary}}"
                     TextColorSelected="{AppThemeBinding Light={StaticResource Primary},
@@ -181,22 +209,18 @@
                                             <StackLayout Margin="15,0">
                                                 <Label
                                                     Margin="0"
-                                                    Padding="15,5"
+                                                    Padding="20,5"
                                                     FontAttributes="Bold"
+                                                    FontSize="Large"
                                                     Text="{Binding Name}"
                                                     TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
                                                                                 Dark={StaticResource LightTitle}}" />
-                                                <BoxView
-                                                    Margin="0,0,0,-20"
-                                                    xct:CornerRadiusEffect.CornerRadius="15,15,0,0"
-                                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                                      Dark={StaticResource DarkPanelBackground}}" />
                                             </StackLayout>
                                         </DataTemplate>
                                     </CollectionView.GroupHeaderTemplate>
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate>
-                                            <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground}, Dark={StaticResource DarkPanelBackground}}">
+                                            <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
@@ -204,7 +228,7 @@
                                                 </Grid.ColumnDefinitions>
                                                 <Grid
                                                     Grid.Column="0"
-                                                    Padding="15,5"
+                                                    Padding="0,5"
                                                     xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"
                                                     xct:TouchEffect.CommandParameter="{Binding .}"
                                                     xct:TouchEffect.NativeAnimation="True">
@@ -309,18 +333,7 @@
                                             </Grid>
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
-                                    <CollectionView.GroupFooterTemplate>
-                                        <DataTemplate>
-                                            <StackLayout>
-                                                <BoxView
-                                                    Margin="0,-20,0,0"
-                                                    xct:CornerRadiusEffect.CornerRadius="0,0,15,15"
-                                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                                      Dark={StaticResource DarkPanelBackground}}" />
-                                                <BoxView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" HeightRequest="5" />
-                                            </StackLayout>
-                                        </DataTemplate>
-                                    </CollectionView.GroupFooterTemplate>
+
                                     <CollectionView.EmptyView>
                                         <view:EmprtyView />
                                     </CollectionView.EmptyView>
@@ -334,7 +347,10 @@
                     TapCommand="{Binding AddItemCommand}"
                     Text="Add New Item" />
                 <xct:TabViewItem
-                    Text="Favorites"
+                    FontFamily="SegoeFluentIcons.ttf"
+                    FontSize="20"
+                    FontSizeSelected="25"
+                    Text="&#xe728;"
                     TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
                                                 Dark={StaticResource DarkForegroundSecondary}}"
                     TextColorSelected="{AppThemeBinding Light={StaticResource Primary},
@@ -359,31 +375,27 @@
                                     <DataTemplate>
                                         <StackLayout>
                                             <Label
-                                                Margin="00"
-                                                Padding="15,5"
+                                                Margin="0"
+                                                Padding="20,5"
                                                 FontAttributes="Bold"
+                                                FontSize="Large"
                                                 Text="{Binding Name}"
                                                 TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
                                                                             Dark={StaticResource LightTitle}}" />
-                                            <BoxView
-                                                Margin="0,0,0,-20"
-                                                xct:CornerRadiusEffect.CornerRadius="15,15,0,0"
-                                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                                  Dark={StaticResource DarkPanelBackground}}" />
 
                                         </StackLayout>
                                     </DataTemplate>
                                 </CollectionView.GroupHeaderTemplate>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground}, Dark={StaticResource DarkPanelBackground}}">
+                                        <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
                                             <Grid
                                                 Grid.Column="0"
-                                                Padding="15,5"
+                                                Padding="0,5"
                                                 xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"
                                                 xct:TouchEffect.CommandParameter="{Binding .}"
                                                 xct:TouchEffect.NativeAnimation="True">
@@ -436,7 +448,6 @@
                                                     </Grid>
                                                 </Frame>
 
-
                                                 <Label
                                                     Grid.Row="0"
                                                     Grid.Column="1"
@@ -477,18 +488,6 @@
                                         </Grid>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
-                                <CollectionView.GroupFooterTemplate>
-                                    <DataTemplate>
-                                        <StackLayout>
-                                            <BoxView
-                                                Margin="0,-20,0,0"
-                                                xct:CornerRadiusEffect.CornerRadius="0,0,15,15"
-                                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                                  Dark={StaticResource DarkPanelBackground}}" />
-                                            <BoxView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" HeightRequest="5" />
-                                        </StackLayout>
-                                    </DataTemplate>
-                                </CollectionView.GroupFooterTemplate>
                                 <CollectionView.EmptyView>
                                     <view:EmprtyView />
                                 </CollectionView.EmptyView>

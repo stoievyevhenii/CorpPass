@@ -24,6 +24,7 @@ namespace CorpPass.ViewModels
         private string login;
         private string name;
         private string password;
+        private string created;
 
         public ItemUpdateViewModel()
         {
@@ -58,6 +59,12 @@ namespace CorpPass.ViewModels
         {
             get => group;
             set => SetProperty(ref group, value);
+        }
+
+        public string Created
+        {
+            get => created;
+            set => SetProperty(ref created, value);
         }
 
         public List<string> GroupList
@@ -130,6 +137,7 @@ namespace CorpPass.ViewModels
                 Login = item.Login;
                 Password = item.Password;
                 Group = item.Group;
+                Created = item.Created;
                 Folder = item.Folder;
                 Description = item.Description;
 
@@ -152,10 +160,12 @@ namespace CorpPass.ViewModels
                     Group = Group,
                     Icon = Icon,
                     Id = Id,
+                    Created = Created,
                     LastModified = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
                     Login = Login,
                     Name = Name,
-                    Password = Password
+                    Password = Password,
+                    PasswordScore = PasswordSecurity.CheckStrength(Password)
                 };
 
                 await DataStore.UpdateItemAsync(updatedItem);

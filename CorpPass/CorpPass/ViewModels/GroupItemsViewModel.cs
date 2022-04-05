@@ -117,7 +117,7 @@ namespace CorpPass.ViewModels
                 var grouped = items.GroupBy(i => i.Name[0]).ToList();
                 foreach (var item in grouped)
                 {
-                    GroupedItems.Add(new ItemsGroup<Item>(item.Key.ToString(), item.ToList()));
+                    GroupedItems.Add(new ItemsGroup<Item>(item.Key.ToString().ToUpper(), item.ToList()));
                 }
             }
             catch (Exception ex)

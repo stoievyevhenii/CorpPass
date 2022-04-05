@@ -19,6 +19,8 @@ namespace CorpPass.ViewModels
         private Item _selectedItem;
         private bool isFavoriteBusy = false;
         private string totalItemsCount;
+        private string totalLeakedItemsCount;
+
         public Command AddItemCommand { get; }
 
         public Command<Item> AdditionalTappedCommand { get; }
@@ -43,6 +45,12 @@ namespace CorpPass.ViewModels
         {
             get { return totalItemsCount; }
             set { SetProperty(ref totalItemsCount, value); }
+        }
+
+        public string TotalLeakedItemsCount
+        {
+            get { return totalLeakedItemsCount; }
+            set { SetProperty(ref totalLeakedItemsCount, value); }
         }
 
         public List<Item> Items { get; set; }
@@ -162,7 +170,7 @@ namespace CorpPass.ViewModels
 
                 foreach (var item in groupedFavoriteList)
                 {
-                    GroupedFavoriteItems.Add(new ItemsGroup<Item>(item.Key.ToString(), item.ToList()));
+                    GroupedFavoriteItems.Add(new ItemsGroup<Item>(item.Key.ToString().ToUpper(), item.ToList()));
                 }
             }
             catch (Exception ex)
@@ -184,13 +192,14 @@ namespace CorpPass.ViewModels
                 var items = (await DataStore.GetItemsAsync(true)).ToList().OrderBy(i => i.Name).ToList();
 
                 TotalItemsCount = items.Count.ToString();
+                TotalLeakedItemsCount = items.Count(i => i.IsLeaked == true).ToString();
 
                 GroupedItems.Clear();
 
                 var grouped = items.GroupBy(i => i.Name[0].ToString().ToUpper()).ToList();
                 foreach (var item in grouped)
                 {
-                    GroupedItems.Add(new ItemsGroup<Item>(item.Key.ToString(), item.ToList()));
+                    GroupedItems.Add(new ItemsGroup<Item>(item.Key.ToString().ToUpper(), item.ToList()));
                 }
             }
             catch (Exception ex)

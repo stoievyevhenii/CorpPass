@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CorpPass.Services
 {
@@ -15,7 +14,7 @@ namespace CorpPass.Services
 
         private void ExtractFoldersList()
         {
-            var items = Task.Run(async () => await App.Database.GetItemsAsync()).Result;
+            var items = App.Database.GetItemsAsync();
 
             ItemsFolders = new List<string>();
 
