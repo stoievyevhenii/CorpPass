@@ -6,7 +6,6 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:local="clr-namespace:CorpPass.ViewModels"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:model="clr-namespace:CorpPass.Models"
     xmlns:view="clr-namespace:CorpPass.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Title="Search"
@@ -52,7 +51,7 @@
                         xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
                                                                             Dark=White}"
                         HeightRequest="25"
-                        Source="icon_search.xml"
+                        Source="icon_search"
                         WidthRequest="25" />
                 </Frame>
 
@@ -77,18 +76,19 @@
                     CornerRadius="15">
                     <SearchBar
                         x:Name="searchBar"
-                        BackgroundColor="#3c3c3c"
+                        BackgroundColor="{AppThemeBinding Light=White,
+                                                          Dark=Black}"
                         Placeholder="Password name..."
                         PlaceholderColor="Gray"
                         SearchCommand="{Binding Source={RelativeSource AncestorType={x:Type local:SearchPageViewModel}}, Path=PerformSearch}"
                         SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                        TextColor="White" />
+                        TextColor="{AppThemeBinding Light=Black,
+                                                    Dark=White}" />
                 </Frame>
-
             </Grid>
 
             <Frame
-                Margin="15,10"
+                Margin="0,0,0,-10"
                 Padding="0"
                 BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
                                                   Dark={StaticResource DarkBackground}}"
@@ -101,15 +101,23 @@
                     RefreshColor="{StaticResource Primary}">
                     <CollectionView
                         x:Name="SearchListView"
+                        Margin="15"
                         ItemsSource="{Binding Items}"
                         SelectionMode="None">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="15" Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Grid
                                     Padding="15,5"
+                                    xct:CornerRadiusEffect.CornerRadius="15"
                                     xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:SearchPageViewModel}}, Path=ItemTapped}"
                                     xct:TouchEffect.CommandParameter="{Binding .}"
-                                    xct:TouchEffect.NativeAnimation="True">
+                                    xct:TouchEffect.NativeAnimation="True"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                      Dark={StaticResource DarkPanelBackground}}">
+
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
@@ -126,7 +134,8 @@
                                         Grid.Column="0"
                                         Padding="0"
                                         BackgroundColor="Transparent"
-                                        CornerRadius="15"
+                                        BorderColor="{Binding IconModel.Accent}"
+                                        CornerRadius="60"
                                         HasShadow="True"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center">

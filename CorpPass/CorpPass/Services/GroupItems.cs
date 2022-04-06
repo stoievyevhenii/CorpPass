@@ -1,6 +1,6 @@
-﻿using CorpPass.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using CorpPass.Models;
 
 namespace CorpPass.Services
 {
@@ -11,16 +11,6 @@ namespace CorpPass.Services
         public GroupItems()
         {
             InitGroupIcons();
-        }
-
-        private void InitGroupIcons()
-        {
-            groupItems = new List<CollectionListItem>()
-            {
-                new GroupItem(){ Name ="Work", Icon = "icon_work" },
-                new GroupItem(){ Name ="Education", Icon = "icon_education" },
-                new GroupItem(){ Name ="Home", Icon = "icon_home" }
-            };
         }
 
         public List<CollectionListItem> GetGroupsItems()
@@ -49,6 +39,16 @@ namespace CorpPass.Services
             {
                 Name = item.Name,
                 Icon = item.Icon
+            };
+        }
+
+        private void InitGroupIcons()
+        {
+            groupItems = new List<CollectionListItem>()
+            {
+                new GroupItem(){ Name ="Work", Icon = "icon_work" },
+                new GroupItem(){ Name ="Education", Icon = "icon_education" },
+                new GroupItem(){ Name ="Home", Icon = "icon_home" }
             };
         }
     }

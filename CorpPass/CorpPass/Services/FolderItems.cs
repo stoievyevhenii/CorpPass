@@ -12,6 +12,11 @@ namespace CorpPass.Services
             ExtractFoldersList();
         }
 
+        public List<string> GetFoldersList()
+        {
+            return ItemsFolders.Distinct().ToList();
+        }
+
         private void ExtractFoldersList()
         {
             var items = App.Database.GetItemsAsync();
@@ -23,11 +28,6 @@ namespace CorpPass.Services
                 var itemFolder = item.Folder;
                 ItemsFolders.Add(itemFolder);
             }
-        }
-
-        public List<string> GetFoldersList()
-        {
-            return ItemsFolders.Distinct().ToList();
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using CorpPass.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CorpPass.Models;
 
 namespace CorpPass.Services
 {
@@ -12,19 +12,6 @@ namespace CorpPass.Services
             try
             {
                 await App.Database.SaveItemAsync(item);
-                return await Task.FromResult(true);
-            }
-            catch
-            {
-                return await Task.FromResult(false);
-            }
-        }
-
-        public async Task<bool> UpdateItemAsync(Item item)
-        {
-            try
-            {
-                await App.Database.UpdateItem(item);
                 return await Task.FromResult(true);
             }
             catch
@@ -80,6 +67,19 @@ namespace CorpPass.Services
             catch
             {
                 return await Task.FromResult(new List<Item>());
+            }
+        }
+
+        public async Task<bool> UpdateItemAsync(Item item)
+        {
+            try
+            {
+                await App.Database.UpdateItem(item);
+                return await Task.FromResult(true);
+            }
+            catch
+            {
+                return await Task.FromResult(false);
             }
         }
     }

@@ -1,8 +1,7 @@
-﻿using CorpPass.Services;
-using CorpPass.ViewModels;
-using System;
+﻿using System;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
+using CorpPass.Services;
+using CorpPass.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -25,13 +24,7 @@ namespace CorpPass.Views
         }
 
         #region HANDLERS
-        private void NumberButtonClicked(object sender, EventArgs e)
-        {
-            var clickedButton = sender as Button;
-            var number = clickedButton.Text;
 
-            PassField.Text += number;
-        }
         private void BackspaceButtonClicked(object sender, EventArgs e)
         {
             try
@@ -42,19 +35,25 @@ namespace CorpPass.Views
             }
             catch { }
         }
+
+        private void NumberButtonClicked(object sender, EventArgs e)
+        {
+            var clickedButton = sender as Button;
+            var number = clickedButton.Text;
+
+            PassField.Text += number;
+        }
+
         private async void PassField_TextChanged(object sender, TextChangedEventArgs e)
         {
             await PasscodeFieldChecker();
         }
-        private void UseFingerprintAuth(object sender, EventArgs e)
-        {
-            UseBiometrickAuth();
-        }
+
         private async void SetNewPin(object sender, EventArgs e)
         {
             try
-            {   
-                _prefernecesSecurity.SetSecureData(PreferencesKeys.PIN, NewPin.Text);                
+            {
+                _prefernecesSecurity.SetSecureData(PreferencesKeys.PIN, NewPin.Text);
                 PinTabView.SelectedIndex = 0;
             }
             catch
@@ -62,9 +61,16 @@ namespace CorpPass.Views
                 await DisplayAlert("Error!", "Can`t set new PIN", "OK");
             }
         }
-        #endregion
+
+        private void UseFingerprintAuth(object sender, EventArgs e)
+        {
+            UseBiometrickAuth();
+        }
+
+        #endregion HANDLERS
 
         #region UTILS
+
         private void CheckFirstStart()
         {
             if (string.IsNullOrEmpty(_pin))
@@ -72,20 +78,7 @@ namespace CorpPass.Views
                 PinTabView.SelectedIndex = 1;
             }
         }
-        private async void UseBiometrickAuth() {
-            var scannerIsAvailable = await FingerrintChecker.CheckFingerprintAvailibility();
 
-            if (scannerIsAvailable)
-            {
-                var fingerprintScanResult = await FingerrintChecker.UseFingerprint();
-                var authed = fingerprintScanResult[FingerprintScanKeys.Authed];
-
-                if (authed)
-                {
-                    UserWasAuth();
-                }
-            }
-        }
         private async Task PasscodeFieldChecker()
         {
             var passcodeField = PassField;
@@ -117,6 +110,23 @@ namespace CorpPass.Views
                 }
             }
         }
+
+        private async void UseBiometrickAuth()
+        {
+            var scannerIsAvailable = await FingerrintChecker.CheckFingerprintAvailibility();
+
+            if (scannerIsAvailable)
+            {
+                var fingerprintScanResult = await FingerrintChecker.UseFingerprint();
+                var authed = fingerprintScanResult[FingerprintScanKeys.Authed];
+
+                if (authed)
+                {
+                    UserWasAuth();
+                }
+            }
+        }
+
         private async void UserWasAuth()
         {
             NumericPad.IsVisible = false;
@@ -128,6 +138,7 @@ namespace CorpPass.Views
             NumericPad.IsVisible = true;
             LoadIndicator.IsVisible = false;
         }
-        #endregion
+
+        #endregion UTILS
     }
 }

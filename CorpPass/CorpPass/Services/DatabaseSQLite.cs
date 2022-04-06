@@ -1,7 +1,7 @@
-﻿using CorpPass.Models;
-using SQLite;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CorpPass.Models;
+using SQLite;
 using Xamarin.Essentials;
 
 namespace CorpPass.Services

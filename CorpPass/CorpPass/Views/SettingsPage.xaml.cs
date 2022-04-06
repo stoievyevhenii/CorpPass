@@ -7,12 +7,10 @@ namespace CorpPass.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
-        SettingsPageViewModel _viewModel;
-        
         public SettingsPage()
         {
             InitializeComponent();
-            BindingContext = _viewModel = new SettingsPageViewModel();
+            BindingContext = new SettingsPageViewModel();
         }
     }
 }

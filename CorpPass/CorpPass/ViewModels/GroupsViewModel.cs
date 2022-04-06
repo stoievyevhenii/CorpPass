@@ -1,7 +1,7 @@
-﻿using CorpPass.Models;
+﻿using System.Collections.Generic;
+using CorpPass.Models;
 using CorpPass.Services;
 using CorpPass.Views;
-using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels

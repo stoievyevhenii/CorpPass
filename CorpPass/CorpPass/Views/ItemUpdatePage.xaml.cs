@@ -18,6 +18,17 @@ namespace CorpPass.Views
             BindingContext = _viewModel = new ItemUpdateViewModel();
         }
 
+        private void FolderPicker_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            var selectedFolder = FolderPicker.SelectedItem.ToString();
+            SelectedFolder.Text = selectedFolder;
+        }
+
+        private void GroupPicker_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            SelectedGroup.Text = GroupPicker.Items[GroupPicker.SelectedIndex];
+        }
+
         private async void IconPicker_Clicked(object sender, System.EventArgs e)
         {
             var selectedIcon = await Navigation.ShowPopupAsync(new PopControl());
@@ -29,17 +40,6 @@ namespace CorpPass.Views
             SelectedIcon.Text = selectedIconName;
             ItemIcon.Source = icon.Name;
             IconPickerFrame.BorderColor = icon.Accent;
-        }
-
-        private void GroupPicker_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            SelectedGroup.Text = GroupPicker.Items[GroupPicker.SelectedIndex];
-        }
-
-        private void FolderPicker_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            var selectedFolder = FolderPicker.SelectedItem.ToString();
-            SelectedFolder.Text = selectedFolder;
         }
 
         private void OpenPicker(object sender, System.EventArgs e)

@@ -4,10 +4,10 @@ namespace CorpPass.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {
-        private string appName;
-        private string build;
-        private string packageName;
-        private string version;
+        private string _appName;
+        private string _build;
+        private string _packageName;
+        private string _version;
 
         public AboutViewModel()
         {
@@ -19,26 +19,26 @@ namespace CorpPass.ViewModels
 
         public string AppName
         {
-            get { return appName; }
-            set { SetProperty(ref appName, value); }
+            get => _appName;
+            set => SetProperty(ref _appName, value);
         }
 
         public string Build
         {
-            get { return build; }
-            set { SetProperty(ref build, value); }
+            get => _build;
+            set => SetProperty(ref _build, value);
         }
 
         public string PackageName
         {
-            get { return packageName; }
-            set { SetProperty(ref packageName, value); }
+            get => _packageName;
+            set => SetProperty(ref _packageName, value);
         }
 
         public string Version
         {
-            get { return version; }
-            set { SetProperty(ref version, value); }
+            get => _version;
+            set => SetProperty(ref _version, value);
         }
     }
 }

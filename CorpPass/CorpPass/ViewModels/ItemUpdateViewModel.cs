@@ -1,8 +1,8 @@
-﻿using CorpPass.Models;
-using CorpPass.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using CorpPass.Models;
+using CorpPass.Services;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels
@@ -10,21 +10,21 @@ namespace CorpPass.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     internal class ItemUpdateViewModel : BaseViewModel
     {
-        private int selectedFolder;
-        private int selectedGroup;
-        private List<string> _folderList;
-        private List<string> _groupList;
+        private readonly List<string> _folderList;
+        private readonly List<string> _groupList;
         private readonly FolderItems _itemsFolderModel;
         private readonly GroupItems _itemsGroupModel;
-        private string description;
-        private string folder;
-        private string group;
-        private string icon;
-        private string itemId;
-        private string login;
-        private string name;
-        private string password;
-        private string created;
+        private string _created;
+        private string _description;
+        private string _folder;
+        private string _group;
+        private string _icon;
+        private string _itemId;
+        private string _login;
+        private string _name;
+        private string _password;
+        private int _selectedFolder;
+        private int _selectedGroup;
 
         public ItemUpdateViewModel()
         {
@@ -38,16 +38,22 @@ namespace CorpPass.ViewModels
             UpdateCommand = new Command(UpdateItem, ValidateSave);
         }
 
+        public string Created
+        {
+            get => _created;
+            set => SetProperty(ref _created, value);
+        }
+
         public string Description
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => _description;
+            set => SetProperty(ref _description, value);
         }
 
         public string Folder
         {
-            get => folder;
-            set => SetProperty(ref folder, value);
+            get => _folder;
+            set => SetProperty(ref _folder, value);
         }
 
         public List<string> FolderList
@@ -57,14 +63,8 @@ namespace CorpPass.ViewModels
 
         public string Group
         {
-            get => group;
-            set => SetProperty(ref group, value);
-        }
-
-        public string Created
-        {
-            get => created;
-            set => SetProperty(ref created, value);
+            get => _group;
+            set => SetProperty(ref _group, value);
         }
 
         public List<string> GroupList
@@ -74,8 +74,8 @@ namespace CorpPass.ViewModels
 
         public string Icon
         {
-            get => icon;
-            set => SetProperty(ref icon, value);
+            get => _icon;
+            set => SetProperty(ref _icon, value);
         }
 
         public string Id { get; set; }
@@ -84,43 +84,43 @@ namespace CorpPass.ViewModels
         {
             get
             {
-                return itemId;
+                return _itemId;
             }
             set
             {
-                itemId = value;
+                _itemId = value;
                 LoadItemId(value);
             }
         }
 
         public string Login
         {
-            get => login;
-            set => SetProperty(ref login, value);
+            get => _login;
+            set => SetProperty(ref _login, value);
         }
 
         public string Name
         {
-            get => name;
-            set => SetProperty(ref name, value);
+            get => _name;
+            set => SetProperty(ref _name, value);
         }
 
         public string Password
         {
-            get => password;
-            set => SetProperty(ref password, value);
+            get => _password;
+            set => SetProperty(ref _password, value);
         }
 
         public int SelectedFolder
         {
-            get => selectedFolder;
-            set => SetProperty(ref selectedFolder, value);
+            get => _selectedFolder;
+            set => SetProperty(ref _selectedFolder, value);
         }
 
         public int SelectedGroup
         {
-            get => selectedGroup;
-            set => SetProperty(ref selectedGroup, value);
+            get => _selectedGroup;
+            set => SetProperty(ref _selectedGroup, value);
         }
 
         public Command UpdateCommand { get; }
@@ -131,15 +131,15 @@ namespace CorpPass.ViewModels
             {
                 var item = await DataStore.GetItemAsync(itemId);
 
-                Id = item.Id;
-                Name = item.Name;
-                Icon = item.Icon;
-                Login = item.Login;
-                Password = item.Password;
-                Group = item.Group;
                 Created = item.Created;
-                Folder = item.Folder;
                 Description = item.Description;
+                Folder = item.Folder;
+                Group = item.Group;
+                Icon = item.Icon;
+                Id = item.Id;
+                Login = item.Login;
+                Name = item.Name;
+                Password = item.Password;
 
                 SelectedGroup = _groupList.IndexOf(item.Group);
             }
@@ -155,12 +155,12 @@ namespace CorpPass.ViewModels
             {
                 var updatedItem = new Item()
                 {
+                    Created = Created,
                     Description = Description,
                     Folder = Folder,
                     Group = Group,
                     Icon = Icon,
                     Id = Id,
-                    Created = Created,
                     LastModified = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
                     Login = Login,
                     Name = Name,
@@ -179,11 +179,11 @@ namespace CorpPass.ViewModels
 
         private bool ValidateSave()
         {
-            return !string.IsNullOrWhiteSpace(login)
-                && !string.IsNullOrWhiteSpace(password)
-                && !string.IsNullOrWhiteSpace(name)
-                && !string.IsNullOrWhiteSpace(group)
-                && !string.IsNullOrWhiteSpace(folder);
+            return !string.IsNullOrWhiteSpace(_login)
+                && !string.IsNullOrWhiteSpace(_password)
+                && !string.IsNullOrWhiteSpace(_name)
+                && !string.IsNullOrWhiteSpace(_group)
+                && !string.IsNullOrWhiteSpace(_folder);
         }
     }
 }

@@ -1,12 +1,12 @@
-﻿using CorpPass.Models;
-using CorpPass.Services;
-using CorpPass.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using CorpPass.Models;
+using CorpPass.Services;
+using CorpPass.Views;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels
@@ -41,18 +41,6 @@ namespace CorpPass.ViewModels
             set { SetProperty(ref isFavoriteBusy, value); }
         }
 
-        public string TotalItemsCount
-        {
-            get { return totalItemsCount; }
-            set { SetProperty(ref totalItemsCount, value); }
-        }
-
-        public string TotalLeakedItemsCount
-        {
-            get { return totalLeakedItemsCount; }
-            set { SetProperty(ref totalLeakedItemsCount, value); }
-        }
-
         public List<Item> Items { get; set; }
 
         public Command<Item> ItemTapped { get; }
@@ -76,27 +64,40 @@ namespace CorpPass.ViewModels
         }
 
         public Command SettingsPageRedirect { get; }
+
+        public string TotalItemsCount
+        {
+            get { return totalItemsCount; }
+            set { SetProperty(ref totalItemsCount, value); }
+        }
+
+        public string TotalLeakedItemsCount
+        {
+            get { return totalLeakedItemsCount; }
+            set { SetProperty(ref totalLeakedItemsCount, value); }
+        }
+
         public Command<string> UpdateItem { get; }
 
         #endregion VARS
 
         public ItemsViewModel()
         {
-            GroupedItems = new ObservableCollection<ItemsGroup<Item>>();
-            GroupedFavoriteItems = new ObservableCollection<ItemsGroup<Item>>();
             BottomSheetItems = new List<CollectionListItem>();
+            GroupedFavoriteItems = new ObservableCollection<ItemsGroup<Item>>();
+            GroupedItems = new ObservableCollection<ItemsGroup<Item>>();
 
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-            LoadFavoriteItemsCommand = new Command(async () => await ExecuteLoadFavoriteItemsCommand());
-            ItemTapped = new Command<Item>(OnItemSelected);
-            DeleteItem = new Command<string>(OnDeleteItem);
-            UpdateItem = new Command<string>(OnEditItem);
-            OnChangeFavoriteStatus = new Command<string>(ChangeFavoriteStatus);
             AddItemCommand = new Command(OnAddItem);
+            DeleteItem = new Command<string>(OnDeleteItem);
+            ItemTapped = new Command<Item>(OnItemSelected);
+            LoadFavoriteItemsCommand = new Command(async () => await ExecuteLoadFavoriteItemsCommand());
+            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            OnChangeFavoriteStatus = new Command<string>(ChangeFavoriteStatus);
+            UpdateItem = new Command<string>(OnEditItem);
 
-            SettingsPageRedirect = new Command(OnOpenSettingsPage);
             GroupsPageRedirect = new Command(OnOpenGroupsPage);
             SearchPageRedirect = new Command(OnOpenSearchPage);
+            SettingsPageRedirect = new Command(OnOpenSettingsPage);
 
             InitItemContextMenuItems();
         }
@@ -135,7 +136,7 @@ namespace CorpPass.ViewModels
         public async void ChangeFavoriteStatus(string itemId)
         {
             var selectedItem = await DataStore.GetItemAsync(itemId);
-            selectedItem.IsFavorite = selectedItem.IsFavorite == true ? false : true;
+            selectedItem.IsFavorite = selectedItem.IsFavorite != true;
             await DataStore.UpdateItemAsync(selectedItem);
 
             OnAppearing();

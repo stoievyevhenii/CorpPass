@@ -1,12 +1,12 @@
-﻿using CorpPass.Models;
-using CorpPass.Services;
-using CorpPass.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using CorpPass.Models;
+using CorpPass.Services;
+using CorpPass.Views;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels
@@ -14,18 +14,18 @@ namespace CorpPass.ViewModels
     [QueryProperty(nameof(GroupName), nameof(GroupName))]
     public class GroupItemsViewModel : BaseViewModel
     {
-        private readonly GroupItems groupItemsModel;
-        private string groupName;
-        private GroupItem groupNameTitle;
+        private readonly GroupItems _groupItemsModel;
+        private string _groupName;
+        private GroupItem _groupNameTitle;
 
         public GroupItemsViewModel()
         {
-            groupItemsModel = new GroupItems();
+            _groupItemsModel = new GroupItems();
 
             GroupedItems = new ObservableCollection<ItemsGroup<Item>>();
             ItemTapped = new Command<Item>(OnItemSelected);
             BottomSheetItems = new List<CollectionListItem>();
-            LoadItemsCommand = new Command(async () => await LoadGroupItemsAsync(groupName));
+            LoadItemsCommand = new Command(async () => await LoadGroupItemsAsync(_groupName));
 
             DeleteItem = new Command<string>(OnDeleteItem);
             UpdateItem = new Command<string>(OnEditItem);
@@ -36,23 +36,20 @@ namespace CorpPass.ViewModels
 
         public List<CollectionListItem> BottomSheetItems { get; set; }
         public Command<string> DeleteItem { get; }
-        public ObservableCollection<ItemsGroup<Item>> GroupedItems { get; private set; }
+        public ObservableCollection<ItemsGroup<Item>> GroupedItems { get; }
 
         public GroupItem GroupItemModel
         {
-            get { return groupNameTitle; }
-            set { SetProperty(ref groupNameTitle, value); }
+            get => _groupNameTitle;
+            set => SetProperty(ref _groupNameTitle, value);
         }
 
         public string GroupName
         {
-            get
-            {
-                return groupName;
-            }
+            get => _groupName;
             set
             {
-                groupName = value;
+                _groupName = value;
                 Task.Run(() => LoadGroupItemsAsync(value));
             }
         }
@@ -64,35 +61,30 @@ namespace CorpPass.ViewModels
 
         public Command<string> UpdateItem { get; }
 
-        public void OnAppearing()
-        {
-            IsBusy = true;
-        }
-
         private async void ChangeFavoriteStatus(string itemId)
         {
             var selectedItem = await DataStore.GetItemAsync(itemId);
-            selectedItem.IsFavorite = selectedItem.IsFavorite == true ? false : true;
+            selectedItem.IsFavorite = selectedItem.IsFavorite ? false : true;
             await DataStore.UpdateItemAsync(selectedItem);
 
-            OnAppearing();
+            IsBusy = true;
         }
 
         private void InitItemContextMenuItems()
         {
-            BottomSheetItems.Add(new CollectionListItem()
+            BottomSheetItems.Add(new CollectionListItem
             {
                 Icon = "icon_edit",
                 Name = "Edit",
                 ItemCommand = UpdateItem
             });
-            BottomSheetItems.Add(new CollectionListItem()
+            BottomSheetItems.Add(new CollectionListItem
             {
                 Icon = "icon_delete",
                 Name = "Delete",
                 ItemCommand = DeleteItem
             });
-            BottomSheetItems.Add(new CollectionListItem()
+            BottomSheetItems.Add(new CollectionListItem
             {
                 Icon = "icon_favorite",
                 Name = "Change favorite status",
@@ -103,7 +95,8 @@ namespace CorpPass.ViewModels
         private async Task LoadGroupItemsAsync(string name)
         {
             IsBusy = true;
-            GroupItemModel = groupItemsModel.GetItemByName(name);
+            GroupItemModel = _groupItemsModel.GetItemByName(name);
+            GroupedItems.Clear();
 
             try
             {
@@ -112,13 +105,9 @@ namespace CorpPass.ViewModels
                     .OrderBy(i => i.Name)
                     .ToList();
 
-                GroupedItems.Clear();
-
                 var grouped = items.GroupBy(i => i.Name[0]).ToList();
                 foreach (var item in grouped)
-                {
                     GroupedItems.Add(new ItemsGroup<Item>(item.Key.ToString().ToUpper(), item.ToList()));
-                }
             }
             catch (Exception ex)
             {
@@ -133,7 +122,7 @@ namespace CorpPass.ViewModels
         private async void OnDeleteItem(string itemId)
         {
             await DataStore.DeleteItemAsync(itemId);
-            OnAppearing();
+            IsBusy = true;
         }
 
         private async void OnEditItem(string itemId)

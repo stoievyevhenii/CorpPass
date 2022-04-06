@@ -1,7 +1,8 @@
-﻿using CorpPass.ViewModels;
-using System;
+﻿using System;
 using System.Diagnostics;
+using CorpPass.ViewModels;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
 
@@ -76,6 +77,23 @@ namespace CorpPass.Views
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
+            }
+        }
+
+        private void PageTabView_SelectionChanged(object sender, TabSelectionChangedEventArgs e)
+        {
+            var tabView = sender as TabView;
+            var selectedItem = tabView.SelectedIndex;
+
+            switch (selectedItem)
+            {
+                case 0:
+                    PageTitle.Text = "All Passwords";
+                    break;
+
+                case 2:
+                    PageTitle.Text = "Favorites";
+                    break;
             }
         }
     }

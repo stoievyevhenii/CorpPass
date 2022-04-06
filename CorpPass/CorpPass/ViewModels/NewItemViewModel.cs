@@ -1,7 +1,7 @@
-﻿using CorpPass.Models;
-using CorpPass.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using CorpPass.Models;
+using CorpPass.Services;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels
@@ -12,13 +12,13 @@ namespace CorpPass.ViewModels
         private readonly List<string> _folderList;
         private readonly GroupItems _groupItemsModel;
         private readonly List<string> _groupList;
-        private string description;
-        private string folder;
-        private string group;
-        private string icon;
-        private string login;
-        private string name;
-        private string password;
+        private string _description;
+        private string _folder;
+        private string _group;
+        private string _icon;
+        private string _login;
+        private string _name;
+        private string _password;
 
         public NewItemViewModel()
         {
@@ -39,14 +39,14 @@ namespace CorpPass.ViewModels
 
         public string Description
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => _description;
+            set => SetProperty(ref _description, value);
         }
 
         public string Folder
         {
-            get => folder;
-            set => SetProperty(ref folder, value);
+            get => _folder;
+            set => SetProperty(ref _folder, value);
         }
 
         public List<string> FolderList
@@ -56,8 +56,8 @@ namespace CorpPass.ViewModels
 
         public string Group
         {
-            get => group;
-            set => SetProperty(ref group, value);
+            get => _group;
+            set => SetProperty(ref _group, value);
         }
 
         public List<string> GroupList
@@ -67,26 +67,26 @@ namespace CorpPass.ViewModels
 
         public string Icon
         {
-            get => icon;
-            set => SetProperty(ref icon, value);
+            get => _icon;
+            set => SetProperty(ref _icon, value);
         }
 
         public string Login
         {
-            get => login;
-            set => SetProperty(ref login, value);
+            get => _login;
+            set => SetProperty(ref _login, value);
         }
 
         public string Name
         {
-            get => name;
-            set => SetProperty(ref name, value);
+            get => _name;
+            set => SetProperty(ref _name, value);
         }
 
         public string Password
         {
-            get => password;
-            set => SetProperty(ref password, value);
+            get => _password;
+            set => SetProperty(ref _password, value);
         }
 
         public Command SaveCommand { get; }
@@ -127,11 +127,11 @@ namespace CorpPass.ViewModels
 
         private bool ValidateSave()
         {
-            return !string.IsNullOrWhiteSpace(login)
-                && !string.IsNullOrWhiteSpace(password)
-                && !string.IsNullOrWhiteSpace(name)
-                && !string.IsNullOrWhiteSpace(folder)
-                && !string.IsNullOrWhiteSpace(group);
+            return !string.IsNullOrWhiteSpace(_login)
+                && !string.IsNullOrWhiteSpace(_password)
+                && !string.IsNullOrWhiteSpace(_name)
+                && !string.IsNullOrWhiteSpace(_folder)
+                && !string.IsNullOrWhiteSpace(_group);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using CorpPass.Models;
+﻿using System.Collections.Generic;
+using CorpPass.Models;
 using CorpPass.Views;
-using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels
@@ -9,9 +9,9 @@ namespace CorpPass.ViewModels
     {
         public SettingsPageViewModel()
         {
+            RedirectToAboutPage = new Command(OpenAboutPage);
             RedirectToDBConnectPage = new Command(OpenDBSettings);
             RedirectToPINPage = new Command(OpenPINSettings);
-            RedirectToAboutPage = new Command(OpenAboutPage);
             SettingsPagesList = new List<ItemsGroup<CollectionListItem>>();
 
             InitSettingsPages();

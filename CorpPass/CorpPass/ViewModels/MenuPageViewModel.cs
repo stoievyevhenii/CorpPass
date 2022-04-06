@@ -1,6 +1,6 @@
-﻿using CorpPass.Models;
+﻿using System.Collections.Generic;
+using CorpPass.Models;
 using CorpPass.Views;
-using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels
@@ -9,9 +9,9 @@ namespace CorpPass.ViewModels
     {
         public MenuPageViewModel()
         {
-            RedirectToSettingsPage = new Command(OpenSettingsPage);
-            RedirectToAboutPage = new Command(OpenAboutPage);
             MenuPagesList = new List<ItemsGroup<CollectionListItem>>();
+            RedirectToAboutPage = new Command(OpenAboutPage);
+            RedirectToSettingsPage = new Command(OpenSettingsPage);
 
             InitSettingsPages();
         }

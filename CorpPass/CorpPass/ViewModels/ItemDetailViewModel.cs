@@ -1,11 +1,11 @@
-﻿using CorpPass.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using CorpPass.Models;
 using CorpPass.Services;
 using CorpPass.Views;
 using Microcharts;
 using SkiaSharp;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels
@@ -13,21 +13,27 @@ namespace CorpPass.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
+        #region PRIVATEVARS
+
         public string created;
         public string lastModified;
         public int passwordScore;
         public string passwordStrenght;
-        private string description;
-        private string folder;
-        private string group;
-        private string icon;
-        private Icon iconModel;
-        private bool isLeaked;
-        private string itemId;
-        private string login;
-        private string name;
-        private string password;
-        private RadialGaugeChart radialChart;
+        private string _description;
+        private string _folder;
+        private string _group;
+        private string _icon;
+        private Icon _iconModel;
+        private bool _isLeaked;
+        private string _itemId;
+        private string _login;
+        private string _name;
+        private string _password;
+        private RadialGaugeChart _radialChart;
+
+        #endregion PRIVATEVARS
+
+        #region PUBLICVARS
 
         public ItemDetailViewModel()
         {
@@ -43,8 +49,8 @@ namespace CorpPass.ViewModels
 
         public RadialGaugeChart Chart
         {
-            get => radialChart;
-            set => SetProperty(ref radialChart, value);
+            get => _radialChart;
+            set => SetProperty(ref _radialChart, value);
         }
 
         public string Created
@@ -57,57 +63,51 @@ namespace CorpPass.ViewModels
 
         public string Description
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => _description;
+            set => SetProperty(ref _description, value);
         }
 
         public string Folder
         {
-            get => folder;
-            set => SetProperty(ref folder, value);
-        }
-
-        public string PasswordStrenght
-        {
-            get => passwordStrenght;
-            set => SetProperty(ref passwordStrenght, value);
+            get => _folder;
+            set => SetProperty(ref _folder, value);
         }
 
         public string Group
         {
-            get => group;
-            set => SetProperty(ref group, value);
+            get => _group;
+            set => SetProperty(ref _group, value);
         }
 
         public string Icon
         {
-            get => icon;
-            set => SetProperty(ref icon, value);
+            get => _icon;
+            set => SetProperty(ref _icon, value);
         }
 
         public Icon IconModel
         {
-            get => iconModel;
-            set => SetProperty(ref iconModel, value);
+            get => _iconModel;
+            set => SetProperty(ref _iconModel, value);
         }
 
         public string Id { get; set; }
 
         public bool IsLeaked
         {
-            get => isLeaked;
-            set => SetProperty(ref isLeaked, value);
+            get => _isLeaked;
+            set => SetProperty(ref _isLeaked, value);
         }
 
         public string ItemId
         {
             get
             {
-                return itemId;
+                return _itemId;
             }
             set
             {
-                itemId = value;
+                _itemId = value;
                 LoadItemId(value);
             }
         }
@@ -120,22 +120,22 @@ namespace CorpPass.ViewModels
 
         public string Login
         {
-            get => login;
-            set => SetProperty(ref login, value);
+            get => _login;
+            set => SetProperty(ref _login, value);
         }
 
         public string Name
         {
-            get => name;
-            set => SetProperty(ref name, value);
+            get => _name;
+            set => SetProperty(ref _name, value);
         }
 
         public Command OnChangeFavoriteStatus { get; }
 
         public string Password
         {
-            get => password;
-            set => SetProperty(ref password, value);
+            get => _password;
+            set => SetProperty(ref _password, value);
         }
 
         public int PasswordScore
@@ -144,13 +144,47 @@ namespace CorpPass.ViewModels
             set => SetProperty(ref passwordScore, value);
         }
 
+        public string PasswordStrenght
+        {
+            get => passwordStrenght;
+            set => SetProperty(ref passwordStrenght, value);
+        }
+
         public Command UpdateItem { get; }
+
+        #endregion PUBLICVARS
+
+        #region METHODS
 
         public async void ChangeFavoriteStatus()
         {
             var selectedItem = await DataStore.GetItemAsync(ItemId);
             selectedItem.IsFavorite = selectedItem.IsFavorite == true ? false : true;
             await DataStore.UpdateItemAsync(selectedItem);
+        }
+
+        public void InitChart(double passwdScore, Icon icon)
+        {
+            var passwordScores = Convert.ToInt32(passwdScore * 100);
+            var chartColor = icon.Accent.ToHex();
+
+            var entries = new[]
+            {
+                new ChartEntry(passwordScores)
+                {
+                    Color = SKColor.Parse(chartColor),
+                },
+            };
+
+            var chart = new RadialGaugeChart
+            {
+                Entries = entries,
+                Margin = 0,
+                BackgroundColor = SKColor.Empty,
+                MaxValue = 100
+            };
+
+            Chart = chart;
         }
 
         public async void LoadItemId(string itemId)
@@ -188,30 +222,6 @@ namespace CorpPass.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
-        public void InitChart(double passwdScore, Icon icon)
-        {
-            var passwordScores = Convert.ToInt32(passwdScore * 100);
-            var chartColor = icon.Accent.ToHex();
-
-            var entries = new[]
-            {
-                new ChartEntry(passwordScores)
-                {
-                    Color = SKColor.Parse(chartColor),
-                },
-            };
-
-            var chart = new RadialGaugeChart
-            {
-                Entries = entries,
-                Margin = 0,
-                BackgroundColor = SKColor.Empty,
-                MaxValue = 100
-            };
-
-            Chart = chart;
-        }
-
         private void InitItemContextMenuItems()
         {
             BottomSheetItems.Add(new CollectionListItem()
@@ -238,5 +248,7 @@ namespace CorpPass.ViewModels
         {
             await Shell.Current.GoToAsync($"{nameof(ItemUpdatePage)}?{nameof(ItemUpdateViewModel.ItemId)}={ItemId}");
         }
+
+        #endregion METHODS
     }
 }

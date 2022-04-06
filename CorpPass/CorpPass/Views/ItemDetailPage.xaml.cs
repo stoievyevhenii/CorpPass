@@ -1,6 +1,6 @@
-﻿using CorpPass.ViewModels;
-using System;
+﻿using System;
 using System.Diagnostics;
+using CorpPass.ViewModels;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Essentials;

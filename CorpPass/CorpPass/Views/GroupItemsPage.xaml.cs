@@ -1,6 +1,6 @@
-﻿using CorpPass.ViewModels;
-using System;
+﻿using System;
 using System.Diagnostics;
+using CorpPass.ViewModels;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
@@ -12,18 +12,11 @@ namespace CorpPass.Views
     public partial class GroupItemsPage : ContentPage
     {
         private string _itemId;
-        private GroupItemsViewModel _viewModel;
 
         public GroupItemsPage()
         {
             InitializeComponent();
-            BindingContext = _viewModel = new GroupItemsViewModel();
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            _viewModel.OnAppearing();
+            BindingContext = new GroupItemsViewModel();
         }
 
         private async void AddItemToFavorite(object sender, EventArgs e)
@@ -40,6 +33,18 @@ namespace CorpPass.Views
             await this.DisplaySnackBarAsync(options);
         }
 
+        private async void CloseBottomSheet(object sender, EventArgs e)
+        {
+            try
+            {
+                await Sheet.CloseSheet();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+        }
+
         private async void OpenBottomSheet(object sender, EventArgs e)
         {
             try
@@ -52,18 +57,6 @@ namespace CorpPass.Views
                 SelectedItemID.Text = _itemId;
 
                 await Sheet.OpenSheet();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.ToString());
-            }
-        }
-
-        private async void CloseBottomSheet(object sender, EventArgs e)
-        {
-            try
-            {
-                await Sheet.CloseSheet();
             }
             catch (Exception ex)
             {

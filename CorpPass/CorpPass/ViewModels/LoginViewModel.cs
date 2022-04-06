@@ -1,6 +1,6 @@
-﻿using CorpPass.Services;
+﻿using System.Threading.Tasks;
+using CorpPass.Services;
 using CorpPass.Views;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels

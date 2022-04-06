@@ -1,5 +1,5 @@
-﻿using CorpPass.Services;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using CorpPass.Services;
 
 namespace CorpPass.ViewModels
 {
@@ -10,13 +10,13 @@ namespace CorpPass.ViewModels
 
     internal class PopupIconsViewModel
     {
-        public ObservableCollection<IconItem> IconsList { get; private set; }
-
         public PopupIconsViewModel()
         {
             IconsList = new ObservableCollection<IconItem>();
             InitIconsSet();
         }
+
+        public ObservableCollection<IconItem> IconsList { get; private set; }
 
         private void InitIconsSet()
         {

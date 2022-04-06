@@ -113,7 +113,8 @@
                                                 Grid.Column="0"
                                                 Padding="0"
                                                 BackgroundColor="Transparent"
-                                                CornerRadius="15"
+                                                BorderColor="{Binding IconModel.Accent}"
+                                                CornerRadius="60"
                                                 HasShadow="True"
                                                 HorizontalOptions="Center"
                                                 VerticalOptions="Center">

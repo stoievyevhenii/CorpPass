@@ -1,7 +1,7 @@
-﻿using Plugin.Fingerprint;
-using Plugin.Fingerprint.Abstractions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Plugin.Fingerprint;
+using Plugin.Fingerprint.Abstractions;
 
 namespace CorpPass.Services
 {

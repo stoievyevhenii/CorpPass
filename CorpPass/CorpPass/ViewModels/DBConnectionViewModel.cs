@@ -5,41 +5,41 @@ namespace CorpPass.ViewModels
 {
     internal class DBConnectionViewModel : BaseViewModel
     {
-        private string password;
-        private string serverAdress;
-        private string userName;
+        private string _password;
+        private string _serverAddress;
+        private string _userName;
 
         public DBConnectionViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
 
-            this.PropertyChanged +=
+            PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
         }
 
         public string Password
         {
-            get => password;
-            set => SetProperty(ref password, value);
+            get => _password;
+            set => SetProperty(ref _password, value);
         }
 
         public Command SaveCommand { get; }
 
         public string ServerAddress
         {
-            get => serverAdress;
-            set => SetProperty(ref serverAdress, value);
+            get => _serverAddress;
+            set => SetProperty(ref _serverAddress, value);
         }
 
         public string UserName
         {
-            get => userName;
-            set => SetProperty(ref userName, value);
+            get => _userName;
+            set => SetProperty(ref _userName, value);
         }
 
         private async void OnSave()
         {
-            DB dbConnection = new DB()
+            var dbConnection = new DB
             {
                 ServerAddress = ServerAddress,
                 Login = UserName,
@@ -52,9 +52,9 @@ namespace CorpPass.ViewModels
 
         private bool ValidateSave()
         {
-            return !string.IsNullOrWhiteSpace(serverAdress)
-                && !string.IsNullOrWhiteSpace(userName)
-                && !string.IsNullOrWhiteSpace(password);
+            return !string.IsNullOrWhiteSpace(_serverAddress)
+                   && !string.IsNullOrWhiteSpace(_userName)
+                   && !string.IsNullOrWhiteSpace(_password);
         }
     }
 }

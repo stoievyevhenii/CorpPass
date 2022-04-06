@@ -9,12 +9,10 @@ namespace CorpPass.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DBConnectionPage : ContentPage
     {
-        DBConnectionViewModel _viewModel;
-
         public DBConnectionPage()
         {
             InitializeComponent();
-            BindingContext = _viewModel = new DBConnectionViewModel();
+            BindingContext = new DBConnectionViewModel();
             CopyToDBSwitch.IsToggled = Preferences.Get(PreferencesKeys.SaveToDB, false);
 
             SetItemsVisible();
@@ -23,11 +21,6 @@ namespace CorpPass.Views
         private async void GoBack(object sender, SwipedEventArgs e)
         {
             await Shell.Current.Navigation.PopModalAsync();
-        }
-
-        private void Switch_Toggled(object sender, ToggledEventArgs e)
-        {
-            SetItemsVisible();
         }
 
         private void SetItemsVisible()
@@ -46,6 +39,11 @@ namespace CorpPass.Views
                 Fields.IsVisible = true;
                 EmptyState.IsVisible = false;
             }
+        }
+
+        private void Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            SetItemsVisible();
         }
     }
 }
