@@ -68,6 +68,19 @@
                                 Text="{Binding PIN}"
                                 TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
                                                             Dark={StaticResource DarkForegroundMain}}" />
+                            <Entry
+                                x:Name="PINConfirmation"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                FontSize="Small"
+                                Keyboard="Numeric"
+                                MaxLength="4"
+                                Placeholder="Confirm your PIN"
+                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                   Dark={StaticResource DarkForegroundSecondary}}"
+                                Text="{Binding PINConfirmation}"
+                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                            Dark={StaticResource DarkForegroundMain}}" />
                         </StackLayout>
                     </ScrollView>
 

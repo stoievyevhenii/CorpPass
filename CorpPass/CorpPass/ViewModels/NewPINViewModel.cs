@@ -5,7 +5,8 @@ namespace CorpPass.ViewModels
 {
     public class NewPINViewModel : BaseViewModel
     {
-        private string pin;
+        private string _pin;
+        private string _pinConfirmation;
 
         public NewPINViewModel()
         {
@@ -15,8 +16,14 @@ namespace CorpPass.ViewModels
 
         public string PIN
         {
-            get => pin;
-            set => SetProperty(ref pin, value);
+            get => _pin;
+            set => SetProperty(ref _pin, value);
+        }
+
+        public string PINConfirmation
+        {
+            get => _pinConfirmation;
+            set => SetProperty(ref _pinConfirmation, value);
         }
 
         public Command SavePIN { get; }
@@ -37,7 +44,7 @@ namespace CorpPass.ViewModels
 
         private bool ValidateSave()
         {
-            return !string.IsNullOrWhiteSpace(pin) && pin.Length == 4;
+            return !string.IsNullOrWhiteSpace(_pin) && _pin.Length == 4 && _pin == _pinConfirmation;
         }
 
         #endregion UTILITIES
