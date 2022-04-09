@@ -16,6 +16,11 @@ namespace CorpPass.Services
             _database.CreateTableAsync<Item>().Wait();
         }
 
+        public async Task<int> DeleteAllItemsAsync()
+        {
+            return await _database.DeleteAllAsync<Item>();
+        }
+
         public async Task<int> DeleteItem(string id)
         {
             var item = await GetItemAsync(id);

@@ -11,6 +11,8 @@ namespace CorpPass.Views
     public partial class LoginPage : ContentPage
     {
         private string _pin;
+        private string _passPhrase;
+
         private PreferencesSecurity _prefernecesSecurity;
 
         public LoginPage()
@@ -21,6 +23,8 @@ namespace CorpPass.Views
             _prefernecesSecurity = new PreferencesSecurity();
 
             _pin = _prefernecesSecurity.GetSecureData(PreferencesKeys.PIN).Result;
+            _passPhrase = _prefernecesSecurity.GetSecureData(PreferencesKeys.SavePassPhrase).Result;
+
             CheckFirstStart();
         }
 
@@ -62,7 +66,7 @@ namespace CorpPass.Views
                 if (NewPin.Text == RepeatNewPin.Text)
                 {
                     _prefernecesSecurity.SetSecureData(PreferencesKeys.PIN, NewPin.Text);
-                    PinTabView.SelectedIndex = 0;
+                    PinTabView.SelectedIndex = 3;
                 }
                 else
                 {
@@ -75,9 +79,26 @@ namespace CorpPass.Views
             }
         }
 
+        private void SetNewPassPhrase(object sender, EventArgs e)
+        {
+            try
+            {
+                var preferencesSecurity = new PreferencesSecurity();
+                preferencesSecurity.SetSecureData(PreferencesKeys.SavePassPhrase, PassPhrase.Text);
+
+                PinTabView.SelectedIndex = 0;
+            }
+            catch { }
+        }
+
         private void UseFingerprintAuth(object sender, EventArgs e)
         {
             UseBiometrickAuth();
+        }
+
+        private void BackToEnterPINPage(object sender, EventArgs e)
+        {
+            PinTabView.SelectedIndex = 1;
         }
 
         #endregion HANDLERS
@@ -89,6 +110,10 @@ namespace CorpPass.Views
             if (string.IsNullOrEmpty(_pin))
             {
                 PinTabView.SelectedIndex = 1;
+            }
+            if (string.IsNullOrEmpty(_passPhrase))
+            {
+                PinTabView.SelectedIndex = 3;
             }
         }
 
@@ -150,10 +175,5 @@ namespace CorpPass.Views
         }
 
         #endregion UTILS
-
-        private void BackToEnterPINPage(object sender, EventArgs e)
-        {
-            PinTabView.SelectedIndex = 1;
-        }
     }
 }

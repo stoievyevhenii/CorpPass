@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using CorpPass.Models;
+﻿using CorpPass.Models;
 using CorpPass.Views;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels
@@ -11,6 +11,7 @@ namespace CorpPass.ViewModels
         {
             RedirectToAboutPage = new Command(OpenAboutPage);
             RedirectToDBConnectPage = new Command(OpenDBSettings);
+            RedirectToDBLocalPage = new Command(OpenDBLocalSettings);
             RedirectToPINPage = new Command(OpenPINSettings);
             SettingsPagesList = new List<ItemsGroup<CollectionListItem>>();
             RedirectToPassPharsePage = new Command(OpenPassPhraseSettings);
@@ -20,6 +21,7 @@ namespace CorpPass.ViewModels
 
         public Command RedirectToAboutPage { get; }
         public Command RedirectToDBConnectPage { get; }
+        public Command RedirectToDBLocalPage { get; }
         public Command RedirectToPassPharsePage { get; }
         public Command RedirectToPINPage { get; }
         public List<ItemsGroup<CollectionListItem>> SettingsPagesList { get; }
@@ -30,9 +32,15 @@ namespace CorpPass.ViewModels
             {
                 new CollectionListItem()
                 {
-                    Name = "Save to DB",
+                    Name = "Cloud DB",
                     Icon = "icon_dbconnection",
                     ItemCommand = RedirectToDBConnectPage
+                },
+                new CollectionListItem()
+                {
+                    Name = "Local DB",
+                    Icon = "icon_dblocal",
+                    ItemCommand = RedirectToDBLocalPage
                 }
             }));
 
@@ -66,6 +74,11 @@ namespace CorpPass.ViewModels
         private async void OpenAboutPage()
         {
             await Shell.Current.GoToAsync(nameof(AboutPage));
+        }
+
+        private async void OpenDBLocalSettings()
+        {
+            await Shell.Current.GoToAsync(nameof(DBLocalPage));
         }
 
         private async void OpenDBSettings()

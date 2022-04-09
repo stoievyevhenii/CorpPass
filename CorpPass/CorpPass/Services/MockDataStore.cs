@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using CorpPass.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CorpPass.Models;
 
 namespace CorpPass.Services
 {
@@ -12,6 +12,19 @@ namespace CorpPass.Services
             try
             {
                 await App.Database.SaveItemAsync(item);
+                return await Task.FromResult(true);
+            }
+            catch
+            {
+                return await Task.FromResult(false);
+            }
+        }
+
+        public async Task<bool> DeleteAllAsync()
+        {
+            try
+            {
+                await App.Database.DeleteAllItemsAsync();
                 return await Task.FromResult(true);
             }
             catch

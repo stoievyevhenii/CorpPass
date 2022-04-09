@@ -20,6 +20,7 @@ namespace CorpPass
             Routing.RegisterRoute(nameof(SearchPage), typeof(SearchPage));
             Routing.RegisterRoute(nameof(MenuPage), typeof(MenuPage));
             Routing.RegisterRoute(nameof(DBConnectionPage), typeof(DBConnectionPage));
+            Routing.RegisterRoute(nameof(DBLocalPage), typeof(DBLocalPage));
             Routing.RegisterRoute(nameof(FavoritesPage), typeof(FavoritesPage));
             Routing.RegisterRoute(nameof(PINSettigsPage), typeof(PINSettigsPage));
             Routing.RegisterRoute(nameof(PassPhrasePage), typeof(PassPhrasePage));

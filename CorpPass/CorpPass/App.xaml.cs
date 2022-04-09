@@ -1,6 +1,6 @@
-﻿using CorpPass.Services;
-using System;
+﻿using System;
 using System.IO;
+using CorpPass.Services;
 using Xamarin.Forms;
 
 namespace CorpPass
@@ -8,6 +8,7 @@ namespace CorpPass
     public partial class App : Application
     {
         private static DatabaseSQLite database;
+
         public static DatabaseSQLite Database
         {
             get

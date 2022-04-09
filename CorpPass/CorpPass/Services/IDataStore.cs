@@ -9,6 +9,8 @@ namespace CorpPass.Services
 
         Task<bool> DeleteItemAsync(string id);
 
+        Task<bool> DeleteAllAsync();
+
         Task<T> GetItemAsync(string id);
 
         Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
