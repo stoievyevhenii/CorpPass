@@ -36,7 +36,8 @@ namespace CorpPass.Services
                                 var decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
                                 memoryStream.Close();
                                 cryptoStream.Close();
-                                return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
+                                var plainText = Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
+                                return plainText;
                             }
                         }
                     }

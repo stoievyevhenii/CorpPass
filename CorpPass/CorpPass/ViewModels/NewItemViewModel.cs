@@ -104,6 +104,9 @@ namespace CorpPass.ViewModels
             var iconSetModel = new IconsSet();
             var icon = iconSetModel.GetIconsSet().Find(i => i.Name == selectedIcon);
 
+            var preferencesSecurityModel = new PreferencesSecurity();
+            var passPhrase = await preferencesSecurityModel.GetSecureData(PreferencesKeys.SavePassPhrase);
+
             Item newItem = new Item()
             {
                 Created = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
@@ -116,7 +119,7 @@ namespace CorpPass.ViewModels
                 LastModified = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
                 Login = Login,
                 Name = Name,
-                Password = Password,
+                Password = StringCipher.Encrypt(Password, passPhrase),
                 PasswordScore = PasswordSecurity.CheckStrength(Password)
             };
 

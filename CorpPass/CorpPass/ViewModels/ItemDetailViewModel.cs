@@ -193,18 +193,21 @@ namespace CorpPass.ViewModels
             {
                 var item = await DataStore.GetItemAsync(itemId);
 
-                Id = item.Id;
+                var preferencesSecurityModel = new PreferencesSecurity();
+                var passPhrase = await preferencesSecurityModel.GetSecureData(PreferencesKeys.SavePassPhrase);
+
+                Created = item.Created;
+                Description = item.Description;
+                Folder = item.Folder;
+                Group = item.Group;
                 Icon = item.Icon;
                 IconModel = item.IconModel;
-                Name = item.Name;
-                Login = item.Login;
-                Password = item.Password;
-                Group = item.Group;
-                Folder = item.Folder;
-                Description = item.Description;
-                Created = item.Created;
-                LastModified = item.LastModified;
+                Id = item.Id;
                 IsLeaked = item.IsLeaked;
+                LastModified = item.LastModified;
+                Login = item.Login;
+                Name = item.Name;
+                Password = StringCipher.Decrypt(item.Password, passPhrase);
                 PasswordScore = Convert.ToInt32(item.PasswordScore * 100);
                 PasswordStrenght = PasswordSecurity.ConvertPointsToStrenghtStatus(item.PasswordScore);
 
