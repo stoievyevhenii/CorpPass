@@ -275,14 +275,23 @@
 
                     <StackLayout
                         Grid.Row="0"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center">
-                        <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground}, Dark={StaticResource DarkPanelBackground}}" CornerRadius="15">
-                            <Image
-                                xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                    Dark=White}"
-                                HeightRequest="50"
-                                Source="icon_lock" />
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="CenterAndExpand">
+                        <Frame
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                              Dark={StaticResource DarkPanelBackground}}"
+                            CornerRadius="15"
+                            HeightRequest="60"
+                            HorizontalOptions="Center"
+                            WidthRequest="60">
+                            <Label
+                                FontFamily="FluentIcons"
+                                FontSize="40"
+                                HorizontalOptions="CenterAndExpand"
+                                Text="&#xE72E;"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}"
+                                VerticalOptions="CenterAndExpand" />
                         </Frame>
 
                         <Label
@@ -321,8 +330,96 @@
                                 VerticalOptions="Center" />
                             <Button
                                 Padding="10"
-                                Clicked="SetNewPin"
-                                Text="Save PIN" />
+                                Clicked="FirstPINEnter"
+                                Text="Done" />
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+            </xct:TabViewItem>
+            <!--  New PIN repeat  -->
+            <xct:TabViewItem>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <StackLayout
+                        Grid.Row="0"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="CenterAndExpand">
+                        <Frame
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                              Dark={StaticResource DarkPanelBackground}}"
+                            CornerRadius="15"
+                            HeightRequest="60"
+                            HorizontalOptions="Center"
+                            WidthRequest="60">
+                            <Label
+                                FontFamily="FluentIcons"
+                                FontSize="40"
+                                HorizontalOptions="CenterAndExpand"
+                                Text="&#xE1CD;"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}"
+                                VerticalOptions="CenterAndExpand" />
+                        </Frame>
+
+                        <Label
+                            Padding="0,15"
+                            CharacterSpacing="5"
+                            FontSize="Body"
+                            HorizontalOptions="FillAndExpand"
+                            HorizontalTextAlignment="Center"
+                            Text="Repeate your PIN"
+                            TextColor="White" />
+                    </StackLayout>
+
+                    <Frame
+                        Grid.Row="1"
+                        Margin="0,0,0,-5"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
+                                                          Dark={StaticResource DarkBackground}}"
+                        CornerRadius="15"
+                        HasShadow="False"
+                        IsVisible="True">
+                        <StackLayout>
+                            <Entry
+                                x:Name="RepeatNewPin"
+                                Margin="0,15"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                FontSize="Small"
+                                IsPassword="True"
+                                Keyboard="Numeric"
+                                MaxLength="4"
+                                Placeholder="PIN"
+                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                   Dark={StaticResource DarkForegroundSecondary}}"
+                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                            Dark={StaticResource DarkForegroundMain}}"
+                                VerticalOptions="Center" />
+
+                            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                <Button
+                                    Padding="10"
+                                    xct:ShadowEffect.Color="Transparent"
+                                    BackgroundColor="Transparent"
+                                    Clicked="BackToEnterPINPage"
+                                    FontFamily="FluentIcons"
+                                    FontSize="20"
+                                    HorizontalOptions="FillAndExpand"
+                                    Text="&#xE112;"
+                                    TextColor="{AppThemeBinding Light=Black,
+                                                                Dark=White}" />
+                                <Button
+                                    Padding="10"
+                                    Clicked="SetNewPin"
+                                    HorizontalOptions="FillAndExpand"
+                                    Text="Save PIN" />
+
+                            </StackLayout>
+
                         </StackLayout>
                     </Frame>
                 </Grid>

@@ -16,6 +16,7 @@ namespace CorpPass.Views
         public LoginPage()
         {
             InitializeComponent();
+
             BindingContext = new LoginViewModel();
             _prefernecesSecurity = new PreferencesSecurity();
 
@@ -36,6 +37,11 @@ namespace CorpPass.Views
             catch { }
         }
 
+        private void FirstPINEnter(object sender, EventArgs e)
+        {
+            PinTabView.SelectedIndex = 2;
+        }
+
         private void NumberButtonClicked(object sender, EventArgs e)
         {
             var clickedButton = sender as Button;
@@ -53,8 +59,15 @@ namespace CorpPass.Views
         {
             try
             {
-                _prefernecesSecurity.SetSecureData(PreferencesKeys.PIN, NewPin.Text);
-                PinTabView.SelectedIndex = 0;
+                if (NewPin.Text == RepeatNewPin.Text)
+                {
+                    _prefernecesSecurity.SetSecureData(PreferencesKeys.PIN, NewPin.Text);
+                    PinTabView.SelectedIndex = 0;
+                }
+                else
+                {
+                    await DisplayAlert("Error!", "Entered PIN codes is different", "OK");
+                }
             }
             catch
             {
@@ -113,11 +126,11 @@ namespace CorpPass.Views
 
         private async void UseBiometrickAuth()
         {
-            var scannerIsAvailable = await FingerrintChecker.CheckFingerprintAvailibility();
+            var scannerIsAvailable = await FingerprintChecker.CheckFingerprintAvailibility();
 
             if (scannerIsAvailable)
             {
-                var fingerprintScanResult = await FingerrintChecker.UseFingerprint();
+                var fingerprintScanResult = await FingerprintChecker.UseFingerprint();
                 var authed = fingerprintScanResult[FingerprintScanKeys.Authed];
 
                 if (authed)
@@ -137,5 +150,10 @@ namespace CorpPass.Views
         }
 
         #endregion UTILS
+
+        private void BackToEnterPINPage(object sender, EventArgs e)
+        {
+            PinTabView.SelectedIndex = 1;
+        }
     }
 }

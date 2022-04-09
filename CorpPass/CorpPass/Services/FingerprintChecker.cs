@@ -11,7 +11,7 @@ namespace CorpPass.Services
         Authed
     }
 
-    public static class FingerrintChecker
+    public static class FingerprintChecker
     {
         public static async Task<bool> CheckFingerprintAvailibility()
         {

@@ -1,6 +1,6 @@
-﻿using CorpPass.Services;
+﻿using System.Threading.Tasks;
+using CorpPass.Services;
 using CorpPass.Views;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels
@@ -12,7 +12,7 @@ namespace CorpPass.ViewModels
         public LoginViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
-            FingerprinstIsAvailable = Task.Run(async () => await FingerrintChecker.CheckFingerprintAvailibility()).Result;
+            FingerprinstIsAvailable = Task.Run(async () => await FingerprintChecker.CheckFingerprintAvailibility()).Result;
         }
 
         public bool FingerprinstIsAvailable
