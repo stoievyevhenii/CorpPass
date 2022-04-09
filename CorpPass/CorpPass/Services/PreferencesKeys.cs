@@ -4,5 +4,6 @@
     {
         public const string PIN = "PIN";
         public const string SaveToDB = "SaveToDB";
+        public const string SavePassPhrase = "SavePassPhrase";
     }
 }

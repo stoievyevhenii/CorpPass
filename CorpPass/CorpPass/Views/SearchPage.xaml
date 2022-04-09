@@ -8,28 +8,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="clr-namespace:CorpPass.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    Title="Search"
+    Title=""
     BackgroundColor="{StaticResource Secondary}"
     Shell.BackgroundColor="{StaticResource Secondary}"
-    Shell.NavBarIsVisible="False"
-    Shell.PresentationMode="ModalAnimated"
+    Shell.NavBarHasShadow="False"
+    Shell.NavBarIsVisible="True"
     Visual="Material"
     mc:Ignorable="d">
     <ContentPage.Content>
         <StackLayout>
-            <Frame BackgroundColor="{StaticResource Secondary}">
-                <BoxView
-                    BackgroundColor="Gray"
-                    CornerRadius="5"
-                    HeightRequest="5"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    WidthRequest="150" />
-
-                <Frame.GestureRecognizers>
-                    <SwipeGestureRecognizer Direction="Down" Swiped="GoBack" />
-                </Frame.GestureRecognizers>
-            </Frame>
 
             <Grid Padding="15" BackgroundColor="{StaticResource Secondary}">
                 <Grid.ColumnDefinitions>
@@ -73,7 +60,7 @@
                     Margin="0,15,0,0"
                     Padding="0"
                     BackgroundColor="Transparent"
-                    CornerRadius="15">
+                    CornerRadius="60">
                     <SearchBar
                         x:Name="searchBar"
                         BackgroundColor="{AppThemeBinding Light=White,

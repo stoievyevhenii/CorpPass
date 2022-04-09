@@ -3,9 +3,15 @@
     x:Class="CorpPass.AppShell"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:common="clr-namespace:CorpPass.Common"
     xmlns:local="clr-namespace:CorpPass.Views"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="shell"
     Title="CorpPass"
-    FlyoutBehavior="Disabled">
+    FlyoutBackdrop="#CC262626"
+    FlyoutBackgroundColor="{StaticResource FlyoutBackground}"
+    FlyoutBehavior="Flyout"
+    FlyoutHeaderBehavior="CollapseOnScroll">
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
@@ -20,11 +26,92 @@
                 <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Primary}" />
             </Style>
             <Style BasedOn="{StaticResource BaseStyle}" TargetType="TabBar" />
-            <Style BasedOn="{StaticResource BaseStyle}" TargetType="FlyoutItem" />
         </ResourceDictionary>
     </Shell.Resources>
 
-    <ShellContent>
-        <local:LoginPage />
-    </ShellContent>
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid Padding="10,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*" />
+                    <ColumnDefinition Width="0.8*" />
+                </Grid.ColumnDefinitions>
+                <BoxView
+                    x:Name="ItemContainer"
+                    Grid.ColumnSpan="2"
+                    CornerRadius="15"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand" />
+                <Label
+                    x:Name="FlyoutItemIcon"
+                    Margin="15"
+                    FontFamily="FluentIcons"
+                    FontSize="20"
+                    Text="{Binding IconGlyph}"
+                    TextColor="{Binding Source={x:Reference FlyoutItemLabel}, Path=TextColor}"
+                    VerticalTextAlignment="Center" />
+                <Label
+                    x:Name="FlyoutItemLabel"
+                    Grid.Column="1"
+                    Text="{Binding Title}"
+                    VerticalTextAlignment="Center" />
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter TargetName="ItemContainer" Property="BackgroundColor" Value="{StaticResource FlyoutBackground}" />
+                                    <Setter TargetName="FlyoutItemIcon" Property="Label.TextColor" Value="{StaticResource DarkForegroundSecondary}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource DarkForegroundSecondary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter TargetName="ItemContainer" Property="BackgroundColor" Value="{StaticResource ItemBackgroundOnDarkBackground}" />
+                                    <Setter TargetName="FlyoutItemIcon" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="White" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="{StaticResource Secondary}" HeightRequest="100">
+                <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                    <Image
+                        Margin="0,25,0,25"
+                        Source="app_logo"
+                        VerticalOptions="Center" />
+                    <Label
+                        FontAttributes="Bold"
+                        Text="CorpPass"
+                        TextColor="White"
+                        VerticalTextAlignment="Center" />
+                </StackLayout>
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <common:FlyoutItemIconFont FlyoutItemIsVisible="False">
+        <ShellContent>
+            <local:LoginPage />
+        </ShellContent>
+    </common:FlyoutItemIconFont>
+
+    <common:FlyoutItemIconFont Title="All passwords" IconGlyph="&#xe71d;">
+        <ShellContent x:Name="ItemsList" ContentTemplate="{DataTemplate local:ItemsPage}" />
+    </common:FlyoutItemIconFont>
+
+    <common:FlyoutItemIconFont Title="Groups" IconGlyph="&#xf168;">
+        <ShellContent ContentTemplate="{DataTemplate local:GroupsPage}" Route="GroupsPage" />
+    </common:FlyoutItemIconFont>
+
+    <Shell.FlyoutFooter>
+        <common:FlyoutFooter />
+    </Shell.FlyoutFooter>
 </Shell>

@@ -13,6 +13,8 @@
             <Color x:Key="LightBackground">#f2f2f2</Color>
             <Color x:Key="DarkBackground">Black</Color>
 
+            <Color x:Key="FlyoutBackground">#191919</Color>
+
             <Color x:Key="LightForegroundMain">Black</Color>
             <Color x:Key="LightForegroundSecondary">#b5b5b5</Color>
 

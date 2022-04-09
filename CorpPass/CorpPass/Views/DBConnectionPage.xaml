@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:view="clr-namespace:CorpPass.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     ios:Page.UseSafeArea="true"
     BackgroundColor="{StaticResource Secondary}"
@@ -135,24 +136,12 @@
                         Command="{Binding SaveCommand}"
                         HorizontalOptions="FillAndExpand"
                         Text="Connect" />
-
                     <Grid
                         x:Name="EmptyState"
                         HorizontalOptions="CenterAndExpand"
                         IsVisible="False"
                         VerticalOptions="CenterAndExpand">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="100" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <Image Grid.Row="0" Source="icon_empty" />
-                        <Label
-                            Grid.Row="1"
-                            FontSize="12"
-                            HorizontalOptions="Fill"
-                            HorizontalTextAlignment="Center"
-                            Text="Nothing to show here! Sooryyyyy!" />
+                        <view:EmprtyView />
                     </Grid>
                 </StackLayout>
             </Frame>

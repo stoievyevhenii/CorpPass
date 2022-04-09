@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{StaticResource Secondary}"
+    Shell.FlyoutBehavior="Disabled"
     Shell.NavBarIsVisible="False"
     Visual="Material"
     mc:Ignorable="d">

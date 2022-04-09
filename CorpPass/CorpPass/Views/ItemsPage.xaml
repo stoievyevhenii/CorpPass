@@ -9,8 +9,11 @@
     xmlns:view="clr-namespace:CorpPass.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="BrowseItemsPage"
+    Title="All passwords"
     BackgroundColor="{StaticResource Secondary}"
-    Shell.NavBarIsVisible="False"
+    Shell.BackgroundColor="{StaticResource Secondary}"
+    Shell.NavBarHasShadow="False"
+    Shell.NavBarIsVisible="True"
     Visual="Material">
 
     <ContentPage.Resources>
@@ -60,72 +63,37 @@
     <Grid>
         <StackLayout Spacing="0">
             <StackLayout Margin="0,0,0,-1">
-                <StackLayout Padding="10,0" Orientation="Horizontal">
-                    <Label
-                        x:Name="PageTitle"
-                        Padding="15"
-                        FontAttributes="Bold"
-                        FontSize="Large"
-                        Text="All Passwords"
-                        TextColor="White" />
-                    <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
-                        <ImageButton
-                            Margin="5,0"
-                            Padding="5"
-                            xct:CornerRadiusEffect.CornerRadius="15"
-                            xct:IconTintColorEffect.TintColor="White"
-                            xct:TouchEffect.NativeAnimation="True"
-                            BackgroundColor="Transparent"
-                            Command="{Binding GroupsPageRedirect}"
-                            HeightRequest="40"
-                            HorizontalOptions="Center"
-                            Source="icon_group"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="40" />
-                        <ImageButton
-                            Margin="5,0"
-                            Padding="5"
-                            xct:CornerRadiusEffect.CornerRadius="15"
-                            xct:IconTintColorEffect.TintColor="White"
-                            xct:TouchEffect.NativeAnimation="True"
-                            BackgroundColor="Transparent"
-                            Command="{Binding SettingsPageRedirect}"
-                            HeightRequest="40"
-                            HorizontalOptions="Center"
-                            Source="icon_settings"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="40" />
-                    </StackLayout>
-                </StackLayout>
                 <Frame
                     Margin="15,0,15,15"
                     Padding="0"
                     BackgroundColor="{AppThemeBinding Dark=Black,
                                                       Light=White}"
-                    CornerRadius="15">
+                    CornerRadius="30">
                     <StackLayout
-                        Padding="15"
+                        Padding="15,13"
                         xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=SearchPageRedirect}"
                         xct:TouchEffect.NativeAnimation="True"
                         Orientation="Horizontal">
-                        <Label Text="Search" TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary}, Dark={StaticResource DarkForegroundSecondary}}" />
                         <Image
                             Margin="0"
                             xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
                                                                                 Dark=White}"
                             BackgroundColor="Transparent"
-                            HeightRequest="20"
-                            HorizontalOptions="EndAndExpand"
+                            HeightRequest="23"
                             Source="icon_search.xml"
                             VerticalOptions="CenterAndExpand"
-                            WidthRequest="40" />
+                            WidthRequest="35" />
+                        <Label
+                            FontSize="17"
+                            Text="Search"
+                            TextColor="Gray" />
                     </StackLayout>
                 </Frame>
             </StackLayout>
             <xct:TabView
                 x:Name="PageTabView"
                 Margin="0"
-                IsSwipeEnabled="False"
+                IsSwipeEnabled="True"
                 SelectionChanged="PageTabView_SelectionChanged"
                 Style="{StaticResource CustomTabStyle}"
                 TabIndicatorHeight="0"
@@ -163,12 +131,12 @@
                                         SelectionMode="None">
                                         <CollectionView.GroupHeaderTemplate>
                                             <DataTemplate>
-                                                <StackLayout Margin="15,0">
+                                                <StackLayout>
                                                     <Label
-                                                        Margin="0"
-                                                        Padding="20,5"
+                                                        Margin="0,5"
+                                                        Padding="15,0"
                                                         FontAttributes="Bold"
-                                                        FontSize="Large"
+                                                        FontSize="Medium"
                                                         Text="{Binding Name}"
                                                         TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
                                                                                     Dark={StaticResource LightTitle}}" />
@@ -382,12 +350,12 @@
                                     SelectionMode="None">
                                     <CollectionView.GroupHeaderTemplate>
                                         <DataTemplate>
-                                            <StackLayout Margin="15,0">
+                                            <StackLayout>
                                                 <Label
-                                                    Margin="0"
-                                                    Padding="20,5"
+                                                    Margin="0,5"
+                                                    Padding="15,0"
                                                     FontAttributes="Bold"
-                                                    FontSize="Large"
+                                                    FontSize="Medium"
                                                     Text="{Binding Name}"
                                                     TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
                                                                                 Dark={StaticResource LightTitle}}" />
@@ -409,13 +377,13 @@
                                                 </Grid.ColumnDefinitions>
                                                 <Grid
                                                     Grid.Column="0"
-                                                    Padding="0,5"
+                                                    Padding="0,0"
                                                     xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"
                                                     xct:TouchEffect.CommandParameter="{Binding .}"
                                                     xct:TouchEffect.NativeAnimation="True">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
                                                         <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
 
@@ -423,7 +391,6 @@
                                                         <RowDefinition Height="Auto" />
                                                         <RowDefinition Height="Auto" />
                                                     </Grid.RowDefinitions>
-
                                                     <Frame
                                                         Grid.RowSpan="2"
                                                         Grid.Column="0"
@@ -432,10 +399,9 @@
                                                         BackgroundColor="Transparent"
                                                         BorderColor="{Binding IconModel.Accent}"
                                                         CornerRadius="60"
-                                                        HasShadow="True"
+                                                        HasShadow="False"
                                                         HorizontalOptions="Center"
                                                         VerticalOptions="Center">
-
                                                         <Grid BackgroundColor="{Binding IconModel.Accent}">
                                                             <Grid.RowDefinitions>
                                                                 <RowDefinition />
@@ -497,7 +463,6 @@
                                                             </Image>
                                                         </Grid>
                                                     </Frame>
-
                                                     <Label
                                                         Grid.Row="0"
                                                         Grid.Column="1"
@@ -523,6 +488,7 @@
                                                         TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
                                                                                     Dark={StaticResource DarkForegroundSecondary}}"
                                                         VerticalOptions="FillAndExpand" />
+
                                                 </Grid>
                                                 <ImageButton
                                                     Grid.Column="1"

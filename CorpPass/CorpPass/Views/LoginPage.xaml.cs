@@ -127,16 +127,13 @@ namespace CorpPass.Views
             }
         }
 
-        private async void UserWasAuth()
+        private void UserWasAuth()
         {
             NumericPad.IsVisible = false;
             LoadIndicator.IsVisible = true;
 
-            await Shell.Current.Navigation.PushAsync(new ItemsPage());
-
-            PassField.Text = "";
-            NumericPad.IsVisible = true;
-            LoadIndicator.IsVisible = false;
+            ((AppShell)Shell.Current).Items[0] = new ShellContent { Content = new ItemsPage() };
+            ((AppShell)Shell.Current).Items.Remove(Shell.Current.Items[0]);
         }
 
         #endregion UTILS

@@ -10,6 +10,7 @@
     Shell.BackgroundColor="{StaticResource Secondary}"
     Shell.NavBarHasShadow="False"
     Shell.NavBarIsVisible="True"
+    Shell.PresentationMode="Animated"
     Visual="Material">
     <Grid>
         <StackLayout>
@@ -82,7 +83,7 @@
                 VerticalOptions="FillAndExpand">
                 <Grid>
                     <StackLayout>
-                        <ScrollView>
+                        <ScrollView VerticalScrollBarVisibility="Never">
                             <StackLayout Spacing="15">
                                 <Grid>
                                     <Grid.RowDefinitions>

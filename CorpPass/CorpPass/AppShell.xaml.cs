@@ -22,6 +22,12 @@ namespace CorpPass
             Routing.RegisterRoute(nameof(DBConnectionPage), typeof(DBConnectionPage));
             Routing.RegisterRoute(nameof(FavoritesPage), typeof(FavoritesPage));
             Routing.RegisterRoute(nameof(PINSettigsPage), typeof(PINSettigsPage));
+            Routing.RegisterRoute(nameof(PassPhrasePage), typeof(PassPhrasePage));
+        }
+
+        public void GoToGroupsPage()
+        {
+            Shell.Current.GoToAsync(nameof(GroupsPage));
         }
     }
 }

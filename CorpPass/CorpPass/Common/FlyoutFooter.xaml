@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    x:Class="CorpPass.Common.FlyoutFooter"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Padding="20">
+
+    <Grid.GestureRecognizers>
+        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+    </Grid.GestureRecognizers>
+
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="0.2*" />
+        <ColumnDefinition Width="0.8*" />
+    </Grid.ColumnDefinitions>
+    <Label
+        x:Name="FlyoutItemIcon"
+        Margin="5"
+        FontFamily="FluentIcons"
+        FontSize="20"
+        Text="&#xe713;"
+        TextColor="{StaticResource DarkForegroundSecondary}" />
+    <Label
+        x:Name="FlyoutItemLabel"
+        Grid.Column="1"
+        Text="Settings"
+        TextColor="{StaticResource DarkForegroundSecondary}"
+        VerticalTextAlignment="Center" />
+
+</Grid>

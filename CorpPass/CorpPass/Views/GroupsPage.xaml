@@ -27,12 +27,12 @@
                     BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                       Dark={StaticResource DarkPanelBackground}}"
                     CornerRadius="15">
-                    <Image
-                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                            Dark=White}"
-                        HeightRequest="25"
-                        Source="icon_group"
-                        WidthRequest="25" />
+                    <Label
+                        FontFamily="FluentIcons"
+                        FontSize="25"
+                        Text="&#xF168;"
+                        TextColor="{AppThemeBinding Light=Black,
+                                                    Dark=White}" />
                 </Frame>
 
                 <StackLayout
@@ -68,9 +68,9 @@
                             <StackLayout>
                                 <Label
                                     Margin="0"
-                                    Padding="20,5"
+                                    Padding="15,0"
                                     FontAttributes="Bold"
-                                    FontSize="Large"
+                                    FontSize="Medium"
                                     Text="{Binding Name}"
                                     TextColor="{AppThemeBinding Light={StaticResource DarkTitle},
                                                                 Dark={StaticResource LightTitle}}" />
@@ -79,7 +79,6 @@
                                     xct:CornerRadiusEffect.CornerRadius="15,15,0,0"
                                     BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
                                                                       Dark={StaticResource DarkPanelBackground}}" />
-
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>

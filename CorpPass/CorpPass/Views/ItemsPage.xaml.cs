@@ -16,6 +16,7 @@ namespace CorpPass.Views
         public ItemsPage()
         {
             InitializeComponent();
+
             BindingContext = _viewModel = new ItemsViewModel();
         }
 
@@ -88,11 +89,11 @@ namespace CorpPass.Views
             switch (selectedItem)
             {
                 case 0:
-                    PageTitle.Text = "All Passwords";
+                    Title = "All Passwords";
                     break;
 
                 case 2:
-                    PageTitle.Text = "Favorites";
+                    Title = "Favorites";
                     break;
             }
         }
