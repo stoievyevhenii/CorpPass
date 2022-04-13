@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using CorpPass.Models;
 using CorpPass.Services;
 using CorpPass.Views;
@@ -13,32 +15,34 @@ namespace CorpPass.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
-        #region PRIVATEVARS
+        #region VARIABLES
 
-        public string created;
-        public string lastModified;
-        public int passwordScore;
-        public string passwordStrenght;
+        private bool _isLeaked;
+        private Icon _iconModel;
+        private RadialGaugeChart _radialChart;
         private string _description;
         private string _folder;
         private string _group;
         private string _icon;
-        private Icon _iconModel;
-        private bool _isLeaked;
         private string _itemId;
         private string _login;
         private string _name;
         private string _password;
-        private RadialGaugeChart _radialChart;
 
-        #endregion PRIVATEVARS
+        public int passwordScore;
+        public string created;
+        public string lastModified;
+        public string passwordStrenght;
 
-        #region PUBLICVARS
+        #endregion VARIABLES
+
+        #region PROPERTIES
 
         public ItemDetailViewModel()
         {
             BottomSheetItems = new List<CollectionListItem>();
             DeleteItem = new Command(OnDeleteItem);
+            HistoryItemsList = new ObservableCollection<HistoryItem>();
             OnChangeFavoriteStatus = new Command(ChangeFavoriteStatus);
             UpdateItem = new Command(OnEditItem);
 
@@ -78,6 +82,8 @@ namespace CorpPass.ViewModels
             get => _group;
             set => SetProperty(ref _group, value);
         }
+
+        public ObservableCollection<HistoryItem> HistoryItemsList { get; set; }
 
         public string Icon
         {
@@ -152,7 +158,7 @@ namespace CorpPass.ViewModels
 
         public Command UpdateItem { get; }
 
-        #endregion PUBLICVARS
+        #endregion PROPERTIES
 
         #region METHODS
 
@@ -194,7 +200,7 @@ namespace CorpPass.ViewModels
                 var item = await DataStore.GetItemAsync(itemId);
 
                 var preferencesSecurityModel = new PreferencesSecurity();
-                var passPhrase = await preferencesSecurityModel.GetSecureData(PreferencesKeys.SavePassPhrase);
+                var passPhrase = await preferencesSecurityModel.GetSecureData(PreferencesKeys.PassPhrase);
 
                 Created = item.Created;
                 Description = item.Description;
@@ -212,6 +218,7 @@ namespace CorpPass.ViewModels
                 PasswordStrenght = PasswordSecurity.ConvertPointsToStrenghtStatus(item.PasswordScore);
 
                 InitChart(item.PasswordScore, item.IconModel);
+                LoadItemsHistory(item.Id);
             }
             catch (Exception)
             {
@@ -245,6 +252,22 @@ namespace CorpPass.ViewModels
                 Name = "Change favorite status",
                 ItemCommand = OnChangeFavoriteStatus
             });
+        }
+
+        private async void LoadItemsHistory(string id)
+        {
+            HistoryItemsList.Clear();
+
+            try
+            {
+                var items = (await HistoryItemDataStore.GetHistoryItemsByIdAsync(id)).OrderByDescending(x => x.Date);
+
+                foreach (var item in items)
+                {
+                    HistoryItemsList.Add(item);
+                }
+            }
+            catch { }
         }
 
         private async void OnEditItem()

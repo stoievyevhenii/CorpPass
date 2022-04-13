@@ -13,6 +13,7 @@ namespace CorpPass.ViewModels
         private bool isBusy;
         private string title = string.Empty;
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IItemHistoryDataStore HistoryItemDataStore => DependencyService.Get<IItemHistoryDataStore>();
 
         public bool IsBusy
         {

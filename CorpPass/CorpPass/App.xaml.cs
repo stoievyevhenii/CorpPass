@@ -26,6 +26,7 @@ namespace CorpPass
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
+            DependencyService.Register<MockHistoryDataStore>();
             MainPage = new AppShell();
         }
 

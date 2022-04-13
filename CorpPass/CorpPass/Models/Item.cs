@@ -20,9 +20,9 @@ namespace CorpPass.Models
         public string Id { get; set; }
 
         public bool IsFavorite { get; set; }
-        public bool IsLeaked { get; set; } //TODO ADD leaked status
+        public bool IsLeaked { get; set; }
 
-        public string LastModified { get; set; } //TODO ADD last modified date
+        public string LastModified { get; set; }
         public string Login { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }

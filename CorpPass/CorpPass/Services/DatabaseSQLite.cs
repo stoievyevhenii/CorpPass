@@ -9,12 +9,21 @@ namespace CorpPass.Services
     public class DatabaseSQLite
     {
         private readonly SQLiteAsyncConnection _database;
+        private readonly PreferencesSecurity _preferencesModel;
 
         public DatabaseSQLite(string dbPath)
         {
-            _database = new SQLiteAsyncConnection(dbPath);
+            _preferencesModel = new PreferencesSecurity();
+            var dbKey = _preferencesModel.GetSecureData(PreferencesKeys.PassPhrase).Result;
+
+            var options = new SQLiteConnectionString(dbPath, true, dbKey);
+
+            _database = new SQLiteAsyncConnection(options);
             _database.CreateTableAsync<Item>().Wait();
+            _database.CreateTableAsync<HistoryItem>().Wait();
         }
+
+        #region Items
 
         public async Task<int> DeleteAllItemsAsync()
         {
@@ -67,5 +76,21 @@ namespace CorpPass.Services
         {
             return _database.UpdateAsync(item);
         }
+
+        #endregion Items
+
+        #region HISTORYITEM
+
+        public List<HistoryItem> GetItemHistory()
+        {
+            return _database.Table<HistoryItem>().ToListAsync().Result;
+        }
+
+        public Task<List<HistoryItem>> GetItemHistoryById(string id)
+        {
+            return _database.Table<HistoryItem>().Where(i => i.ItemId == id).ToListAsync();
+        }
+
+        #endregion HISTORYITEM
     }
 }

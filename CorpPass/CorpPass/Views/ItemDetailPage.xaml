@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:CorpPass.Controls"
     xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+    xmlns:view="clr-namespace:CorpPass.Views"
+    xmlns:viewmodel="clr-namespace:CorpPass.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     BackgroundColor="{StaticResource Secondary}"
     Shell.BackgroundColor="{StaticResource Secondary}"
@@ -73,283 +75,378 @@
                 </StackLayout>
             </StackLayout>
             <!--  Main content  -->
-            <Frame
-                Margin="0,0,0,-5"
-                Padding="15"
-                BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
-                                                  Dark={StaticResource DarkBackground}}"
-                CornerRadius="15"
-                HasShadow="False"
-                VerticalOptions="FillAndExpand">
-                <Grid>
-                    <StackLayout>
-                        <ScrollView VerticalScrollBarVisibility="Never">
-                            <StackLayout Spacing="15">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Entry
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                          Dark={StaticResource DarkPanelBackground}}"
-                                        FontSize="Small"
-                                        IsReadOnly="True"
-                                        Placeholder="Login"
-                                        PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                           Dark={StaticResource DarkForegroundSecondary}}"
-                                        Text="{Binding Login, Mode=TwoWay}"
-                                        TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                    Dark={StaticResource DarkForegroundMain}}" />
-                                    <ImageButton
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Margin="0"
-                                        Padding="10"
-                                        xct:CornerRadiusEffect.CornerRadius="15"
-                                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                            Dark=White}"
-                                        xct:TouchEffect.NativeAnimation="True"
-                                        BackgroundColor="Transparent"
-                                        Clicked="CopyToClipboard"
-                                        CommandParameter="{Binding Login}"
-                                        Source="icon_copy.xml"
-                                        WidthRequest="50" />
-                                </Grid>
-
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Entry
-                                        x:Name="PasswordField"
-                                        Grid.Row="0"
-                                        Grid.ColumnSpan="2"
-                                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                          Dark={StaticResource DarkPanelBackground}}"
-                                        FontSize="Small"
-                                        IsEnabled="False"
-                                        IsPassword="True"
-                                        Placeholder="Password"
-                                        PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                           Dark={StaticResource DarkForegroundSecondary}}"
-                                        Text="{Binding Password, Mode=TwoWay}"
-                                        TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                    Dark={StaticResource DarkForegroundMain}}" />
-                                    <ImageButton
-                                        x:Name="ShowPasswordButton"
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Margin="0"
-                                        Padding="10"
-                                        xct:CornerRadiusEffect.CornerRadius="15"
-                                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                            Dark=White}"
-                                        xct:TouchEffect.NativeAnimation="True"
-                                        BackgroundColor="Transparent"
-                                        Clicked="ChangePasswordVisibility"
-                                        CommandParameter="{Binding Password}"
-                                        Source="icon_show"
-                                        WidthRequest="50" />
-                                    <ImageButton
-                                        Grid.Row="0"
-                                        Grid.Column="2"
-                                        Margin="0"
-                                        Padding="10"
-                                        xct:CornerRadiusEffect.CornerRadius="15"
-                                        xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
-                                                                                            Dark=White}"
-                                        xct:TouchEffect.NativeAnimation="True"
-                                        BackgroundColor="Transparent"
-                                        Clicked="CopyToClipboard"
-                                        CommandParameter="{Binding Password}"
-                                        Source="icon_copy.xml"
-                                        WidthRequest="50" />
-                                </Grid>
-
-                                <Label
-                                    FontAttributes="Bold"
-                                    Text="Folder"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                Dark={StaticResource DarkForegroundSecondary}}" />
-
-                                <FlexLayout>
-                                    <Frame
-                                        Padding="15,5"
-                                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                          Dark={StaticResource DarkPanelBackground}}"
-                                        HasShadow="False">
-                                        <Label
-                                            xct:CornerRadiusEffect.CornerRadius="15"
-                                            BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
-                                                                              Dark={StaticResource DarkPanelBackground}}"
-                                            FontSize="Small"
-                                            Text="{Binding Folder, Mode=TwoWay}"
-                                            TextColor="{Binding IconModel.Accent}" />
-                                    </Frame>
-                                </FlexLayout>
-
-                                <!--  Microcharts  -->
-                                <Label
-                                    FontAttributes="Bold"
-                                    Text="Password health"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                Dark={StaticResource DarkForegroundSecondary}}" />
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <microcharts:ChartView
-                                        x:Name="chartView"
-                                        Grid.Column="0"
-                                        Chart="{Binding Chart}"
-                                        HeightRequest="150"
-                                        WidthRequest="150" />
-                                    <StackLayout Grid.Column="1" VerticalOptions="Center">
-                                        <StackLayout Orientation="Horizontal">
-                                            <StackLayout>
-                                                <Label
-                                                    FontAttributes="Bold"
-                                                    FontSize="Medium"
-                                                    Text="Password Score:"
-                                                    TextColor="{AppThemeBinding Light=Black,
-                                                                                Dark=White}" />
-                                            </StackLayout>
-                                            <StackLayout>
-                                                <Label
-                                                    FontAttributes="Bold"
-                                                    FontSize="Medium"
-                                                    Text="{Binding PasswordScore, Mode=OneWay}"
-                                                    TextColor="{AppThemeBinding Light=Black,
-                                                                                Dark=White}"
-                                                    VerticalOptions="FillAndExpand" />
-                                            </StackLayout>
-                                        </StackLayout>
-                                        <StackLayout Orientation="Horizontal">
-                                            <StackLayout>
-                                                <Label Text="Strenght:" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
-                                            </StackLayout>
-                                            <StackLayout>
-                                                <Label
-                                                    x:Name="PasswordStrengthText"
-                                                    FontAttributes="Bold"
-                                                    Text="{Binding PasswordStrenght}"
-                                                    TextColor="{AppThemeBinding Light=Black,
-                                                                                Dark=White}" />
-                                            </StackLayout>
-                                        </StackLayout>
+            <xct:TabView TabIndicatorHeight="5" TabIndicatorWidth="150">
+                <xct:TabView.TabIndicatorView>
+                    <BoxView xct:CornerRadiusEffect.CornerRadius="15,15,0,0" BackgroundColor="{Binding IconModel.Accent}" />
+                </xct:TabView.TabIndicatorView>
+                <xct:TabViewItem
+                    Text="Details"
+                    TextColor="{StaticResource DarkForegroundSecondary}"
+                    TextColorSelected="{Binding IconModel.Accent}">
+                    <Frame
+                        Margin="0,0,0,-5"
+                        Padding="15"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
+                                                          Dark={StaticResource DarkBackground}}"
+                        CornerRadius="15"
+                        HasShadow="False"
+                        VerticalOptions="FillAndExpand">
+                        <Grid>
+                            <StackLayout>
+                                <ScrollView VerticalScrollBarVisibility="Never">
+                                    <StackLayout Spacing="15">
                                         <Grid>
                                             <Grid.RowDefinitions>
-                                                <RowDefinition />
+                                                <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
+                                                <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
-                                            <StackLayout
+
+                                            <Entry
                                                 Grid.Row="0"
                                                 Grid.Column="0"
-                                                Padding="5"
-                                                xct:CornerRadiusEffect.CornerRadius="5"
-                                                BackgroundColor="{AppThemeBinding Light={StaticResource NormalBackground},
-                                                                                  Dark={StaticResource NormalDarkBackground}}"
-                                                HorizontalOptions="Start"
-                                                Orientation="Horizontal">
+                                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                                FontSize="Small"
+                                                IsReadOnly="True"
+                                                Placeholder="Login"
+                                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                                   Dark={StaticResource DarkForegroundSecondary}}"
+                                                Text="{Binding Login, Mode=TwoWay}"
+                                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                            Dark={StaticResource DarkForegroundMain}}" />
+                                            <ImageButton
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Margin="0"
+                                                Padding="10"
+                                                xct:CornerRadiusEffect.CornerRadius="15"
+                                                xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                                    Dark=White}"
+                                                xct:TouchEffect.NativeAnimation="True"
+                                                BackgroundColor="Transparent"
+                                                Clicked="CopyToClipboard"
+                                                CommandParameter="{Binding Login}"
+                                                Source="icon_copy.xml"
+                                                WidthRequest="50" />
+                                        </Grid>
+
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Entry
+                                                x:Name="PasswordField"
+                                                Grid.Row="0"
+                                                Grid.ColumnSpan="2"
+                                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                                FontSize="Small"
+                                                IsEnabled="False"
+                                                IsPassword="True"
+                                                Placeholder="Password"
+                                                PlaceholderColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                                   Dark={StaticResource DarkForegroundSecondary}}"
+                                                Text="{Binding Password, Mode=TwoWay}"
+                                                TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                            Dark={StaticResource DarkForegroundMain}}" />
+                                            <ImageButton
+                                                x:Name="ShowPasswordButton"
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Margin="0"
+                                                Padding="10"
+                                                xct:CornerRadiusEffect.CornerRadius="15"
+                                                xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                                    Dark=White}"
+                                                xct:TouchEffect.NativeAnimation="True"
+                                                BackgroundColor="Transparent"
+                                                Clicked="ChangePasswordVisibility"
+                                                CommandParameter="{Binding Password}"
+                                                Source="icon_show"
+                                                WidthRequest="50" />
+                                            <ImageButton
+                                                Grid.Row="0"
+                                                Grid.Column="2"
+                                                Margin="0"
+                                                Padding="10"
+                                                xct:CornerRadiusEffect.CornerRadius="15"
+                                                xct:IconTintColorEffect.TintColor="{AppThemeBinding Light=Black,
+                                                                                                    Dark=White}"
+                                                xct:TouchEffect.NativeAnimation="True"
+                                                BackgroundColor="Transparent"
+                                                Clicked="CopyToClipboard"
+                                                CommandParameter="{Binding Password}"
+                                                Source="icon_copy.xml"
+                                                WidthRequest="50" />
+                                        </Grid>
+
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text="Folder"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                        Dark={StaticResource DarkForegroundSecondary}}" />
+
+                                        <FlexLayout>
+                                            <Frame
+                                                Padding="15,5"
+                                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                                  Dark={StaticResource DarkPanelBackground}}"
+                                                HasShadow="False">
+                                                <Label
+                                                    xct:CornerRadiusEffect.CornerRadius="15"
+                                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightPanelBackground},
+                                                                                      Dark={StaticResource DarkPanelBackground}}"
+                                                    FontSize="Small"
+                                                    Text="{Binding Folder, Mode=TwoWay}"
+                                                    TextColor="{Binding IconModel.Accent}" />
+                                            </Frame>
+                                        </FlexLayout>
+
+                                        <!--  Microcharts  -->
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text="Password health"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                        Dark={StaticResource DarkForegroundSecondary}}" />
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <microcharts:ChartView
+                                                x:Name="chartView"
+                                                Grid.Column="0"
+                                                Chart="{Binding Chart}"
+                                                HeightRequest="150"
+                                                WidthRequest="150" />
+                                            <StackLayout Grid.Column="1" VerticalOptions="Center">
                                                 <StackLayout Orientation="Horizontal">
-                                                    <Image
-                                                        Margin="5"
-                                                        xct:IconTintColorEffect.TintColor="{StaticResource NormalBackgroundIcon}"
-                                                        HeightRequest="20"
-                                                        Source="icon_shield_done"
-                                                        WidthRequest="20" />
-                                                    <Label
-                                                        Margin="5"
-                                                        FontAttributes="Bold"
-                                                        Text="Password isn`t leaked"
-                                                        TextColor="{StaticResource NormalBackgroundIcon}"
-                                                        VerticalOptions="CenterAndExpand" />
+                                                    <StackLayout>
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            FontSize="Medium"
+                                                            Text="Password Score:"
+                                                            TextColor="{AppThemeBinding Light=Black,
+                                                                                        Dark=White}" />
+                                                    </StackLayout>
+                                                    <StackLayout>
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            FontSize="Medium"
+                                                            Text="{Binding PasswordScore, Mode=OneWay}"
+                                                            TextColor="{AppThemeBinding Light=Black,
+                                                                                        Dark=White}"
+                                                            VerticalOptions="FillAndExpand" />
+                                                    </StackLayout>
                                                 </StackLayout>
-                                            </StackLayout>
-                                            <StackLayout
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                Padding="5"
-                                                xct:CornerRadiusEffect.CornerRadius="5"
-                                                BackgroundColor="{AppThemeBinding Light={StaticResource DangerBackground},
-                                                                                  Dark={StaticResource DangerDarkBackground}}"
-                                                HorizontalOptions="Start"
-                                                IsVisible="{Binding IsLeaked}"
-                                                Orientation="Horizontal">
-                                                <StackLayout
-                                                    HorizontalOptions="FillAndExpand"
-                                                    Orientation="Horizontal"
-                                                    VerticalOptions="CenterAndExpand">
-                                                    <Image
-                                                        Margin="5"
-                                                        xct:IconTintColorEffect.TintColor="{StaticResource DangerBackgroundIcon}"
-                                                        HeightRequest="20"
-                                                        Source="icon_shield_error"
-                                                        WidthRequest="20" />
-                                                    <Label
-                                                        Margin="5,5,25,5"
-                                                        FontAttributes="Bold"
-                                                        Text="Password is leaked"
-                                                        TextColor="{StaticResource DangerBackgroundIcon}"
-                                                        VerticalOptions="CenterAndExpand" />
+                                                <StackLayout Orientation="Horizontal">
+                                                    <StackLayout>
+                                                        <Label Text="Strenght:" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                                                    </StackLayout>
+                                                    <StackLayout>
+                                                        <Label
+                                                            x:Name="PasswordStrengthText"
+                                                            FontAttributes="Bold"
+                                                            Text="{Binding PasswordStrenght}"
+                                                            TextColor="{AppThemeBinding Light=Black,
+                                                                                        Dark=White}" />
+                                                    </StackLayout>
                                                 </StackLayout>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackLayout
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        Padding="5"
+                                                        xct:CornerRadiusEffect.CornerRadius="5"
+                                                        BackgroundColor="{AppThemeBinding Light={StaticResource NormalBackground},
+                                                                                          Dark={StaticResource NormalDarkBackground}}"
+                                                        HorizontalOptions="Start"
+                                                        Orientation="Horizontal">
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <Image
+                                                                Margin="5"
+                                                                xct:IconTintColorEffect.TintColor="{StaticResource NormalBackgroundIcon}"
+                                                                HeightRequest="20"
+                                                                Source="icon_shield_done"
+                                                                WidthRequest="20" />
+                                                            <Label
+                                                                Margin="5"
+                                                                FontAttributes="Bold"
+                                                                Text="Password isn`t leaked"
+                                                                TextColor="{StaticResource NormalBackgroundIcon}"
+                                                                VerticalOptions="CenterAndExpand" />
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                    <StackLayout
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        Padding="5"
+                                                        xct:CornerRadiusEffect.CornerRadius="5"
+                                                        BackgroundColor="{AppThemeBinding Light={StaticResource DangerBackground},
+                                                                                          Dark={StaticResource DangerDarkBackground}}"
+                                                        HorizontalOptions="Start"
+                                                        IsVisible="{Binding IsLeaked}"
+                                                        Orientation="Horizontal">
+                                                        <StackLayout
+                                                            HorizontalOptions="FillAndExpand"
+                                                            Orientation="Horizontal"
+                                                            VerticalOptions="CenterAndExpand">
+                                                            <Image
+                                                                Margin="5"
+                                                                xct:IconTintColorEffect.TintColor="{StaticResource DangerBackgroundIcon}"
+                                                                HeightRequest="20"
+                                                                Source="icon_shield_error"
+                                                                WidthRequest="20" />
+                                                            <Label
+                                                                Margin="5,5,25,5"
+                                                                FontAttributes="Bold"
+                                                                Text="Password is leaked"
+                                                                TextColor="{StaticResource DangerBackgroundIcon}"
+                                                                VerticalOptions="CenterAndExpand" />
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                </Grid>
                                             </StackLayout>
                                         </Grid>
-                                    </StackLayout>
-                                </Grid>
-                                <StackLayout Orientation="Horizontal" />
+                                        <StackLayout Orientation="Horizontal" />
 
-                                <Label
-                                    FontAttributes="Bold"
-                                    Text="Last modified"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                Dark={StaticResource DarkForegroundSecondary}}" />
-                                <Label
-                                    FontSize="Small"
-                                    Text="{Binding LastModified, Mode=TwoWay}"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                Dark={StaticResource DarkForegroundMain}}" />
-                                <Label
-                                    FontAttributes="Bold"
-                                    Text="Created"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                Dark={StaticResource DarkForegroundSecondary}}" />
-                                <Label
-                                    FontSize="Small"
-                                    Text="{Binding Created, Mode=TwoWay}"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                Dark={StaticResource DarkForegroundMain}}" />
-                                <Label
-                                    FontAttributes="Bold"
-                                    Text="Description"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
-                                                                Dark={StaticResource DarkForegroundSecondary}}" />
-                                <Label
-                                    FontSize="Small"
-                                    Text="{Binding Description, Mode=TwoWay}"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
-                                                                Dark={StaticResource DarkForegroundMain}}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text="Last modified"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                        Dark={StaticResource DarkForegroundSecondary}}" />
+                                        <Label
+                                            FontSize="Small"
+                                            Text="{Binding LastModified, Mode=TwoWay}"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                        Dark={StaticResource DarkForegroundMain}}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text="Created"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                        Dark={StaticResource DarkForegroundSecondary}}" />
+                                        <Label
+                                            FontSize="Small"
+                                            Text="{Binding Created, Mode=TwoWay}"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                        Dark={StaticResource DarkForegroundMain}}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            Text="Description"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                        Dark={StaticResource DarkForegroundSecondary}}" />
+                                        <Label
+                                            FontSize="Small"
+                                            Text="{Binding Description, Mode=TwoWay}"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                        Dark={StaticResource DarkForegroundMain}}" />
+                                    </StackLayout>
+                                </ScrollView>
                             </StackLayout>
-                        </ScrollView>
-                    </StackLayout>
-                </Grid>
-            </Frame>
+                        </Grid>
+                    </Frame>
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    Text="History"
+                    TextColor="{StaticResource DarkForegroundSecondary}"
+                    TextColorSelected="{Binding IconModel.Accent}">
+                    <CollectionView
+                        x:Name="ItemsListView"
+                        Margin="15,0"
+                        IsGrouped="False"
+                        ItemsSource="{Binding HistoryItemsList}"
+                        SelectionMode="None">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="15" Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame
+                                    Padding="15"
+                                    BackgroundColor="{AppThemeBinding Light=White,
+                                                                      Dark=Black}"
+                                    CornerRadius="15"
+                                    HasShadow="False">
+                                    <StackLayout BackgroundColor="Transparent">
+                                        <xct:Expander Grid.Row="1" Grid.ColumnSpan="2">
+                                            <xct:Expander.Header>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Label
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        Text="{Binding Date}"
+                                                        TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                                    Dark={StaticResource DarkForegroundSecondary}}" />
+                                                    <Label
+                                                        Grid.Row="0"
+                                                        Grid.Column="1"
+                                                        HorizontalOptions="EndAndExpand"
+                                                        Text="Changed by You"
+                                                        TextColor="{AppThemeBinding Light={StaticResource LightForegroundSecondary},
+                                                                                    Dark={StaticResource DarkForegroundSecondary}}" />
+                                                    <StackLayout
+                                                        Grid.Row="1"
+                                                        Grid.Column="0"
+                                                        Orientation="Horizontal">
+                                                        <Label
+                                                            FontSize="Body"
+                                                            Text="Changes list"
+                                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                                        Dark={StaticResource DarkForegroundMain}}" />
+                                                        <Label
+                                                            x:Name="ArrowOpen"
+                                                            FontFamily="FluentIcons"
+                                                            FontSize="Body"
+                                                            Text="&#xE099;"
+                                                            TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                                        Dark={StaticResource DarkForegroundMain}}"
+                                                            VerticalOptions="Center" />
+                                                    </StackLayout>
+                                                </Grid>
+                                            </xct:Expander.Header>
+                                            <Grid Padding="0,15">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label
+                                                    Grid.Column="0"
+                                                    Text="{Binding WasChanged}"
+                                                    TextColor="{AppThemeBinding Light={StaticResource LightForegroundMain},
+                                                                                Dark={StaticResource DarkForegroundMain}}" />
+                                            </Grid>
+                                        </xct:Expander>
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.EmptyView>
+                            <view:EmprtyView />
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+                </xct:TabViewItem>
+            </xct:TabView>
         </StackLayout>
         <controls:BottomSheet x:Name="Sheet" SheetHeight="250">
             <controls:BottomSheet.SheetContent>

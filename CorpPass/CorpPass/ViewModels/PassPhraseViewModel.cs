@@ -25,7 +25,7 @@ namespace CorpPass.ViewModels
         private string GetPassPhrase()
         {
             var preferencesSecurity = new PreferencesSecurity();
-            return preferencesSecurity.GetSecureData(PreferencesKeys.SavePassPhrase).Result;
+            return preferencesSecurity.GetSecureData(PreferencesKeys.PassPhrase).Result;
         }
 
         private async void SavePassPhrase()
@@ -33,7 +33,7 @@ namespace CorpPass.ViewModels
             try
             {
                 var preferencesSecurity = new PreferencesSecurity();
-                preferencesSecurity.SetSecureData(PreferencesKeys.SavePassPhrase, PassPhrase);
+                preferencesSecurity.SetSecureData(PreferencesKeys.PassPhrase, PassPhrase);
 
                 await Shell.Current.GoToAsync("..");
             }

@@ -23,7 +23,7 @@ namespace CorpPass.Views
             _prefernecesSecurity = new PreferencesSecurity();
 
             _pin = _prefernecesSecurity.GetSecureData(PreferencesKeys.PIN).Result;
-            _passPhrase = _prefernecesSecurity.GetSecureData(PreferencesKeys.SavePassPhrase).Result;
+            _passPhrase = _prefernecesSecurity.GetSecureData(PreferencesKeys.PassPhrase).Result;
 
             CheckFirstStart();
         }
@@ -84,7 +84,7 @@ namespace CorpPass.Views
             try
             {
                 var preferencesSecurity = new PreferencesSecurity();
-                preferencesSecurity.SetSecureData(PreferencesKeys.SavePassPhrase, PassPhrase.Text);
+                preferencesSecurity.SetSecureData(PreferencesKeys.PassPhrase, PassPhrase.Text);
 
                 PinTabView.SelectedIndex = 0;
             }

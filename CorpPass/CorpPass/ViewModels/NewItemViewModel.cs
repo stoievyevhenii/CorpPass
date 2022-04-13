@@ -105,7 +105,7 @@ namespace CorpPass.ViewModels
             var icon = iconSetModel.GetIconsSet().Find(i => i.Name == selectedIcon);
 
             var preferencesSecurityModel = new PreferencesSecurity();
-            var passPhrase = await preferencesSecurityModel.GetSecureData(PreferencesKeys.SavePassPhrase);
+            var passPhrase = await preferencesSecurityModel.GetSecureData(PreferencesKeys.PassPhrase);
 
             Item newItem = new Item()
             {
