@@ -2,7 +2,7 @@
 
 ## About
 
-CorpPass is simple password manager for work, education and perosbnal life.
+CorpPass is simple password manager for work, education and personal life.
 
 Features:
 
