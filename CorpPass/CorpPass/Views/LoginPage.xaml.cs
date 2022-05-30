@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using CorpPass.Services;
+﻿using CorpPass.Services;
 using CorpPass.ViewModels;
+using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,8 +22,8 @@ namespace CorpPass.Views
             BindingContext = new LoginViewModel();
             _prefernecesSecurity = new PreferencesSecurity();
 
-            _pin = _prefernecesSecurity.GetSecureData(PreferencesKeys.PIN).Result;
-            _passPhrase = _prefernecesSecurity.GetSecureData(PreferencesKeys.PassPhrase).Result;
+            //_pin = _prefernecesSecurity.GetSecureData(PreferencesKeys.PIN).Result;
+            //_passPhrase = _prefernecesSecurity.GetSecureData(PreferencesKeys.PassPhrase).Result;
 
             CheckFirstStart();
         }
@@ -86,7 +86,8 @@ namespace CorpPass.Views
                 var preferencesSecurity = new PreferencesSecurity();
                 preferencesSecurity.SetSecureData(PreferencesKeys.PassPhrase, PassPhrase.Text);
 
-                PinTabView.SelectedIndex = 0;
+                //PinTabView.SelectedIndex = 0;
+                CheckFirstStart();
             }
             catch { }
         }
@@ -107,13 +108,20 @@ namespace CorpPass.Views
 
         private void CheckFirstStart()
         {
+            _pin = _prefernecesSecurity.GetSecureData(PreferencesKeys.PIN).Result;
+            _passPhrase = _prefernecesSecurity.GetSecureData(PreferencesKeys.PassPhrase).Result;
+
+            if (string.IsNullOrEmpty(_passPhrase))
+            {
+                PinTabView.SelectedIndex = 3;
+            }
             if (string.IsNullOrEmpty(_pin))
             {
                 PinTabView.SelectedIndex = 1;
             }
-            if (string.IsNullOrEmpty(_passPhrase))
+            else
             {
-                PinTabView.SelectedIndex = 3;
+                PinTabView.SelectedIndex = 0;
             }
         }
 

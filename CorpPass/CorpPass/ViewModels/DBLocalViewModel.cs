@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
-using CorpPass.Models;
+﻿using CorpPass.Models;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace CorpPass.ViewModels
@@ -10,6 +14,8 @@ namespace CorpPass.ViewModels
         {
             ActionsList = new List<ItemsGroup<CollectionListItem>>();
             RemoveAllCommand = new Command(RemoveAllItems);
+            ImportCommand = new Command(LoadDataFromFile);
+
             InitActions();
         }
 
@@ -54,6 +60,33 @@ namespace CorpPass.ViewModels
             if (deleteAllActionIsSuccess)
             {
                 await Shell.Current.GoToAsync("..");
+            }
+        }
+
+        private async void LoadDataFromFile()
+        {
+            try
+            {
+                PickOptions options = new PickOptions();
+                FilePickerFileType customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
+                {
+                    { DevicePlatform.iOS, new[] { "public.text" } },
+                    { DevicePlatform.Android, new[] { "text/plain" } },
+                });
+
+                options.FileTypes = customFileType;
+
+                var file = await FilePicker.PickAsync(options);
+                if (file != null)
+                {
+                    var stream = await file.OpenReadAsync();
+                    var streamReader = new StreamReader(stream);
+                    string text = streamReader.ReadToEnd();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"FILE PICKER ERROR = {ex.Message}");
             }
         }
     }
