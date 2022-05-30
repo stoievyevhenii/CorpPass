@@ -22,9 +22,6 @@ namespace CorpPass.Views
             BindingContext = new LoginViewModel();
             _prefernecesSecurity = new PreferencesSecurity();
 
-            //_pin = _prefernecesSecurity.GetSecureData(PreferencesKeys.PIN).Result;
-            //_passPhrase = _prefernecesSecurity.GetSecureData(PreferencesKeys.PassPhrase).Result;
-
             CheckFirstStart();
         }
 
@@ -86,7 +83,6 @@ namespace CorpPass.Views
                 var preferencesSecurity = new PreferencesSecurity();
                 preferencesSecurity.SetSecureData(PreferencesKeys.PassPhrase, PassPhrase.Text);
 
-                //PinTabView.SelectedIndex = 0;
                 CheckFirstStart();
             }
             catch { }
